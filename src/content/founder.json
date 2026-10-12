@@ -1,0 +1,15 @@
+{
+  "seoTitle": "Sam Muhia — Founder & CEO of SAMUHIA",
+  "description": "Sam Muhia is the Founder & CEO of SAMUHIA, a self-taught developer building practical digital products in Kenya.",
+  "name": "Sam Muhia",
+  "jobTitle": "Founder & CEO",
+  "image": "/founder.jpg",
+  "imageAlt": "Portrait of Sam Muhia, Founder & CEO of SAMUHIA",
+  "links": { "linkedin": "", "github": "" },
+  "bio": [
+    "Sam Muhia is the Founder & CEO of SAMUHIA, a Kenyan technology company focused on building practical digital products for businesses, institutions and communities.",
+    "A self-taught developer, technology enthusiast and builder, Sam has taken a hands-on approach to software development, product design and digital systems, moving from ideas and real-world problems to working technology used in everyday operations."
+  ],
+  "whyIBuild": "Technology should not exist merely to demonstrate what is possible; it should make real work easier, more connected and more productive. Through SAMUHIA and the broader ecosystem being developed around it, the focus is products that begin with practical needs in Kenya and can ultimately scale beyond them.",
+  "media": []
+}

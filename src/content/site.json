@@ -1,0 +1,146 @@
+{
+  "name": "SAMUHIA",
+  "legalName": "Samuhia Group",
+  "url": "https://samuhia.co.ke",
+  "tagline": "Technology That Moves Business Forward",
+  "description": "SAMUHIA is a Kenyan technology company building practical digital products for businesses, communities and institutions, including property management, school administration, payments and digital services.",
+  "shortDescription": "Practical digital products for businesses, communities and institutions. Built in Kenya.",
+  "lang": "en",
+  "locale": "en_KE",
+  "foundingYear": 2023,
+  "countryCode": "KE",
+  "countryName": "Kenya",
+  "email": "info@samuhia.co.ke",
+  "altEmail": "samuhiagroup@gmail.com",
+  "phone": "+254791286165",
+  "phoneDisplay": "0791 286 165",
+  "whatsapp": "254791286165",
+  "themeColor": "#0B1210",
+  "ogImage": "/assets/og/samuhia-og.png",
+  "ogImageAlt": "SAMUHIA Technology Group logo with the five SAMUHIA product icons",
+  "social": [],
+  "verification": {
+    "google": "",
+    "bing": ""
+  },
+  "contact": {
+    "formEndpoint": "",
+    "statusPageUrl": ""
+  },
+  "nav": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Products",
+      "href": "/products/"
+    },
+    {
+      "label": "Solutions",
+      "href": "/solutions/"
+    },
+    {
+      "label": "Company",
+      "href": "/about/",
+      "match": [
+        "/about/",
+        "/founder/",
+        "/security/",
+        "/careers/"
+      ]
+    },
+    {
+      "label": "Resources",
+      "href": "/resources/"
+    },
+    {
+      "label": "Pricing",
+      "href": "/pricing/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
+  ],
+  "headerCta": {
+    "label": "Explore products",
+    "href": "/products/"
+  },
+  "footerColumns": [
+    {
+      "title": "Company",
+      "links": [
+        {
+          "label": "About",
+          "href": "/about/"
+        },
+        {
+          "label": "Founder",
+          "href": "/founder/"
+        },
+        {
+          "label": "Security",
+          "href": "/security/"
+        },
+        {
+          "label": "Careers",
+          "href": "/careers/"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact/"
+        }
+      ]
+    },
+    {
+      "title": "Resources",
+      "links": [
+        {
+          "label": "Resources",
+          "href": "/resources/"
+        },
+        {
+          "label": "Pricing",
+          "href": "/pricing/"
+        },
+        {
+          "label": "Support",
+          "href": "/support/"
+        }
+      ]
+    },
+    {
+      "title": "Legal",
+      "links": [
+        {
+          "label": "Privacy",
+          "href": "/privacy/"
+        },
+        {
+          "label": "Terms",
+          "href": "/terms/"
+        }
+      ]
+    }
+  ],
+  "aiCrawlers": [
+    "GPTBot",
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "ClaudeBot",
+    "Claude-SearchBot",
+    "Claude-User",
+    "anthropic-ai",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Google-Extended",
+    "Applebot-Extended",
+    "CCBot",
+    "Meta-ExternalAgent",
+    "Amazonbot",
+    "cohere-ai",
+    "DuckAssistBot",
+    "MistralAI-User"
+  ]
+}

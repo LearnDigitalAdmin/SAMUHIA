@@ -1,0 +1,178 @@
+{
+  "order": 5,
+  "slug": "myregister",
+  "name": "MyRegister",
+  "category": "School Registers & Parent SMS",
+  "audience": "Schools, teachers and school administrators",
+  "status": "Operational",
+  "appUrl": "https://myregister.co.ke",
+  "color": "#B23A48",
+  "abbr": "MR",
+  "description": "Mark attendance in under a minute and SMS parents of absent students automatically. The platform is free.",
+  "longDescription": "MyRegister is a free school register for Kenyan schools. Teachers mark present, absent, late or excused for a whole class in under a minute, and parents of absent or late students get an SMS from SAMUHIA automatically. It also manages students and classes, teacher assignments, academic years and promotion, holidays, scheduled messages and weekly and termly reports.",
+  "problem": "Attendance, promotions and parent messaging depend on paper registers and repeated manual work, so absences go unreported for days.",
+  "features": [
+    "One-tap daily register: present, absent, late, excused",
+    "Weekend and Kenyan public holiday aware",
+    "Automatic SMS to parents of absent or late students",
+    "SMS to a class or the whole school",
+    "Scheduled and recurring messages, with message logs",
+    "Students, classes and teacher assignments, with admin and teacher roles",
+    "Bulk student import",
+    "Academic years and student promotion",
+    "Transfers between classes and schools",
+    "Weekly and termly attendance reports with PDF export",
+    "Archive search",
+    "Installable on a phone"
+  ],
+  "steps": [
+    "Mark the register. A full class takes under a minute, on a phone or computer.",
+    "Save it. Parents of absent or late students get an SMS from SAMUHIA straight away.",
+    "Reports build themselves from the attendance history, ready for the head teacher."
+  ],
+  "facts": [
+    {
+      "label": "Platform",
+      "value": "Free, no subscription"
+    },
+    {
+      "label": "Free tokens",
+      "value": "100 SMS tokens on sign-up"
+    },
+    {
+      "label": "Top-ups",
+      "value": "By M-Pesa, tokens never expire"
+    },
+    {
+      "label": "Works on",
+      "value": "Phone or computer, installable"
+    }
+  ],
+  "plans": [
+    {
+      "name": "Platform",
+      "price": "Free",
+      "per": "forever",
+      "description": "Attendance, classes, students, teachers and reports at no cost.",
+      "features": [
+        "Unlimited classes and students",
+        "Daily registers with PDF export",
+        "Attendance history and analytics",
+        "Admin and teacher roles"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "SMS tokens",
+      "price": "KES 0.40 to 0.70",
+      "per": "per SMS part",
+      "description": "You only pay when you message parents. The rate depends on how many you message at once.",
+      "features": [
+        "100 free tokens on sign-up",
+        "Up to 100 recipients: KES 0.70",
+        "101 to 300 recipients: KES 0.50",
+        "Over 300 recipients: KES 0.40",
+        "Tokens never expire"
+      ],
+      "highlight": true,
+      "tag": ""
+    },
+    {
+      "name": "County or group",
+      "price": "Custom",
+      "per": "",
+      "description": "For county education offices, school groups and NGOs with many schools.",
+      "features": [
+        "Multiple schools under one account",
+        "Cross-school reporting",
+        "Onboarding and training",
+        "Bulk token discounts"
+      ],
+      "highlight": false,
+      "tag": ""
+    }
+  ],
+  "priceNote": "One SMS part is 140 characters. A 285-character message is 2 parts, so sending it to 10 parents uses 20 tokens. Messages are capped at 400 characters (3 parts). Library, fee collection, exams, staff and asset registers are planned for later.",
+  "priceSummary": "Free platform. Pay only for SMS tokens when you message parents.",
+  "ctaLabel": "Open MyRegister",
+  "ctaSecondary": "Learn how it works",
+  "connects": "SMS token top-ups by M-Pesa run through Samuhia Payments.",
+  "related": [
+    "payments"
+  ],
+  "solution": "schools",
+  "faq": [
+    {
+      "q": "Is MyRegister free?",
+      "a": "Yes. The whole platform is free. You only buy SMS tokens when you want to message parents, and every new school gets 100 free."
+    },
+    {
+      "q": "Who sends the SMS?",
+      "a": "Messages go out under the SAMUHIA name, so parents recognise them as genuine."
+    },
+    {
+      "q": "Does it handle holidays?",
+      "a": "Yes. The register is weekend and Kenyan public holiday aware, and schools can set their own holidays."
+    },
+    {
+      "q": "Can one account cover several schools?",
+      "a": "County and group accounts cover multiple schools with cross-school reporting. Contact us for pricing."
+    }
+  ],
+  "presentation": {
+    "ecoX": 50,
+    "ecoY": 92,
+    "ecoColor": "#EA7386",
+    "chartBars": [
+      35,
+      50,
+      62,
+      58,
+      74,
+      80
+    ],
+    "mockNav": [
+      "Overview",
+      "Register",
+      "Students",
+      "Send SMS",
+      "Scheduling",
+      "Message logs",
+      "Reports"
+    ],
+    "mockKpis": [
+      {
+        "label": "Students",
+        "value": "640"
+      },
+      {
+        "label": "Classes",
+        "value": "18"
+      },
+      {
+        "label": "Teachers",
+        "value": "27"
+      }
+    ],
+    "mockRows": [
+      {
+        "a": "Class 5 East",
+        "b": "Register saved",
+        "status": "Done"
+      },
+      {
+        "a": "Class 6 West",
+        "b": "Register saved",
+        "status": "Done"
+      },
+      {
+        "a": "Class 7",
+        "b": "Promotion",
+        "status": "Pending"
+      }
+    ]
+  },
+  "schemaCategory": "EducationalApplication",
+  "operatingSystem": "Web (installable)"
+}

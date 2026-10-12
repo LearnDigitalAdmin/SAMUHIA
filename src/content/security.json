@@ -1,0 +1,18 @@
+{
+  "seoTitle": "Security at SAMUHIA — Trust by Design",
+  "description": "A high-level view of how SAMUHIA approaches security, access control, authentication and responsible data handling.",
+  "title": "Trust by design.",
+  "lead": "A high-level view of how we approach security. We do not publish sensitive implementation details.",
+  "practices": [
+    "Secure credential and secret management",
+    "Access control",
+    "Authentication",
+    "Data protection",
+    "Secure infrastructure",
+    "Monitoring",
+    "Responsible handling of sensitive information",
+    "Incident response practices",
+    "Software maintenance"
+  ],
+  "note": "SAMUHIA does not currently claim third-party security certifications."
+}

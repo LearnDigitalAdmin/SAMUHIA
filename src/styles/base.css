@@ -1,0 +1,83 @@
+/* Reset, typography and shared text utilities. */
+/* ===== RESET / TYPOGRAPHY ===== */
+* {
+  box-sizing:border-box;
+  margin:0;
+}
+html {
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+body {
+  font-family:var(--font);
+  background:var(--color-background);
+  color:var(--color-text);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,
+h2,
+h3 {
+  line-height:1.05;
+  letter-spacing:-.03em;
+}
+h1 {
+  font-size:clamp(2.7rem,7vw,5.4rem);
+  font-weight:600;
+  letter-spacing:-.04em;
+}
+h1 em {
+  font-style:normal;
+  color:#7FD1B9;
+}
+h2 {
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:600;
+}
+h3 {
+  font-size:1.2rem;
+  font-weight:650;
+  letter-spacing:-.02em;
+}
+p {
+  max-width:62ch;
+}
+.eyebrow {
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:650;
+  color:var(--color-primary);
+}
+.muted {
+  color:var(--color-muted);
+}
+.lead {
+  font-size:1.2rem;
+  color:var(--color-muted);
+  margin-top:1.2rem;
+  line-height:1.55;
+}
+.idx {
+  font-size:.75rem;
+  font-weight:650;
+  letter-spacing:.1em;
+  color:var(--color-muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* Links: brand green on light surfaces; overridden per component (nav, buttons, cards, dark sections, footer). */
+a {
+  color: var(--color-primary);
+}
+.dark a:not(.btn) {
+  color: #7FD1B9;
+}
+.dark a.node {
+  color: #EDEAE3;
+}
+.dark a.node:hover,
+.dark a.node.is-active {
+  color: #0B1210;
+}

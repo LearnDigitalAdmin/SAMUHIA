@@ -1,0 +1,126 @@
+{
+  "seoTitle": "SAMUHIA — Technology That Moves Business Forward",
+  "hero": {
+    "eyebrow": "Technology built for the real world · Kenya",
+    "titleLead": "Technology That Moves",
+    "titleEmphasis": "Business Forward.",
+    "lead": "SAMUHIA builds practical digital products that help businesses, institutions, communities and individuals operate, connect and grow.",
+    "primaryCta": {
+      "label": "Explore our products",
+      "href": "/products/"
+    },
+    "secondaryCta": {
+      "label": "About SAMUHIA",
+      "href": "/about/"
+    },
+    "ecosystemTitle": "Different products. One technology ecosystem.",
+    "ecosystemHint": "Select a product to see what it does."
+  },
+  "stats": [
+    {
+      "value": "2023",
+      "label": "Founded"
+    },
+    {
+      "value": "Kenya",
+      "label": "Where we build"
+    },
+    {
+      "value": "{productCount}",
+      "label": "Active products"
+    },
+    {
+      "value": "Real-world",
+      "label": "Built for daily operations"
+    }
+  ],
+  "intro": {
+    "eyebrow": "01 — Built for the real world",
+    "title": "One company. Multiple digital systems.",
+    "lead": "SAMUHIA builds focused products for different operational environments while keeping a common technology ecosystem underneath.",
+    "productsHeading": "Our products"
+  },
+  "solutions": {
+    "eyebrow": "02 — Solutions for real operations",
+    "title": "Start with your problem, not our product names."
+  },
+  "why": {
+    "eyebrow": "03 — One ecosystem, multiple possibilities",
+    "title": "Why SAMUHIA",
+    "items": [
+      {
+        "title": "Practical",
+        "text": "Built around real operational problems."
+      },
+      {
+        "title": "Connected",
+        "text": "Products can work together as an ecosystem."
+      },
+      {
+        "title": "Accessible",
+        "text": "Technology should be understandable and usable."
+      },
+      {
+        "title": "Built to scale",
+        "text": "Designed with growth and expansion in mind."
+      },
+      {
+        "title": "Security conscious",
+        "text": "Sensitive systems are managed with appropriate security infrastructure."
+      }
+    ]
+  },
+  "story": {
+    "eyebrow": "04 — Built from the ground up",
+    "title": "Useful technology can start with one builder.",
+    "paragraphs": [
+      "SAMUHIA began in Kenya in 2023 with a simple idea: useful technology does not always need to start with a massive institution behind it. It can start with someone identifying a real problem, learning what is required, and building a solution that works.",
+      "From that foundation, SAMUHIA has grown into an ecosystem of digital products spanning community finance, payments, property management, education administration and digital services."
+    ],
+    "closing": "Built in Kenya. Designed to scale beyond it."
+  },
+  "founderTeaser": {
+    "eyebrow": "05 — Meet the founder",
+    "text": "A self-taught developer and technology builder focused on turning practical problems into useful digital systems.",
+    "cta": {
+      "label": "Meet the Founder",
+      "href": "/founder/"
+    }
+  },
+  "cta": {
+    "title": "Explore what we're building.",
+    "lead": "From community finance to property management, education and digital services, explore the technology powering the SAMUHIA ecosystem.",
+    "primary": {
+      "label": "Explore products",
+      "href": "/products/"
+    },
+    "secondary": {
+      "label": "Contact SAMUHIA",
+      "href": "/contact/"
+    },
+    "contactTitle": "Let's build what matters."
+  },
+  "faq": [
+    {
+      "q": "What is SAMUHIA?",
+      "a": "SAMUHIA is a Kenyan technology company founded in 2023 that builds practical digital products for businesses, institutions, communities and individuals."
+    },
+    {
+      "q": "Which products does SAMUHIA offer?",
+      "a": "Plot Yangu for property management, MyRegister for school attendance and parent SMS, MyChama for chamas, Samuhia Cyber for cyber cafés and small shops, and Samuhia Payments, the payment layer behind them."
+    },
+    {
+      "q": "Is MyRegister free?",
+      "a": "MyRegister is free to use, with SMS tokens available separately when messaging services are required."
+    },
+    {
+      "q": "How do I pay for a plan?",
+      "a": "By M-Pesa. Each app sends a prompt to your phone and you confirm with your PIN. Payments are processed through Paystack."
+    },
+    {
+      "q": "Where is SAMUHIA based?",
+      "a": "SAMUHIA currently operates from Kenya and is building toward broader international expansion."
+    }
+  ],
+  "description": "SAMUHIA is a Kenyan technology company building practical digital products for property management, schools, chamas, payments and small businesses."
+}

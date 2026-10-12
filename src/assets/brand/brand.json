@@ -1,0 +1,74 @@
+{
+  "samuhia": {
+    "name": "SAMUHIA",
+    "sub": "TECHNOLOGY GROUP",
+    "primary": "#0F6B54",
+    "accent": "#D9993A",
+    "textAccent": "#0F6B54",
+    "note": "Master brand. Keeps the node triangle already in your site header (amber apex, two mint nodes) but makes it bolder and simpler. Three connected nodes = the ecosystem. Dark tile matches the hero.",
+    "lockup": [
+      619,
+      176
+    ]
+  },
+  "mychama": {
+    "name": "MyChama",
+    "sub": "GROUP FINANCE",
+    "primary": "#0E5C4A",
+    "accent": "#D9993A",
+    "textAccent": "#0E5C4A",
+    "note": "Two joined rings = the group; the overlap is amber (shared money); the forward arrow is disciplined growth. Uses the product colour from your site.",
+    "lockup": [
+      617,
+      176
+    ]
+  },
+  "payments": {
+    "name": "Samuhia",
+    "sub": "PAYMENTS",
+    "primary": "#B8741A",
+    "accent": "#0F6B54",
+    "textAccent": "#96600F",
+    "note": "One continuous S of two opposing arcs: money in, money out. Amber-brown is your Payments colour; the second arc borrows the master green.",
+    "lockup": [
+      518,
+      176
+    ]
+  },
+  "cyber": {
+    "name": "Samuhia",
+    "sub": "CYBER",
+    "primary": "#2F4A8A",
+    "accent": "#D9993A",
+    "textAccent": "#2F4A8A",
+    "note": "Shield plus crosshair for trusted, secure digital services. Blue is your Cyber colour; the amber centre dot is the shared spark.",
+    "lockup": [
+      546,
+      176
+    ]
+  },
+  "plot-yangu": {
+    "name": "Plot Yangu",
+    "sub": "PROPERTY MANAGEMENT",
+    "primary": "#7A3E8E",
+    "accent": "#D9993A",
+    "textAccent": "#7A3E8E",
+    "note": "A simple house with an amber door: “my plot”, my property. Plain outline so it stays readable at favicon size.",
+    "lockup": [
+      634,
+      176
+    ]
+  },
+  "myregister": {
+    "name": "MyRegister",
+    "sub": "SCHOOL REGISTERS",
+    "primary": "#B23A48",
+    "accent": "#D9993A",
+    "textAccent": "#B23A48",
+    "note": "A register sheet with a tick and attendance lines: exactly what teachers and parents see. Red is your MyRegister colour.",
+    "lockup": [
+      624,
+      176
+    ]
+  }
+}

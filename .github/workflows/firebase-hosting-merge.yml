@@ -1,0 +1,21 @@
+# Deploys to LIVE whenever you push/merge to main.
+# One-time setup: see docs/DEPLOYMENT.md → "Optional: automatic deploys from GitHub".
+name: Deploy to Firebase Hosting (live)
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/build.js --strict
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: your-firebase-project-id   # <- replace with your Firebase project ID

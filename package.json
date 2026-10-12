@@ -1,0 +1,24 @@
+{
+  "name": "samuhia-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAMUHIA corporate website — static, SEO- and LLM-optimised, deployed on Firebase Hosting.",
+  "type": "module",
+  "engines": {
+    "node": ">=18.11"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check": "node scripts/build.js --strict",
+    "build:preview": "node scripts/build.js --noindex",
+    "dev": "node scripts/dev.js",
+    "serve": "node scripts/serve.js",
+    "icons": "node scripts/generate-icons.js",
+    "emulate": "firebase emulators:start --only hosting",
+    "deploy": "npm run check && firebase deploy --only hosting",
+    "deploy:preview": "npm run build:preview && firebase hosting:channel:deploy preview --expires 7d"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

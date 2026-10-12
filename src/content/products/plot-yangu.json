@@ -1,0 +1,240 @@
+{
+  "order": 4,
+  "slug": "plot-yangu",
+  "name": "Plot Yangu",
+  "category": "Property Management",
+  "audience": "Landlords, property agents, managers and caretakers",
+  "status": "Operational",
+  "appUrl": "https://plot.samuhia.co.ke",
+  "color": "#7A3E8E",
+  "abbr": "PY",
+  "description": "Properties, units, tenants, invoices and M-Pesa rent in one dashboard. Works offline on web, Android and desktop.",
+  "longDescription": "Plot Yangu is a property management app for landlords and property agents in Kenya. It keeps properties, units, tenants, invoices and M-Pesa payments in one dashboard, stores your data on your device first so it works offline, and syncs across devices in the cloud on paid plans.",
+  "problem": "Rent tracking, arrears, expenses and tenant messages are scattered, so owners rarely see the true financial picture of their properties.",
+  "features": [
+    "Multiple properties and units",
+    "Tenant records with phone numbers",
+    "PDF invoices, including water and power readings",
+    "M-Pesa rent collection, matched to the right invoice",
+    "Automatic tenant messages: SMS first, WhatsApp backup for tenants who opted in",
+    "Arrears tracking",
+    "Excel and PDF exports and reports",
+    "Your own logo on invoices (Business and above)",
+    "Multi-device cloud sync (Solo and above)",
+    "Works offline, data stored on your device",
+    "Web app, Android app and Windows, macOS and Linux desktop apps"
+  ],
+  "steps": [
+    "Add a property. Everything saves to your device first, so it works with no signal.",
+    "Add tenants to units, with their phone numbers for invoices and messages.",
+    "Generate invoices in a few taps, each with a downloadable PDF.",
+    "Tenants pay by M-Pesa and payments are matched to the invoice automatically.",
+    "Invoice, payment and overdue messages go out by SMS, with WhatsApp as backup."
+  ],
+  "facts": [
+    {
+      "label": "Works on",
+      "value": "Web, Android, Windows, macOS, Linux"
+    },
+    {
+      "label": "Offline",
+      "value": "Data stored on your device first"
+    },
+    {
+      "label": "Free trial",
+      "value": "3 months of Business, no card needed"
+    },
+    {
+      "label": "Payments",
+      "value": "M-Pesa through Samuhia Payments"
+    }
+  ],
+  "plans": [
+    {
+      "name": "Free Forever",
+      "price": "KES 0",
+      "per": "",
+      "description": "Try it on one property, with no time limit.",
+      "features": [
+        "1 property, up to 5 tenants",
+        "Invoice generation",
+        "Local storage on your device",
+        "Plot Yangu branding on invoices"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Starter",
+      "price": "KES 700",
+      "per": "/ month",
+      "description": "For a landlord with a handful of properties.",
+      "features": [
+        "Up to 3 properties, 30 tenants",
+        "Invoice generation",
+        "Basic reports",
+        "Light footer branding"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Solo Property Enterprise",
+      "price": "KES 1,199",
+      "per": "/ month",
+      "description": "One property with cloud sync and automatic tenant messages.",
+      "features": [
+        "1 property, up to 20 tenants",
+        "Multi-device cloud sync",
+        "Automatic tenant notifications",
+        "WhatsApp support"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Business",
+      "price": "KES 1,900",
+      "per": "/ month",
+      "description": "Your logo and priority support for a growing portfolio.",
+      "features": [
+        "Up to 9 properties, 126 tenants",
+        "Your logo, no Plot Yangu branding",
+        "Excel and PDF export",
+        "Arrears tracking",
+        "Multi-device cloud sync"
+      ],
+      "highlight": false,
+      "tag": "3 months free to start"
+    },
+    {
+      "name": "Professional",
+      "price": "KES 3,400",
+      "per": "/ month",
+      "description": "Larger portfolios that need advanced reporting.",
+      "features": [
+        "Up to 16 properties, 300 tenants",
+        "Automatic tenant notifications",
+        "Advanced reports",
+        "Priority email and WhatsApp"
+      ],
+      "highlight": true,
+      "tag": "Most popular"
+    },
+    {
+      "name": "Enterprise",
+      "price": "KES 5,600",
+      "per": "/ month",
+      "description": "Unlimited properties with full white-label invoices.",
+      "features": [
+        "Unlimited properties and tenants",
+        "Full white-label invoices",
+        "Bulk invoice sending",
+        "Advanced analytics and team access",
+        "Phone and WhatsApp support"
+      ],
+      "highlight": false,
+      "tag": ""
+    }
+  ],
+  "priceNote": "New accounts get 3 months of Business free, no card needed. Pay by M-Pesa. Tenant SMS credits are bought separately and get cheaper on higher plans: KES 0.75 on Free and Starter, 0.70 on Solo, 0.60 on Business, 0.50 on Professional and 0.40 on Enterprise.",
+  "priceSummary": "Six plans from free to KES 5,600 a month. See the plans above.",
+  "ctaLabel": "Open Plot Yangu",
+  "ctaSecondary": "View pricing",
+  "connects": "Tenants pay rent through Samuhia Payments, and agents can manage properties from the Plot Yangu tab in Samuhia Cyber.",
+  "related": [
+    "payments",
+    "cyber"
+  ],
+  "solution": "property-management",
+  "faq": [
+    {
+      "q": "Who is Plot Yangu for?",
+      "a": "Landlords and property agents in Kenya, including managers and caretakers."
+    },
+    {
+      "q": "Does Plot Yangu work offline?",
+      "a": "Yes. Properties, tenants and invoices are stored on your device first. On Solo and above, data also syncs across your devices when you are online."
+    },
+    {
+      "q": "What does the free trial include?",
+      "a": "New accounts get 3 months of Business free, with no card needed: cloud sync, your logo on invoices, arrears tracking and Excel and PDF export."
+    },
+    {
+      "q": "Does it notify tenants automatically?",
+      "a": "Yes. New invoices, payment confirmations and overdue reminders go out by SMS first, with WhatsApp as a backup for tenants who opted in."
+    },
+    {
+      "q": "How do I pay for a plan?",
+      "a": "By M-Pesa. You get a prompt on your phone and confirm with your PIN. Payments are processed through Paystack."
+    }
+  ],
+  "presentation": {
+    "ecoX": 20,
+    "ecoY": 20,
+    "ecoColor": "#C38BDB",
+    "chartBars": [
+      45,
+      60,
+      52,
+      78,
+      66,
+      90,
+      74
+    ],
+    "mockNav": [
+      "Dashboard",
+      "Properties",
+      "Tenants",
+      "Invoices",
+      "Payments",
+      "Summaries",
+      "SMS"
+    ],
+    "mockKpis": [
+      {
+        "label": "Revenue",
+        "value": "KSh 482,500"
+      },
+      {
+        "label": "Collected",
+        "value": "KSh 421,000"
+      },
+      {
+        "label": "Outstanding",
+        "value": "KSh 61,500"
+      },
+      {
+        "label": "Properties",
+        "value": "12"
+      },
+      {
+        "label": "Units",
+        "value": "148"
+      },
+      {
+        "label": "Tenants",
+        "value": "136"
+      }
+    ],
+    "mockRows": [
+      {
+        "a": "Unit A4",
+        "b": "Rent · May",
+        "status": "Paid"
+      },
+      {
+        "a": "Unit B2",
+        "b": "Rent · May",
+        "status": "Paid"
+      },
+      {
+        "a": "Unit C7",
+        "b": "Rent · May",
+        "status": "Due"
+      }
+    ]
+  },
+  "schemaCategory": "BusinessApplication",
+  "operatingSystem": "Web, Android, Windows, macOS, Linux"
+}

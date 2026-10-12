@@ -1,0 +1,100 @@
+/* Responsive rules, accessibility and motion. Keep this file last. */
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .hero .grid {
+    grid-template-columns:1fr;
+  }
+  .menu {
+    display:block;
+  }
+  nav {
+    display:none;
+    position:absolute;
+    top:68px;
+    left:0;
+    right:0;
+    background:var(--dark);
+    border-bottom:1px solid rgba(255,255,255,.1);
+    padding:12px 28px 24px;
+  }
+  nav.open {
+    display:block;
+  }
+  nav ul {
+    flex-direction:column;
+    gap:4px;
+  }
+  nav a {
+    display:block;
+    padding:12px 0;
+    font-size:1.1rem;
+  }
+  .hdrcta {
+    display:none;
+  }
+  .head {
+    grid-template-columns:1fr;
+  }
+  .head .eyebrow {
+    grid-row:auto;
+    margin-bottom:14px;
+  }
+  .bento {
+    grid-template-columns:1fr;
+  }
+  .bento .card,
+  .bento .card:nth-child(4) {
+    grid-column:auto;
+  }
+}
+@media(max-width:520px){
+  .mk {
+    grid-template-columns:1fr;
+  }
+  .mk aside {
+    display:none;
+  }
+  .node {
+    font-size:.66rem;
+    padding:6px 9px 6px 7px;
+  }
+  .wrap,
+  .page,
+  .crumb {
+    padding-inline:18px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+:focus-visible {
+  outline:3px solid var(--color-secondary);
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  *,
+  *:before {
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+  .rv {
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* ===== ANIMATION ===== */
+@keyframes dash{
+  to {
+    stroke-dashoffset:-40;
+  }
+}
+.rv {
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .8s,transform .8s;
+}
+.rv.in {
+  opacity:1;
+  transform:none;
+}

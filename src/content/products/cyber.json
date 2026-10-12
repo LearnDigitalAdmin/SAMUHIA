@@ -1,0 +1,130 @@
+{
+  "order": 3,
+  "slug": "desk",
+  "name": "Samuhia Desk",
+  "category": "Digital Services & Small Business",
+  "audience": "Cyber café operators, small shop owners, agents and their customers",
+  "status": "Operational",
+  "appUrl": "https://cyber.cogvana.co.ke",
+  "color": "#2F4A8A",
+  "abbr": "SC",
+  "description": "One dashboard for cyber café jobs, shop records and rent services, with a WhatsApp assistant for customers.",
+  "longDescription": "Samuhia Cyber is a dashboard and WhatsApp assistant for everyday digital services. Cyber café operators manage customer uploads, printing and photo jobs and daily income, keep sales, stock and expense records for small shops, and help tenants pay rent. Customers can do much of this on WhatsApp in English or Swahili.",
+  "problem": "Cyber café operators and small shops juggle customer jobs, paper records, payments and daily takings across notebooks and phones.",
+  "features": [
+    "Customer upload queue with pending and completed jobs",
+    "Passport photo sheets and image-to-PDF tools",
+    "Shop records: stock, sales and expenses, including past dates",
+    "Daily and date-range profit reports with CSV export",
+    "Printable data-entry forms carrying the shop's name",
+    "Plot Yangu tab so agents can manage properties and rent",
+    "Movies and series library with customer requests",
+    "Income tab for daily takings",
+    "Charge a customer by M-Pesa prompt, with money routed to the shop",
+    "WhatsApp assistant in English and Swahili: pay rent, get invoices, pay bills, record sales and expenses",
+    "Paid PDF reports for shops, delivered on WhatsApp"
+  ],
+  "steps": [
+    "A customer uploads files or sends a request, online or on WhatsApp.",
+    "The operator sees the job in the Cyber Services queue.",
+    "The job is completed and paid, by cash or M-Pesa.",
+    "Income, shop records and reports update for the day."
+  ],
+  "facts": [
+    {
+      "label": "Works on",
+      "value": "Web dashboard and WhatsApp"
+    },
+    {
+      "label": "Languages",
+      "value": "English and Swahili on WhatsApp"
+    },
+    {
+      "label": "Payments",
+      "value": "M-Pesa through Samuhia Payments"
+    },
+    {
+      "label": "Built for",
+      "value": "Operators, shop owners, agents"
+    }
+  ],
+  "plans": [],
+  "priceNote": "",
+  "priceSummary": "Pricing depends on the service. Shop reports are a small pay-per-report add-on; payments show their fees before you confirm.",
+  "ctaLabel": "Open Samuhia Cyber",
+  "ctaSecondary": "Explore Samuhia Cyber",
+  "connects": "Shop and rent payments run through Samuhia Payments, and the WhatsApp assistant also serves Plot Yangu tenants and MyChama members.",
+  "related": [
+    "plot-yangu",
+    "payments",
+    "mychama"
+  ],
+  "solution": "digital-services",
+  "faq": [
+    {
+      "q": "Is Samuhia Cyber an official government service?",
+      "a": "No. It helps operators and customers with digital-service workflows. It is not a government platform."
+    },
+    {
+      "q": "Can customers use it on WhatsApp?",
+      "a": "Yes. The WhatsApp assistant works in English and Swahili for paying rent, getting invoices, paying bills and, for shop owners, recording sales and expenses."
+    },
+    {
+      "q": "Can a shop use it without a cyber café?",
+      "a": "Yes. A shop owner can register on WhatsApp and keep sales, expense and stock records with daily, weekly and monthly reports."
+    }
+  ],
+  "presentation": {
+    "ecoX": 80,
+    "ecoY": 20,
+    "ecoColor": "#7C9BE8",
+    "chartBars": [
+      60,
+      35,
+      75,
+      50,
+      68,
+      45
+    ],
+    "mockNav": [
+      "Plot Yangu",
+      "Shops",
+      "Cyber Services",
+      "Movies",
+      "Income"
+    ],
+    "mockKpis": [
+      {
+        "label": "Jobs today",
+        "value": "48"
+      },
+      {
+        "label": "Paid",
+        "value": "41"
+      },
+      {
+        "label": "Pending",
+        "value": "7"
+      }
+    ],
+    "mockRows": [
+      {
+        "a": "Document typing",
+        "b": "Walk-in",
+        "status": "Paid"
+      },
+      {
+        "a": "Passport photos",
+        "b": "Walk-in",
+        "status": "Paid"
+      },
+      {
+        "a": "Form assistance",
+        "b": "Walk-in",
+        "status": "Pending"
+      }
+    ]
+  },
+  "schemaCategory": "BusinessApplication",
+  "operatingSystem": "Web, WhatsApp"
+}

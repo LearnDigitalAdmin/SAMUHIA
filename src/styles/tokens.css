@@ -1,0 +1,15 @@
+/* Design tokens — edit brand colours, radius and font here. */
+/* ===== VARIABLES ===== */
+:root {
+  --color-background:#F1EDE4;
+  --color-surface:#FBF9F4;
+  --color-text:#0C1311;
+  --color-muted:#5A625E;
+  --color-primary:#0F6B54;
+  --color-secondary:#D9993A;
+  --color-border:#D9D3C6;
+  --color-success:#1E7A46;
+  --dark:#0B1210;
+  --r:6px;
+  --font:"Schibsted Grotesk","Inter","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}

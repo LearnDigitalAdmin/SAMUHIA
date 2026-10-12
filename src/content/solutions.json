@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "property-management",
+    "title": "For Property Owners",
+    "description": "Manage properties, tenants, invoices, rent collection and reporting.",
+    "product": "plot-yangu"
+  },
+  {
+    "slug": "schools",
+    "title": "For Schools",
+    "description": "Take attendance in under a minute and notify parents by SMS automatically.",
+    "product": "myregister"
+  },
+  {
+    "slug": "chamas",
+    "title": "For Chamas",
+    "description": "Run contributions, loans, Merry-Go-Round, minutes and reports for your group.",
+    "product": "mychama"
+  },
+  {
+    "slug": "digital-services",
+    "title": "For Cyber Cafés & Small Shops",
+    "description": "Track customer jobs, shop sales, stock and expenses, and serve customers on WhatsApp.",
+    "product": "cyber"
+  },
+  {
+    "slug": "payments",
+    "title": "For Rent & Payment Collection",
+    "description": "Collect by M-Pesa, Airtel Money or card and settle to your own account.",
+    "product": "payments"
+  }
+]

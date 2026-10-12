@@ -1,0 +1,65 @@
+{
+  "products": {
+    "seoTitle": "SAMUHIA Products — Property, Schools, Chamas, Payments & Cyber",
+    "description": "Five operational SAMUHIA products forming one connected technology ecosystem: Plot Yangu, MyRegister, MyChama, Samuhia Cyber and Samuhia Payments.",
+    "title": "Five products. One ecosystem.",
+    "lead": "Each SAMUHIA product serves a specific environment; Samuhia Payments connects them."
+  },
+  "solutions": {
+    "seoTitle": "Solutions — Find the Right SAMUHIA Product for Your Operation",
+    "description": "Start with your problem: property management, schools, chamas, cyber cafés and small shops, and rent and payment collection in Kenya.",
+    "title": "Solutions for real operations.",
+    "lead": "Start with the problem you need to solve and we will point you to the SAMUHIA product built for it."
+  },
+  "pricing": {
+    "seoTitle": "Pricing — SAMUHIA Plans in Kenya Shillings",
+    "description": "Plans and pricing for Plot Yangu, MyChama and MyRegister, plus how fees work for Samuhia Cyber and Samuhia Payments. All prices in KES.",
+    "title": "Pricing by product.",
+    "lead": "Every plan is paid by M-Pesa. Plot Yangu includes a 3-month Business trial with no card, and MyRegister is free.",
+    "footnote": "Prices are in Kenya shillings and can change. Confirm current prices in each app before you subscribe."
+  },
+  "resources": {
+    "seoTitle": "Resources — Guides, Updates and Stories",
+    "description": "Guides, product updates and stories from SAMUHIA.",
+    "title": "Stories are coming.",
+    "lead": "We're building a library of product stories, guides and insights. Check back soon.",
+    "sections": ["Blog", "Guides", "Case Studies", "Product Updates", "Documentation"],
+    "draft": true
+  },
+  "support": {
+    "seoTitle": "Support — Get Help With SAMUHIA Products",
+    "description": "Get help with Plot Yangu, MyChama, MyRegister, Samuhia Cyber, Samuhia Payments and general SAMUHIA questions.",
+    "title": "What can we help with?"
+  },
+  "contact": {
+    "seoTitle": "Contact SAMUHIA — Email, Phone and WhatsApp",
+    "description": "Contact SAMUHIA by email, phone or WhatsApp, or send a message about any product.",
+    "title": "Let's build what matters."
+  },
+  "careers": {
+    "seoTitle": "Careers at SAMUHIA",
+    "description": "No vacancies right now. Send an expression of interest for future roles in engineering, product, design, operations and support.",
+    "title": "We're building something ambitious.",
+    "lead": "No vacancies right now. Future roles may span software engineering, product, design, operations, customer support, sales and business development."
+  },
+  "privacy": {
+    "seoTitle": "Privacy Policy",
+    "description": "SAMUHIA privacy policy.",
+    "title": "Privacy Policy",
+    "lead": "Final legal text will be inserted before launch.",
+    "draft": true
+  },
+  "terms": {
+    "seoTitle": "Terms of Service",
+    "description": "SAMUHIA terms of service.",
+    "title": "Terms of Service",
+    "lead": "Final legal text will be inserted before launch.",
+    "draft": true
+  },
+  "notFound": {
+    "seoTitle": "Page not found",
+    "description": "The page you are looking for does not exist or may have moved.",
+    "title": "Looks like you've taken a wrong turn.",
+    "lead": "The page you're looking for doesn't exist or may have moved."
+  }
+}

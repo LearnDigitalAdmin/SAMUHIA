@@ -1,0 +1,133 @@
+{
+  "order": 2,
+  "slug": "payments",
+  "name": "Samuhia Payments",
+  "category": "Payment Infrastructure",
+  "audience": "Landlords, agents, tenants and shop owners using SAMUHIA products",
+  "status": "Operational",
+  "appUrl": "https://pay.samuhia.co.ke",
+  "color": "#B8741A",
+  "abbr": "SP",
+  "description": "The payment layer behind the ecosystem: M-Pesa, Airtel Money and card payments, verified and settled to the right account.",
+  "longDescription": "Samuhia Payments is how money moves across SAMUHIA products. Tenants view invoices and pay rent, landlords and agents accept payments and choose where they are settled, and every product (Plot Yangu, MyChama, Samuhia Cyber, MyRegister) uses the same verified payment flow instead of building its own.",
+  "problem": "Every product that handles money needs dependable payment, verification and record-keeping. Rebuilding it per product creates inconsistency and risk.",
+  "features": [
+    "M-Pesa and Airtel Money prompts on the payer's phone",
+    "Card payments",
+    "Tenant view of invoices and payment history",
+    "Payment terminal for landlords and agents",
+    "Settlement to M-Pesa, bank, paybill or till",
+    "Signed payment confirmations checked before any record is updated",
+    "Each payment routed to the right product: rent, SMS credits, chama plans and contributions, shop sales, reports",
+    "Transaction records and revenue summaries",
+    "SMS credit top-ups for SAMUHIA products"
+  ],
+  "steps": [
+    "A payment is requested and an M-Pesa or Airtel Money prompt reaches the payer's phone.",
+    "The payer confirms with their PIN.",
+    "Paystack confirms the payment and the signed callback is verified.",
+    "The money is routed to the right account and the product updates its records."
+  ],
+  "facts": [
+    {
+      "label": "Payment methods",
+      "value": "M-Pesa, Airtel Money, card"
+    },
+    {
+      "label": "Settlement options",
+      "value": "M-Pesa, bank, paybill, till"
+    },
+    {
+      "label": "Works on",
+      "value": "Installable web app (PWA)"
+    },
+    {
+      "label": "Powered by",
+      "value": "Paystack"
+    }
+  ],
+  "plans": [],
+  "priceNote": "There is no subscription. Fees are shown before each payment: Paystack's transaction fee plus a small service fee that depends on the product. For rent through Plot Yangu, that is 1.5% for the platform.",
+  "priceSummary": "No subscription. Fees are shown before each payment.",
+  "ctaLabel": "Open Samuhia Payments",
+  "ctaSecondary": "Explore Samuhia Payments",
+  "connects": "Powers payments for Plot Yangu, MyChama, Samuhia Cyber and MyRegister.",
+  "related": [
+    "plot-yangu",
+    "mychama",
+    "cyber",
+    "myregister"
+  ],
+  "solution": "payments",
+  "faq": [
+    {
+      "q": "Can I use Samuhia Payments on my own website?",
+      "a": "Not as a standalone gateway. It powers payments inside SAMUHIA products, where landlords, agents and shop owners receive money through it."
+    },
+    {
+      "q": "When do landlords receive their money?",
+      "a": "Paystack settles on a standard two-business-day cycle, then funds go to the account you set up."
+    },
+    {
+      "q": "Are there hidden charges?",
+      "a": "No. Paystack's fee and any SAMUHIA service fee are shown before the payer confirms."
+    },
+    {
+      "q": "Do landlords or agents need their own Paystack account?",
+      "a": "No. You add your M-Pesa, bank, paybill or till details and settlement is set up for you."
+    }
+  ],
+  "presentation": {
+    "ecoX": 12,
+    "ecoY": 64,
+    "ecoColor": "#E3A247",
+    "chartBars": [
+      30,
+      50,
+      70,
+      55,
+      80,
+      92
+    ],
+    "mockNav": [
+      "Overview",
+      "Invoices",
+      "Payments",
+      "Payment terminal",
+      "Settlement account"
+    ],
+    "mockKpis": [
+      {
+        "label": "Verified",
+        "value": "312"
+      },
+      {
+        "label": "Settled",
+        "value": "298"
+      },
+      {
+        "label": "Pending",
+        "value": "14"
+      }
+    ],
+    "mockRows": [
+      {
+        "a": "Rent · Unit A4",
+        "b": "M-Pesa prompt",
+        "status": "Settled"
+      },
+      {
+        "a": "SMS credits",
+        "b": "M-Pesa prompt",
+        "status": "Pending"
+      },
+      {
+        "a": "Chama contribution",
+        "b": "Callback",
+        "status": "Received"
+      }
+    ]
+  },
+  "schemaCategory": "FinanceApplication",
+  "operatingSystem": "Web (installable PWA)"
+}

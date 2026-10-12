@@ -1,0 +1,207 @@
+{
+  "order": 1,
+  "slug": "mychama",
+  "name": "MyChama",
+  "category": "Community & Financial Management",
+  "audience": "Chamas, savings groups and small SACCO-style groups",
+  "status": "Operational",
+  "appUrl": "https://chama.samuhia.co.ke",
+  "color": "#0E5C4A",
+  "abbr": "MC",
+  "description": "Members, contributions, loans, Merry-Go-Round, payments, SMS and minutes for your chama, working even without signal.",
+  "longDescription": "MyChama runs a chama from start to finish: members and officer roles, contributions, loans, Merry-Go-Round pots, M-Pesa payments, SMS to members, meeting minutes and financial reports. Chairs, treasurers and secretaries each see what their role needs, and the app keeps working in meetings with no signal.",
+  "problem": "Group money often lives in notebooks, spreadsheets and chat threads, so contributions, loans and arrears are hard to track and harder to trust.",
+  "features": [
+    "Chair, treasurer, secretary and member roles",
+    "Contributions on daily, weekly or monthly cycles, with arrears",
+    "Loan products with flat or reducing-balance rates and repayment schedules",
+    "Merry-Go-Round pots with payouts and arrears",
+    "Members pay contributions and loan repayments by M-Pesa",
+    "Cash payments recorded by finance officers",
+    "SMS to members, including scheduled reminders",
+    "Meeting minutes with PDF export",
+    "Financial reports: member statements, cashflow, profit and loss, balance sheet",
+    "Works offline and syncs when signal returns",
+    "Member access on WhatsApp",
+    "Sign in with phone, Google or email"
+  ],
+  "steps": [
+    "Create your chama and set the contribution amount and cycle.",
+    "Add members by phone number. Each member claims their invite the first time they sign in.",
+    "Record contributions, loans and Merry-Go-Round payments, or let members pay by M-Pesa.",
+    "Send reminders, keep minutes and download reports for your meetings."
+  ],
+  "facts": [
+    {
+      "label": "Works on",
+      "value": "Installable web app, and WhatsApp for members"
+    },
+    {
+      "label": "Offline",
+      "value": "Records and sync when signal returns"
+    },
+    {
+      "label": "SMS",
+      "value": "Sent under the SAMUHIA name"
+    },
+    {
+      "label": "Roles",
+      "value": "Chair, treasurer, secretary, member"
+    }
+  ],
+  "plans": [
+    {
+      "name": "Free",
+      "price": "KES 0",
+      "per": "",
+      "description": "For a small group getting started.",
+      "features": [
+        "Up to 6 members",
+        "Contributions, loans, Merry-Go-Round and minutes",
+        "No online collection or exports"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Starter",
+      "price": "KES 499",
+      "per": "/ month",
+      "description": "For small groups collecting online.",
+      "features": [
+        "Up to 15 members",
+        "Online collection by M-Pesa",
+        "Exports enabled",
+        "3 standard reports a month"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Basic",
+      "price": "KES 999",
+      "per": "/ month",
+      "description": "For growing groups.",
+      "features": [
+        "Up to 25 members",
+        "Online collection by M-Pesa",
+        "Exports enabled",
+        "8 standard reports a month"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Growth",
+      "price": "KES 2,499",
+      "per": "/ month",
+      "description": "For larger groups that report often.",
+      "features": [
+        "Up to 60 members",
+        "Unlimited standard reports",
+        "4 premium reports a month",
+        "Lower SMS rate"
+      ],
+      "highlight": false,
+      "tag": ""
+    },
+    {
+      "name": "Max",
+      "price": "KES 4,990",
+      "per": "/ month",
+      "description": "For very large groups and federations.",
+      "features": [
+        "Up to 999 members",
+        "Unlimited standard reports",
+        "10 premium reports a month",
+        "Lowest SMS rate"
+      ],
+      "highlight": false,
+      "tag": ""
+    }
+  ],
+  "priceNote": "SMS credits are bought separately: KES 0.90 each on Free to Basic, KES 0.70 on Growth and KES 0.50 on Max. Online payments carry Paystack's transaction fee plus a small MyChama service fee, shown before you pay.",
+  "priceSummary": "From free (6 members) to KES 4,990 a month. See the plans above.",
+  "ctaLabel": "Open MyChama",
+  "ctaSecondary": "Explore MyChama",
+  "connects": "Online payments run through Samuhia Payments, and members can also use the WhatsApp assistant from Samuhia Cyber.",
+  "related": [
+    "payments",
+    "cyber"
+  ],
+  "solution": "chamas",
+  "faq": [
+    {
+      "q": "Who is MyChama for?",
+      "a": "Chamas, small SACCO-style groups and other community savings groups."
+    },
+    {
+      "q": "How many members can I add?",
+      "a": "The Free plan allows 6 members. Paid plans allow 15, 25, 60 or up to 999 members."
+    },
+    {
+      "q": "Does it work without internet?",
+      "a": "Yes. Records made offline are saved on the device and sync when the signal returns. Sending SMS needs internet."
+    },
+    {
+      "q": "Can members use it without installing an app?",
+      "a": "Members can install the web app, and a WhatsApp assistant handles common member actions."
+    }
+  ],
+  "presentation": {
+    "ecoX": 88,
+    "ecoY": 62,
+    "ecoColor": "#3DBE9A",
+    "chartBars": [
+      40,
+      55,
+      48,
+      70,
+      62,
+      85
+    ],
+    "mockNav": [
+      "Dashboard",
+      "Members",
+      "Contributions",
+      "Merry-Go-Round",
+      "Loans",
+      "Payments",
+      "Communication",
+      "Minutes"
+    ],
+    "mockKpis": [
+      {
+        "label": "Contributions",
+        "value": "KSh 240,000"
+      },
+      {
+        "label": "Active loans",
+        "value": "9"
+      },
+      {
+        "label": "Members",
+        "value": "32"
+      }
+    ],
+    "mockRows": [
+      {
+        "a": "Member 014",
+        "b": "Contribution",
+        "status": "Paid"
+      },
+      {
+        "a": "Member 021",
+        "b": "Loan repayment",
+        "status": "Paid"
+      },
+      {
+        "a": "Member 007",
+        "b": "Merry-Go-Round",
+        "status": "Due"
+      }
+    ]
+  },
+  "schemaCategory": "FinanceApplication",
+  "operatingSystem": "Web (installable), WhatsApp"
+}

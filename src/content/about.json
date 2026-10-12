@@ -1,0 +1,24 @@
+{
+  "seoTitle": "About SAMUHIA — A Kenyan Technology Company",
+  "description": "SAMUHIA is a Kenyan technology company founded in 2023, building practical digital products for businesses, institutions, communities and individuals.",
+  "eyebrow": "Company",
+  "title": "Building practical technology from Kenya.",
+  "lead": "SAMUHIA is a Kenyan technology company founded in 2023, building practical digital products that help businesses, institutions, communities and individuals operate, transact and grow more effectively.",
+  "mission": "To build accessible, practical and dependable technology that simplifies how people, businesses and institutions operate, connect and grow.",
+  "vision": "To build a connected technology ecosystem that enables businesses and communities across Africa and beyond to participate more effectively in the digital economy.",
+  "principles": [
+    { "title": "Build for Reality", "text": "Technology should solve actual problems, not theoretical ones." },
+    { "title": "Simplicity Matters", "text": "Complex systems should produce simple experiences." },
+    { "title": "Trust by Design", "text": "Security, reliability and responsible data handling from the beginning." },
+    { "title": "Continuous Improvement", "text": "Products evolve through usage, feedback and learning." },
+    { "title": "Think Beyond Borders", "text": "Build from Kenya while designing for a wider world." }
+  ],
+  "journey": [
+    { "label": "2023", "text": "SAMUHIA begins", "isYear": true },
+    { "text": "Product development" },
+    { "text": "Multiple operational platforms" },
+    { "text": "Connected ecosystem" },
+    { "text": "International expansion", "note": "(ambition)" }
+  ],
+  "footnote": "Technology built within the broader Cogvana ecosystem."
+}
