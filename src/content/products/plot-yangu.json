@@ -141,10 +141,10 @@
   "priceSummary": "Six plans from free to KES 5,600 a month. See the plans above.",
   "ctaLabel": "Open Plot Yangu",
   "ctaSecondary": "View pricing",
-  "connects": "Tenants pay rent through Samuhia Payments, and agents can manage properties from the Plot Yangu tab in Samuhia Cyber.",
+  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf.",
   "related": [
     "payments",
-    "cyber"
+    "desk"
   ],
   "solution": "property-management",
   "faq": [

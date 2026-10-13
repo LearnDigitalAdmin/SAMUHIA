@@ -35,13 +35,13 @@
       176
     ]
   },
-  "cyber": {
+  "desk": {
     "name": "Samuhia",
-    "sub": "CYBER",
+    "sub": "DESK",
     "primary": "#2F4A8A",
     "accent": "#D9993A",
     "textAccent": "#2F4A8A",
-    "note": "Shield plus crosshair for trusted, secure digital services. Blue is your Cyber colour; the amber centre dot is the shared spark.",
+    "note": "Shield plus crosshair for trusted, secure digital services. Blue is your Desk colour; the amber centre dot is the shared spark.",
     "lockup": [
       546,
       176

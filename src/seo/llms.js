@@ -1,6 +1,6 @@
 // /llms.txt (llmstxt.org format) and /llms-full.txt
-import { site, products, solutions, abs, productBySlug } from '../lib/data.js';
-import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown } from './markdown.js';
+import { site, products, solutions, abs, productBySlug, careers } from '../lib/data.js';
+import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown } from './markdown.js';
 
 const md = (p) => abs(p + 'index.md');
 
@@ -23,6 +23,8 @@ ${solutions.map((s) => `- [${s.title}](${md(`/solutions/${s.slug}/`)}): ${s.desc
 - [About ${site.name}](${md('/about/')}): Mission, vision, principles and journey.
 - [Founder](${md('/founder/')}): Sam Muhia, Founder & CEO.
 - [Pricing](${md('/pricing/')}): Plans and fees for every product, in KES.
+- [Careers](${md('/careers/')}): Samuhia Desk agent programme, earning estimates in KES and open paths.
+${careers.paths.map((p) => `  - [${p.name}](${md(`/careers/${p.slug}/`)})`).join('\n')}
 - [Contact](${abs('/contact/')}): Email, phone, WhatsApp and contact form.
 
 ## Optional
@@ -42,4 +44,6 @@ export const llmsFullTxt = () =>
     pricingMarkdown(),
     aboutMarkdown(),
     founderMarkdown(),
+    careersMarkdown(),
+    ...careers.paths.map(careerPathMarkdown),
   ].join('\n\n---\n\n');

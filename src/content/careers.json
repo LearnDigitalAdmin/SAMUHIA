@@ -1,0 +1,566 @@
+{
+  "assumptions": {
+    "note": "Mirrors the Samuhia Desk commission rules. Change a number here and every estimate on the site updates.",
+    "paystackFeePct": 1.5,
+    "platformCutPct": 2.5,
+    "rankSharePct": {
+      "clerk": 25,
+      "senior": 30
+    },
+    "smsCostPerPartKes": 0.2,
+    "smsSharePct": 40,
+    "smsRatesPerPart": [
+      0.9,
+      0.75,
+      0.7,
+      0.5,
+      0.4
+    ],
+    "smsExampleTopUpKes": 1000,
+    "firstPurchaseThresholdKes": 200,
+    "firstPurchaseExampleKes": 150,
+    "firstPurchaseExampleRate": 0.7,
+    "importPriceKes": 200,
+    "schedulePriceKes": 100,
+    "manualEntryTiers": [
+      {
+        "upTo": 10,
+        "priceKes": 200
+      },
+      {
+        "upTo": 25,
+        "priceKes": 400
+      },
+      {
+        "upTo": 50,
+        "priceKes": 600
+      },
+      {
+        "upTo": 100,
+        "priceKes": 800
+      },
+      {
+        "upTo": 1000000,
+        "priceKes": 1000
+      }
+    ],
+    "manualEntryCapKes": 1000,
+    "manualEntryServiceFeeKes": 200,
+    "rentTakeCapKes": 250,
+    "rentDeskSharePct": 30,
+    "milestone": {
+      "blockSize": 10,
+      "bonusKes": 2000,
+      "lifetimeCapKes": 10000,
+      "minPaidMonths": 2
+    }
+  },
+  "hub": {
+    "eyebrow": "Careers · Samuhia Desk",
+    "heroPoints": [
+      "Independent, commission-based desks",
+      "Paid automatically when the customer pays",
+      "Pick one path or combine them"
+    ],
+    "stats": [
+      {
+        "value": "{{keepPct}}%",
+        "label": "of every desk service you keep, after payment fees"
+      },
+      {
+        "value": "Up to {{seniorPct}}%",
+        "label": "of each subscription, by rank"
+      },
+      {
+        "value": "{{bonus}}",
+        "label": "bonus per {{bonusBlock}} retained paying accounts"
+      },
+      {
+        "value": "From {{svcMinNet}}",
+        "label": "per completed service job"
+      }
+    ],
+    "pathsTitle": "Choose your path",
+    "pathsLead": "Start as a Clerk, grow into Senior, and focus on the customers you know best. Each path has its own page you can share.",
+    "earnTitle": "How you earn",
+    "earnLead": "Seven ways to earn, all calculated from Samuhia's published prices. The split happens at the moment the customer pays, so there is no invoicing and no waiting for a statement.",
+    "estimatesTitle": "What it could look like",
+    "estimatesLead": "Illustrative months built only from current prices. They assume the accounts are already onboarded and paying. They are not promises, and your results depend on the customers you serve.",
+    "journeyTitle": "From application to first payout",
+    "rulesTitle": "Straight talk before you apply",
+    "rulesLead": "This is a commission programme, not a salary. These are the rules every desk accepts.",
+    "faqTitle": "Questions people ask",
+    "otherTitle": "Other roles at SAMUHIA",
+    "otherText": "There are no staff vacancies right now. If you work in software engineering, product, design, operations, support, sales or partnerships, send an expression of interest and we will keep it on file.",
+    "applyLabel": "Apply for a desk",
+    "secondaryLabel": "See earnings",
+    "applyNote": "Applications are reviewed by Samuhia. Approval, training and activation are required before you can serve customers."
+  },
+  "streams": [
+    {
+      "key": "services",
+      "name": "Desk services",
+      "what": "Excel imports, manual data entry, schedule setup and bulk SMS reminders for customers.",
+      "rate": "You keep {{keepPct}}% after payment fees",
+      "example": "Customer pays {{svcMinPrice}} to {{svcMaxPrice}}. You earn about {{svcMinNet}} to {{svcMaxNet}} per job.",
+      "status": "Live"
+    },
+    {
+      "key": "chama",
+      "name": "MyChama subscriptions",
+      "what": "Commission on each paid MyChama plan of a chama you support.",
+      "rate": "{{clerkPct}}% Clerk · {{seniorPct}}% Senior of the amount after fees",
+      "example": "From {{chamaMinClerk}} up to {{chamaMaxSenior}} per chama per month.",
+      "status": "Live"
+    },
+    {
+      "key": "sms",
+      "name": "SMS credit top-ups",
+      "what": "Commission when your chamas, schools or landlords buy SMS credits.",
+      "rate": "{{smsSharePct}}% of the margin, never of the free sign-up tokens",
+      "example": "About {{smsMin}} to {{smsMax}} on a {{smsTopUp}} top-up, depending on the SMS rate.",
+      "status": "Live"
+    },
+    {
+      "key": "pms",
+      "name": "Plot Yangu subscriptions",
+      "what": "Commission on each paid Plot Yangu plan of a landlord you support.",
+      "rate": "{{clerkPct}}% Clerk · {{seniorPct}}% Senior of the amount after fees",
+      "example": "From {{pmsMinClerk}} up to {{pmsMaxSenior}} per landlord per month.",
+      "status": "Live"
+    },
+    {
+      "key": "rent",
+      "name": "Rent collection",
+      "what": "Collect rent for Plot Yangu tenants by M-Pesa prompt.",
+      "rate": "{{rentDeskPct}}% of Samuhia's fee, which is capped at {{rentCap}} per payment",
+      "example": "Up to {{rentMax}} per rent payment you collect.",
+      "status": "Live"
+    },
+    {
+      "key": "bonus",
+      "name": "Milestone bonus",
+      "what": "A bonus for building a base of retained paying chama and landlord accounts.",
+      "rate": "{{bonus}} per {{bonusBlock}} retained accounts",
+      "example": "Each account must have paid at least {{bonusMonths}} months in a row. Lifetime cap {{bonusCap}}.",
+      "status": "Live"
+    },
+    {
+      "key": "support",
+      "name": "Support quality bonus",
+      "what": "A monthly bonus for confirmed, customer-verified support visits.",
+      "rate": "Set by Samuhia, not guaranteed",
+      "example": "Reviewed monthly and paid by Samuhia after approval.",
+      "status": "Discretionary"
+    }
+  ],
+  "serviceRows": [
+    {
+      "service": "Excel import of members, students or tenants",
+      "price": "importPriceKes"
+    },
+    {
+      "service": "Manual entry, up to 10 records",
+      "records": 10
+    },
+    {
+      "service": "Manual entry, 11 to 25 records",
+      "records": 25
+    },
+    {
+      "service": "Manual entry, 26 to 50 records",
+      "records": 50
+    },
+    {
+      "service": "Manual entry, 51 to 100 records",
+      "records": 100
+    },
+    {
+      "service": "Manual entry, over 100 records",
+      "records": 1000000
+    },
+    {
+      "service": "Schedule setup or bulk reminder",
+      "price": "schedulePriceKes"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "Getting started",
+      "rank": "clerk",
+      "blurb": "A part-time Clerk with a handful of chamas.",
+      "lines": [
+        {
+          "kind": "subscription",
+          "product": "mychama",
+          "plan": "Basic",
+          "count": 4
+        },
+        {
+          "kind": "import",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "Steady desk",
+      "rank": "clerk",
+      "blurb": "A Clerk serving chamas, two landlords and a school.",
+      "lines": [
+        {
+          "kind": "subscription",
+          "product": "mychama",
+          "plan": "Basic",
+          "count": 10
+        },
+        {
+          "kind": "subscription",
+          "product": "plot-yangu",
+          "plan": "Business",
+          "count": 2
+        },
+        {
+          "kind": "import",
+          "count": 10
+        },
+        {
+          "kind": "sms",
+          "count": 2,
+          "topUpKes": 1000,
+          "rate": 0.7
+        }
+      ]
+    },
+    {
+      "name": "Established desk",
+      "rank": "senior",
+      "blurb": "A Senior desk in the month it reaches its first 10 retained accounts.",
+      "lines": [
+        {
+          "kind": "subscription",
+          "product": "mychama",
+          "plan": "Basic",
+          "count": 12
+        },
+        {
+          "kind": "subscription",
+          "product": "plot-yangu",
+          "plan": "Business",
+          "count": 4
+        },
+        {
+          "kind": "import",
+          "count": 8
+        },
+        {
+          "kind": "sms",
+          "count": 4,
+          "topUpKes": 1000,
+          "rate": 0.5
+        },
+        {
+          "kind": "bonus",
+          "blocks": 1
+        }
+      ]
+    }
+  ],
+  "scenarioNote": "Figures use a {{feePct}}% payment fee assumption and round down. Streams marked Rolling out may not be active for every account on day one.",
+  "journey": [
+    {
+      "title": "Apply",
+      "text": "Create your desk account with your name, phone number, ID number and ward."
+    },
+    {
+      "title": "Verify",
+      "text": "Upload your ID (front and back) and a selfie, and set the payout account where you are paid."
+    },
+    {
+      "title": "Train",
+      "text": "Samuhia reviews your application and invites you to training and certification."
+    },
+    {
+      "title": "Activate",
+      "text": "Once approved, Samuhia activates your desk with your own desk code."
+    },
+    {
+      "title": "Serve",
+      "text": "A customer asks for help and reads you a one-time code. You do the work in the app."
+    },
+    {
+      "title": "Get paid",
+      "text": "When the customer pays, Paystack splits the money and your share goes to your payout account."
+    }
+  ],
+  "rules": [
+    "This is an independent, commission-based role. It is not employment, and there is no salary or guaranteed income.",
+    "You open a customer's account only when they ask for help and give you their one-time code.",
+    "You may not own, administer or be related to the accounts you serve.",
+    "Samuhia sets the prices. You charge only what the app shows and take no payment outside it.",
+    "Commission is earned only when a customer actually pays. Free plans, free trials and free sign-up SMS tokens earn nothing.",
+    "Refunds are handled by Paystack and appear as reversals in your earnings.",
+    "Customer information stays private. Samuhia may suspend or close a desk that breaks the rules.",
+    "Estimates on this site assume a {{feePct}}% payment fee. The actual fee is set by Paystack, and prices can change."
+  ],
+  "faq": [
+    {
+      "q": "Is Samuhia Desk a job with a salary?",
+      "a": "No. Desk agents are independent and earn commission and service income. There is no salary and no guaranteed minimum, so what you earn depends on the customers you serve."
+    },
+    {
+      "q": "How much can a desk agent earn?",
+      "a": "It depends on how many customers you support. A completed Excel import earns about {{importNet}}, and a paid MyChama plan earns from {{chamaMinClerk}} to {{chamaMaxSenior}} per chama per month. Illustrative months are on this page, and they are estimates, not promises."
+    },
+    {
+      "q": "When and how am I paid?",
+      "a": "Service charges and commissions are split automatically by Paystack at the moment the customer pays, after payment fees, and sent to your payout account. Milestone and support bonuses are reviewed and paid by Samuhia."
+    },
+    {
+      "q": "What is the difference between Clerk and Senior?",
+      "a": "Every new desk starts as a Clerk and earns {{clerkPct}}% of subscriptions. A Senior earns {{seniorPct}}%. Samuhia sets the rank after review, and there is no automatic promotion or fixed timeline."
+    },
+    {
+      "q": "What do I need to apply?",
+      "a": "Your name, phone number, ID number, ward, a photo of your ID (front and back), a selfie and a payout account. Samuhia reviews every application and trains approved desks before activation."
+    },
+    {
+      "q": "Do I pay anything to join?",
+      "a": "The application flow in the app does not ask for a joining payment. Be cautious of anyone who asks you to pay outside the app, and report it to info@samuhia.co.ke."
+    },
+    {
+      "q": "Can I work on more than one path?",
+      "a": "Yes. The paths describe where you focus, not separate accounts. One desk can support chamas, schools and landlords with the same app."
+    }
+  ],
+  "paths": [
+    {
+      "slug": "desk-clerk",
+      "kind": "rank",
+      "rank": "clerk",
+      "name": "Desk Clerk",
+      "short": "Start here. Every new desk begins as a Clerk.",
+      "seoTitle": "Desk Clerk Path — Samuhia Desk Careers",
+      "description": "Start as a Samuhia Desk Clerk: keep {{keepPct}}% of desk services and earn {{clerkPct}}% of subscriptions. Real KES estimates, no salary promises.",
+      "eyebrow": "Path · Rank",
+      "headline": "Start as a Desk Clerk.",
+      "lead": "The entry rank for every new desk. Learn the tools, serve your first customers and start earning from {{clerkPct}}% of subscriptions and {{keepPct}}% of desk services.",
+      "forWho": [
+        "Students and graduates looking for flexible income",
+        "Cyber café, M-Pesa and shop operators who already help people with forms",
+        "Community members trusted by local chamas, schools or landlords"
+      ],
+      "youDo": [
+        "Import and enter member, student or tenant records",
+        "Schedule SMS reminders and send bulk messages",
+        "Run reports and exports for the customers you support",
+        "Log support visits that customers confirm by code"
+      ],
+      "earns": [
+        "services",
+        "chama",
+        "sms",
+        "pms",
+        "rent",
+        "bonus"
+      ],
+      "tables": [
+        "mychama",
+        "plot-yangu"
+      ],
+      "tableRank": "clerk",
+      "callout": "Senior desks earn {{seniorPct}}% instead of {{clerkPct}}% on subscriptions. Your next step is to build a base of retained, paying accounts.",
+      "next": "desk-senior",
+      "faq": [
+        {
+          "q": "Do I need experience to be a Desk Clerk?",
+          "a": "No formal qualification is listed. You need a valid ID, a phone, a payout account and a willingness to complete Samuhia's training."
+        },
+        {
+          "q": "How much does a Clerk earn per chama?",
+          "a": "On MyChama plans, a Clerk earns from {{chamaMinClerk}} per chama per month on the Starter plan, rising with the chama's plan."
+        }
+      ]
+    },
+    {
+      "slug": "desk-senior",
+      "kind": "rank",
+      "rank": "senior",
+      "name": "Senior Desk",
+      "short": "A higher share for desks with a proven, retained customer base.",
+      "seoTitle": "Senior Desk Path — Samuhia Desk Careers",
+      "description": "Senior Desk agents earn {{seniorPct}}% of every subscription and report on Samuhia products. See the KES estimates per plan and how rank is set.",
+      "eyebrow": "Path · Rank",
+      "headline": "Grow into a Senior Desk.",
+      "lead": "Senior desks earn {{seniorPct}}% of each subscription instead of {{clerkPct}}%. Rank is set by Samuhia after review, so there is no automatic promotion and no fixed timeline.",
+      "forWho": [
+        "Clerks with a growing base of paying chamas and landlords",
+        "Desks whose customers stay subscribed month after month",
+        "Agents with a record of confirmed, quality support"
+      ],
+      "youDo": [
+        "Everything a Clerk does, with a higher commission share",
+        "Keep your accounts healthy so they renew",
+        "Support newer desks in your area through your own example"
+      ],
+      "earns": [
+        "services",
+        "chama",
+        "sms",
+        "pms",
+        "rent",
+        "bonus",
+        "support"
+      ],
+      "tables": [
+        "mychama",
+        "plot-yangu"
+      ],
+      "tableRank": "senior",
+      "callout": "On the same account, a Senior earns {{seniorPct}}% where a Clerk earns {{clerkPct}}%, a difference of 5 percentage points on every paid subscription.",
+      "next": "chama-desk",
+      "faq": [
+        {
+          "q": "How do I become a Senior Desk?",
+          "a": "Samuhia's top desk reviews desks and sets the rank. Keeping customers paying and well supported is what makes a desk worth reviewing. No promotion date is promised."
+        },
+        {
+          "q": "Does a Senior earn more on desk services?",
+          "a": "No. Desk services pay {{keepPct}}% to every rank. The higher share applies to subscriptions and reports."
+        }
+      ]
+    },
+    {
+      "slug": "chama-desk",
+      "kind": "track",
+      "product": "mychama",
+      "name": "Chama Desk",
+      "short": "Help savings groups run on MyChama.",
+      "seoTitle": "Chama Desk — Earn Supporting Chamas on MyChama",
+      "description": "Support chamas on MyChama as a Samuhia Desk agent. Earn commission on each paid plan, from {{chamaMinClerk}} to {{chamaMaxSenior}} per chama per month.",
+      "eyebrow": "Path · Focus",
+      "headline": "Run a Chama Desk.",
+      "lead": "Chamas need someone to set them up, load their members and keep contributions on track. Earn commission on each paid MyChama plan, from {{chamaMinClerk}} to {{chamaMaxSenior}} per chama per month.",
+      "forWho": [
+        "Treasurers, secretaries and group organisers",
+        "Agents who already know many chamas in their area",
+        "Anyone comfortable with spreadsheets and phone-based reminders"
+      ],
+      "youDo": [
+        "Onboard a chama and import its member list",
+        "Schedule contribution reminders by SMS",
+        "Run contribution and loan reports for the group",
+        "Answer the chama's help requests from the Requests tab"
+      ],
+      "earns": [
+        "chama",
+        "services",
+        "sms",
+        "bonus"
+      ],
+      "tables": [
+        "mychama"
+      ],
+      "tableRank": "both",
+      "callout": "MyChama is free for groups up to 6 members. Commission starts when a chama subscribes to a paid plan.",
+      "next": "school-desk",
+      "faq": [
+        {
+          "q": "Do I earn while a chama is on the Free plan?",
+          "a": "No. Commission is earned on paid plans, SMS purchases and paid reports. Desk services you perform for the chama are paid by the chama."
+        },
+        {
+          "q": "Do I earn every month from the same chama?",
+          "a": "You earn on each paid subscription charge for as long as the chama stays on a paid plan with you as its desk. Samuhia cannot promise that a chama will renew."
+        }
+      ]
+    },
+    {
+      "slug": "school-desk",
+      "kind": "track",
+      "product": "myregister",
+      "name": "School Desk",
+      "short": "Help schools take attendance and message parents.",
+      "seoTitle": "School Desk — Earn Supporting Schools on MyRegister",
+      "description": "Support schools on MyRegister, which is free to use. Earn from SMS credit top-ups, plus data-entry services from {{svcMinNet}} per job.",
+      "eyebrow": "Path · Focus",
+      "headline": "Run a School Desk.",
+      "lead": "MyRegister is free for schools, so your income comes from the work you do and the SMS credits schools buy to message parents, about {{smsMin}} to {{smsMax}} on a {{smsTopUp}} top-up.",
+      "forWho": [
+        "Teachers, school administrators and bursars",
+        "Agents with relationships with local primary and secondary schools",
+        "Data-entry operators who can load class lists quickly"
+      ],
+      "youDo": [
+        "Import classes, students and teachers from Excel",
+        "Enter paper registers when a school has no spreadsheet",
+        "Send bulk reminders to parents",
+        "Run attendance reports and exports"
+      ],
+      "earns": [
+        "services",
+        "sms",
+        "support"
+      ],
+      "tables": [],
+      "tableRank": "both",
+      "callout": "On a school's first top-up under {{firstThreshold}}, a desk earns the full margin. For example a {{firstTopUp}} top-up earns about {{firstTopUpShare}}. Free sign-up tokens never earn.",
+      "next": "property-desk",
+      "faq": [
+        {
+          "q": "How does a School Desk earn if MyRegister is free?",
+          "a": "Through desk services, such as imports and manual entry that schools pay for, and through a share of the margin on SMS credits schools buy."
+        },
+        {
+          "q": "Do free SMS tokens earn commission?",
+          "a": "No. Free sign-up tokens never earn commission. Commission applies only to SMS credits a school pays for."
+        }
+      ]
+    },
+    {
+      "slug": "property-desk",
+      "kind": "track",
+      "product": "plot-yangu",
+      "name": "Property Desk",
+      "short": "Help landlords and agents run on Plot Yangu.",
+      "seoTitle": "Property Desk — Earn Supporting Landlords | Samuhia",
+      "description": "Support landlords on Plot Yangu as a Samuhia Desk agent. Earn from subscriptions, from {{pmsMinClerk}} to {{pmsMaxSenior}} a month, plus rent collection.",
+      "eyebrow": "Path · Focus",
+      "headline": "Run a Property Desk.",
+      "lead": "Landlords want tenants listed, invoices sent and rent collected. Earn commission on each paid Plot Yangu plan, from {{pmsMinClerk}} to {{pmsMaxSenior}} per landlord per month, plus up to {{rentMax}} on each rent payment you collect.",
+      "forWho": [
+        "Caretakers and property agents",
+        "Agents with a network of landlords and rental plots",
+        "Anyone who already collects rent for others"
+      ],
+      "youDo": [
+        "Set up properties and import tenant lists",
+        "Collect rent by M-Pesa prompt for tenants",
+        "Schedule rent reminders by SMS",
+        "Support landlords with invoices and reports"
+      ],
+      "earns": [
+        "pms",
+        "rent",
+        "sms",
+        "services",
+        "bonus"
+      ],
+      "tables": [
+        "plot-yangu"
+      ],
+      "tableRank": "both",
+      "callout": "New Plot Yangu accounts get a 3-month Business trial. Commission starts when the landlord pays for a plan.",
+      "next": "chama-desk",
+      "faq": [
+        {
+          "q": "Do I earn during a landlord's free trial?",
+          "a": "No. Commission is earned only when the landlord pays for a plan, so a free trial earns nothing."
+        },
+        {
+          "q": "How much do I earn on rent collection?",
+          "a": "Up to {{rentMax}} per rent payment, which is {{rentDeskPct}}% of Samuhia's fee on the payment. That fee is capped at {{rentCap}}."
+        }
+      ]
+    }
+  ]
+}

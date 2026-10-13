@@ -19,9 +19,9 @@
   },
   {
     "slug": "digital-services",
-    "title": "For Cyber Cafés & Small Shops",
-    "description": "Track customer jobs, shop sales, stock and expenses, and serve customers on WhatsApp.",
-    "product": "cyber"
+    "title": "For Agents & Service Desks",
+    "description": "Support chamas, schools and landlords and earn commission, paid automatically.",
+    "product": "desk"
   },
   {
     "slug": "payments",

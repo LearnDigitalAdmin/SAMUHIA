@@ -1,19 +1,19 @@
 {
   "products": {
-    "seoTitle": "SAMUHIA Products — Property, Schools, Chamas, Payments & Cyber",
-    "description": "Five operational SAMUHIA products forming one connected technology ecosystem: Plot Yangu, MyRegister, MyChama, Samuhia Cyber and Samuhia Payments.",
+    "seoTitle": "SAMUHIA Products — Property, Schools, Chamas, Desk & Payments",
+    "description": "Five operational SAMUHIA products forming one connected technology ecosystem: Plot Yangu, MyRegister, MyChama, Samuhia Desk and Samuhia Payments.",
     "title": "Five products. One ecosystem.",
     "lead": "Each SAMUHIA product serves a specific environment; Samuhia Payments connects them."
   },
   "solutions": {
     "seoTitle": "Solutions — Find the Right SAMUHIA Product for Your Operation",
-    "description": "Start with your problem: property management, schools, chamas, cyber cafés and small shops, and rent and payment collection in Kenya.",
+    "description": "Start with your problem: property management, schools, chamas, agent desks, and rent and payment collection in Kenya.",
     "title": "Solutions for real operations.",
     "lead": "Start with the problem you need to solve and we will point you to the SAMUHIA product built for it."
   },
   "pricing": {
     "seoTitle": "Pricing — SAMUHIA Plans in Kenya Shillings",
-    "description": "Plans and pricing for Plot Yangu, MyChama and MyRegister, plus how fees work for Samuhia Cyber and Samuhia Payments. All prices in KES.",
+    "description": "Plans and pricing for Plot Yangu, MyChama and MyRegister, plus how fees work for Samuhia Desk and Samuhia Payments. All prices in KES.",
     "title": "Pricing by product.",
     "lead": "Every plan is paid by M-Pesa. Plot Yangu includes a 3-month Business trial with no card, and MyRegister is free.",
     "footnote": "Prices are in Kenya shillings and can change. Confirm current prices in each app before you subscribe."
@@ -28,7 +28,7 @@
   },
   "support": {
     "seoTitle": "Support — Get Help With SAMUHIA Products",
-    "description": "Get help with Plot Yangu, MyChama, MyRegister, Samuhia Cyber, Samuhia Payments and general SAMUHIA questions.",
+    "description": "Get help with Plot Yangu, MyChama, MyRegister, Samuhia Desk, Samuhia Payments and general SAMUHIA questions.",
     "title": "What can we help with?"
   },
   "contact": {
@@ -37,10 +37,10 @@
     "title": "Let's build what matters."
   },
   "careers": {
-    "seoTitle": "Careers at SAMUHIA",
-    "description": "No vacancies right now. Send an expression of interest for future roles in engineering, product, design, operations and support.",
-    "title": "We're building something ambitious.",
-    "lead": "No vacancies right now. Future roles may span software engineering, product, design, operations, customer support, sales and business development."
+    "seoTitle": "Careers at SAMUHIA — Samuhia Desk Agent Paths",
+    "description": "Join Samuhia Desk as an independent agent. Pick a Clerk, Senior, Chama, School or Property path and earn commission paid automatically, with KES estimates.",
+    "title": "Build income on the Samuhia network.",
+    "lead": "Samuhia Desk is our agent programme. Help chamas, schools and landlords go digital, keep up to {{keepPct}}% of every service you deliver and earn commission on every plan and SMS top-up, paid automatically."
   },
   "privacy": {
     "seoTitle": "Privacy Policy",

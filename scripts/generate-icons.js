@@ -58,7 +58,7 @@ const entries = sizes.map((s, i) => {
 fs.writeFileSync(out('src', 'static', 'favicon.ico'), Buffer.concat([header, ...entries, ...pngs]));
 
 // Open Graph image 1200×630: reversed master lockup + the five product icons.
-const keys = ['plot-yangu', 'myregister', 'mychama', 'cyber', 'payments'];
+const keys = ['plot-yangu', 'myregister', 'mychama', 'desk', 'payments'];
 const lock = dataUri(read('samuhia-lockup-reversed.svg'));
 const tile = 112, gap = 28, rowW = keys.length * tile + (keys.length - 1) * gap, x0 = (1200 - rowW) / 2;
 const og = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">

@@ -1,6 +1,7 @@
 // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
 // Written for LLM ingestion: dense, factual, no navigation chrome.
-import { site, home, about, founder, pages, products, solutions, productBySlug, abs } from '../lib/data.js';
+import { site, home, about, founder, pages, products, solutions, productBySlug, abs, careers } from '../lib/data.js';
+import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
 
 const list = (items) => items.map((x) => `- ${x}`).join('\n');
 const nl = (...parts) => parts.filter((p) => p !== '' && p != null).join('\n\n') + '\n';
@@ -30,6 +31,7 @@ export const productMarkdown = (p) =>
     `## How it works\n${p.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
     `## At a glance\n${list(p.facts.map((f) => `**${f.label}:** ${f.value}`))}`,
     `## Pricing\n${plansMarkdown(p)}${p.priceNote ? `\n\n${p.priceNote}` : ''}`,
+    p.careersCta ? `## Careers\n${p.careersCta.text} ${abs(p.careersCta.href)}` : '',
     `## Part of the SAMUHIA ecosystem\n${p.connects}`,
     `## Frequently asked questions\n${p.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
   );
@@ -77,4 +79,53 @@ export const homeMarkdown = () =>
     `## Products\n${list(products.map((p) => `[${p.name}](${abs(`/products/${p.slug}/`)}) — ${p.description}`))}`,
     `## Story\n${home.story.paragraphs.join('\n\n')}\n\n${home.story.closing}`,
     `## Frequently asked questions\n${home.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
+  );
+
+const streamsMd = (keys) =>
+  careers.streams
+    .filter((x) => !keys || keys.includes(x.key))
+    .map((x) => `- **${x.name}** (${x.status}): ${fill(x.what)} ${fill(x.rate)}. ${fill(x.example)}`)
+    .join('\n');
+
+const plansMd = (slug) =>
+  `### ${productBySlug(slug).name}: estimate per account per month\n` +
+  planEarnings(slug).map((r) => `- ${r.name} (${kes(r.price)} / month): Clerk ${kes(r.clerk)}, Senior ${kes(r.senior)}`).join('\n');
+
+const servicesMd = () =>
+  `### Desk services\n` +
+  careers.serviceRows
+    .map((r) => {
+      const price = r.records ? manualEntryPrice(r.records) : careers.assumptions[r.price];
+      return `- ${r.service}: customer pays ${kes(price)}, you earn about ${kes(serviceNet(price))}`;
+    })
+    .join('\n');
+
+export const careersMarkdown = () =>
+  nl(
+    `# ${pages.careers.title}`,
+    `> ${fill(pages.careers.description)}`,
+    fill(pages.careers.lead),
+    `## Career paths\n${careers.paths.map((p) => `- [${p.name}](${abs(`/careers/${p.slug}/`)}): ${fill(p.short)}`).join('\n')}`,
+    `## How you earn\n${streamsMd()}`,
+    servicesMd(),
+    `## Illustrative months\n${careers.scenarios.map(scenario).map((s) => `### ${s.name} (${s.rank})\n${s.computed.map((l) => `- ${l.label}: ${kes(l.amount)}`).join('\n')}\n- Total: about ${kes(s.total)}`).join('\n\n')}\n\n${fill(careers.scenarioNote)}`,
+    `## From application to first payout\n${careers.journey.map((j, i) => `${i + 1}. **${j.title}:** ${fill(j.text)}`).join('\n')}`,
+    `## Rules\n${list(careers.rules.map(fill))}`,
+    `## Frequently asked questions\n${careers.faq.map((q) => `### ${fill(q.q)}\n${fill(q.a)}`).join('\n\n')}`,
+    `## Other roles\n${fill(careers.hub.otherText)} Email ${site.email}.`,
+    `**Apply:** ${productBySlug('desk').appUrl}`,
+  );
+
+export const careerPathMarkdown = (p) =>
+  nl(
+    `# ${p.name} — Samuhia Desk career path`,
+    `> ${fill(p.description)}`,
+    fill(p.lead),
+    `## Who it suits\n${list(p.forWho.map(fill))}`,
+    `## What you do\n${list(p.youDo.map(fill))}`,
+    `## What you can earn\n${fill(p.callout)}\n\n${streamsMd(p.earns)}`,
+    ...(p.tables || []).map(plansMd),
+    p.earns.includes('services') ? servicesMd() : '',
+    `## Questions\n${p.faq.map((q) => `### ${fill(q.q)}\n${fill(q.a)}`).join('\n\n')}`,
+    `**Page:** ${abs(`/careers/${p.slug}/`)}  \n**Apply:** ${productBySlug('desk').appUrl}`,
   );

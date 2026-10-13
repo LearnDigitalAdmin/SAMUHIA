@@ -17,6 +17,28 @@
     addEventListener('keydown', (e) => e.key === 'Escape' && set(false));
   }
 
+  /* ---------- Share bar: reveal Copy link / native share when supported (links work without JS) ---------- */
+  $$('.cr-copy').forEach((btn) => {
+    const url = btn.dataset.copy;
+    if (!url) return;
+    if (!(navigator.share || (navigator.clipboard && navigator.clipboard.writeText))) return;
+    btn.hidden = false;
+    const label = navigator.share ? 'Share' : btn.textContent;
+    btn.textContent = label;
+    btn.addEventListener('click', async () => {
+      try {
+        if (navigator.share) await navigator.share({ title: btn.dataset.title, url });
+        else {
+          await navigator.clipboard.writeText(url);
+          btn.textContent = 'Link copied';
+          setTimeout(() => (btn.textContent = label), 2000);
+        }
+      } catch (_) {
+        /* user cancelled */
+      }
+    });
+  });
+
   /* ---------- Reveal on scroll (only below-the-fold elements are hidden, so no flash) ---------- */
   const targets = $$('[data-reveal]');
   if (targets.length && 'IntersectionObserver' in window && !reduceMotion) {

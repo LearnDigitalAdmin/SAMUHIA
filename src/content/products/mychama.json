@@ -124,10 +124,10 @@
   "priceSummary": "From free (6 members) to KES 4,990 a month. See the plans above.",
   "ctaLabel": "Open MyChama",
   "ctaSecondary": "Explore MyChama",
-  "connects": "Online payments run through Samuhia Payments, and members can also use the WhatsApp assistant from Samuhia Cyber.",
+  "connects": "Online payments run through Samuhia Payments, and approved Samuhia Desk agents can set up and support your chama.",
   "related": [
     "payments",
-    "cyber"
+    "desk"
   ],
   "solution": "chamas",
   "faq": [

@@ -9,7 +9,7 @@
   "color": "#B8741A",
   "abbr": "SP",
   "description": "The payment layer behind the ecosystem: M-Pesa, Airtel Money and card payments, verified and settled to the right account.",
-  "longDescription": "Samuhia Payments is how money moves across SAMUHIA products. Tenants view invoices and pay rent, landlords and agents accept payments and choose where they are settled, and every product (Plot Yangu, MyChama, Samuhia Cyber, MyRegister) uses the same verified payment flow instead of building its own.",
+  "longDescription": "Samuhia Payments is how money moves across SAMUHIA products. Tenants view invoices and pay rent, landlords and agents accept payments and choose where they are settled, and every product (Plot Yangu, MyChama, Samuhia Desk, MyRegister) uses the same verified payment flow instead of building its own.",
   "problem": "Every product that handles money needs dependable payment, verification and record-keeping. Rebuilding it per product creates inconsistency and risk.",
   "features": [
     "M-Pesa and Airtel Money prompts on the payer's phone",
@@ -51,11 +51,11 @@
   "priceSummary": "No subscription. Fees are shown before each payment.",
   "ctaLabel": "Open Samuhia Payments",
   "ctaSecondary": "Explore Samuhia Payments",
-  "connects": "Powers payments for Plot Yangu, MyChama, Samuhia Cyber and MyRegister.",
+  "connects": "Powers payments for Plot Yangu, MyChama, Samuhia Desk and MyRegister.",
   "related": [
     "plot-yangu",
     "mychama",
-    "cyber",
+    "desk",
     "myregister"
   ],
   "solution": "payments",

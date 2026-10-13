@@ -16,6 +16,7 @@ export const about = readJson(CONTENT, 'about.json');
 export const founder = readJson(CONTENT, 'founder.json');
 export const security = readJson(CONTENT, 'security.json');
 export const pages = readJson(CONTENT, 'pages.json');
+export const careers = readJson(CONTENT, 'careers.json');
 export const solutions = readJson(CONTENT, 'solutions.json');
 export const brand = readJson(SRC, 'assets', 'brand', 'brand.json');
 

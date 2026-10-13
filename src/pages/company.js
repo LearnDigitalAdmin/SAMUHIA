@@ -1,5 +1,5 @@
 import { esc, each } from '../lib/html.js';
-import { site, pages, about, founder, security } from '../lib/data.js';
+import { site, about, founder, security } from '../lib/data.js';
 import { founderPortrait } from '../components/portrait.js';
 import * as ld from '../seo/jsonld.js';
 import { aboutMarkdown, founderMarkdown } from '../seo/markdown.js';
@@ -60,15 +60,3 @@ export const securityPage = () => ({
   jsonld: [ld.webPage({ path: '/security/', title: security.seoTitle, description: security.description })],
   body: `<div class="page wrap"><p class="eyebrow">Security</p><h1>${esc(security.title)}</h1><p class="lead">${esc(security.lead)}</p><ul class="chk" style="margin-top:32px">${each(security.practices, (x) => `<li>${esc(x)}</li>`)}</ul><p class="muted" style="margin-top:20px">${esc(security.note)}</p></div>`,
 });
-
-export const careersPage = () => {
-  const c = pages.careers;
-  return {
-    path: '/careers/',
-    title: c.seoTitle,
-    description: c.description,
-    crumbs: [{ label: 'Company', href: '/about/' }, { label: 'Careers' }],
-    jsonld: [ld.webPage({ path: '/careers/', title: c.seoTitle, description: c.description })],
-    body: `<div class="page wrap"><p class="eyebrow">Careers</p><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="row"><a class="btn pri" href="mailto:${esc(site.email)}?subject=Expression%20of%20interest">Send an expression of interest</a></div></div>`,
-  };
-};

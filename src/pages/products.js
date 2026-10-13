@@ -51,6 +51,7 @@ export const productPage = (p) => {
   <section aria-labelledby="audience"><h2 id="audience">Who it's for</h2><p>${esc(p.audience)}.</p>${solution ? `<p style="margin-top:10px"><a href="/solutions/${esc(solution.slug)}/">See the ${esc(solution.title.replace(/^For /, ''))} solution →</a></p>` : ''}</section>
   <section aria-labelledby="pricing"><h2 id="pricing">Pricing</h2>${priceBlock(p)}</section>
   <section aria-labelledby="ecosystem"><h2 id="ecosystem">Part of the SAMUHIA ecosystem</h2><p style="margin-bottom:18px">${esc(p.connects)}</p>${relatedList(p.related)}</section>
+  ${p.careersCta ? `<section aria-labelledby="careers"><div class="product-careers"><div><h2 id="careers">${esc(p.careersCta.title)}</h2><p>${esc(p.careersCta.text)}</p></div><a class="btn pri" href="${esc(p.careersCta.href)}">${esc(p.careersCta.label)}</a></div></section>` : ''}
   <section aria-labelledby="faq"><h2 id="faq">FAQ</h2>${faq(p.faq)}</section>
   <div class="row">${cta}<a class="btn" href="/products/">All products</a></div>
 </article></div>`;
