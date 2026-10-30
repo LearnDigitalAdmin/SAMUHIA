@@ -1,0 +1,193 @@
+[
+  {
+    "order": 1,
+    "slug": "landlord-watch",
+    "name": "Landlord Watch",
+    "product": "plot-yangu",
+    "kicker": "Plot Yangu feature · WhatsApp and web",
+    "seoTitle": "Landlord Watch: See Agent-Managed Rent | SAMUHIA",
+    "description": "Landlord Watch shows landlords with agent-managed properties what rent was collected, what is pending and what is payable, on WhatsApp or the web.",
+    "cardDescription": "A read-only view of rent collection, commission and net payable for landlords whose properties are managed by an agency.",
+    "title": "Landlord Watch",
+    "lead": "If an agency manages your property, you should not have to chase a phone call to find out whether rent came in. Landlord Watch gives you a read-only view of your property's rent collection, on WhatsApp or the web, in English or Kiswahili.",
+    "audience": "Landlords whose properties are managed by an agency or property manager, and the agencies that manage them",
+    "serviceType": "Landlord rent reporting",
+    "channels": ["WhatsApp", "Web"],
+    "ctaLabel": "Open Plot Yangu",
+    "ctaHref": "https://plot.samuhia.co.ke",
+    "ctaSecondaryLabel": "Talk to us about Landlord Watch",
+    "ctaSecondaryHref": "/contact/",
+    "problem": "When a landlord hands a property to an agency, the numbers often arrive once a month, if at all. The landlord waits to learn what was collected, what is outstanding and what they will be paid, and the agency answers the same questions again and again.",
+    "capabilitiesTitle": "What a landlord can see",
+    "capabilities": [
+      "Occupancy: active tenants, occupied units and vacant units",
+      "The month's invoices at a glance: paid, part-paid and unpaid",
+      "Rent billed, collected and still pending, with a collection rate",
+      "The agent's commission and the net amount payable to the landlord",
+      "How much was collected by the due date and how much after it",
+      "Who has paid and who has not, unit by unit",
+      "A month-by-month trend, and any earlier month on request",
+      "The monthly statement: income, deductions and net payable",
+      "An official monthly statement as a PDF"
+    ],
+    "steps": [
+      "Your agent manages the property in Plot Yangu and gives you the property's ID.",
+      "Open Landlord Watch on WhatsApp (choose it from the menu or type WATCH) or from the Landlord Watch button on the Plot Yangu sign-in screen, and enter the property ID.",
+      "See the property summary straight away. Tenant names and phone numbers stay hidden until you unlock them.",
+      "To unlock details, ask for a one-time code. It is sent by SMS to the owner phone number on file for the property.",
+      "Browse the tenants list, the money breakdown and earlier months, and request the monthly statement PDF."
+    ],
+    "safeguards": {
+      "title": "Privacy and control",
+      "items": [
+        "Landlord Watch is for viewing. It does not change invoices, payments or tenant records.",
+        "Tenant names and phone numbers are hidden by default.",
+        "Details unlock with a one-time SMS code sent to the owner phone on file, and the unlock is temporary.",
+        "Signing in on the web with the phone number registered as the property owner's unlocks details without a separate code.",
+        "If no owner phone number is on file, details stay hidden until the agent adds one."
+      ]
+    },
+    "audiences": [
+      {
+        "id": "agencies",
+        "title": "Why agencies offer Landlord Watch",
+        "lead": "Landlord Watch works from the records you already keep in Plot Yangu. You stay the system of record, and your landlords get a clear window onto their own property.",
+        "items": [
+          "Answers the landlord's routine question, \"has the rent come in?\", before they have to ask it.",
+          "Landlords see figures drawn from your Plot Yangu records, so month-end conversations are about the numbers rather than whether they exist.",
+          "Tenant names and phone numbers are protected by default, so you can offer transparency without handing over your tenant list.",
+          "Landlords can check at any time on WhatsApp, the channel they already use.",
+          "A visible, professional reporting service helps you win new landlords and keep the ones you have."
+        ]
+      }
+    ],
+    "facts": [
+      { "label": "Who it's for", "value": "Landlords with agent-managed properties" },
+      { "label": "Where", "value": "WhatsApp and the Plot Yangu web app" },
+      { "label": "Languages", "value": "English and Kiswahili" },
+      { "label": "Access", "value": "Read-only; one-time SMS code unlocks tenant details" },
+      { "label": "Part of", "value": "Plot Yangu" }
+    ],
+    "related": ["plot-yangu", "payments", "desk"],
+    "relatedFeatures": ["house-to-rent"],
+    "faq": [
+      {
+        "q": "What is Landlord Watch?",
+        "a": "Landlord Watch is a Plot Yangu feature that lets a landlord whose property is managed by an agency see how the property is performing: rent billed, collected and pending, the agent's commission, the net amount payable and who has paid. It is available on WhatsApp and on the web, in English and Kiswahili."
+      },
+      {
+        "q": "Can a landlord change anything in Landlord Watch?",
+        "a": "No. Landlord Watch is read-only. The agency keeps managing invoices, payments and tenants in Plot Yangu."
+      },
+      {
+        "q": "Can landlords see tenant names and phone numbers?",
+        "a": "Only after they unlock them. Tenant details are hidden by default, and a landlord unlocks them with a one-time code sent by SMS to the owner phone number on file."
+      },
+      {
+        "q": "How does a landlord get access?",
+        "a": "Ask your agent for your property's ID in Plot Yangu, then open Landlord Watch on WhatsApp or the web and enter it."
+      },
+      {
+        "q": "Does my agency need Plot Yangu?",
+        "a": "Yes. Landlord Watch shows properties that your agency manages in Plot Yangu. Agencies can start on the Plot Yangu product page."
+      },
+      {
+        "q": "Can I get a monthly statement?",
+        "a": "Yes. You can request an official monthly statement as a PDF. If a fee applies, the price is shown and you pay by M-Pesa before the statement is generated."
+      }
+    ]
+  },
+  {
+    "order": 2,
+    "slug": "house-to-rent",
+    "name": "House to Rent",
+    "product": "plot-yangu",
+    "kicker": "Plot Yangu feature · WhatsApp",
+    "seoTitle": "House to Rent / House to Let on WhatsApp | SAMUHIA",
+    "description": "Find a house to rent or let by area on WhatsApp, see rent and deposit, and send an inquiry to the property manager by SMS. In English and Kiswahili.",
+    "cardDescription": "Search vacant units by area on WhatsApp and send an inquiry straight to the property manager.",
+    "title": "House to Rent",
+    "lead": "Looking for a house to let in Kenya usually means calling around. House to Rent lets people type an area on WhatsApp, browse vacant units with their rent and deposit, and send an inquiry straight to the property manager.",
+    "audience": "People looking for a house, room, shop or office to rent, and property managers and landlords with vacant units",
+    "serviceType": "Rental listings",
+    "channels": ["WhatsApp"],
+    "ctaLabel": "Open Plot Yangu",
+    "ctaHref": "https://plot.samuhia.co.ke",
+    "ctaSecondaryLabel": "Talk to us about listing your units",
+    "ctaSecondaryHref": "/contact/",
+    "problem": "Every vacant unit is rent that is not being earned, and a unit nobody knows about stays vacant. House hunters, on the other hand, spend days phoning agents and visiting buildings that turn out to be full.",
+    "capabilitiesTitle": "What a house hunter can do",
+    "capabilities": [
+      "Search by area, for example Naivasha or Mirera, in English or Kiswahili",
+      "Browse vacant units: single rooms, bedsitters, studios, one, two and three bedrooms, maisonettes, shops, offices, stalls and warehouses",
+      "See the property name, address, type, condition, monthly rent and deposit",
+      "View the property manager's contact details",
+      "Send an inquiry by SMS to the manager from inside WhatsApp, after confirming the message and the phone number to call back"
+    ],
+    "steps": [
+      "A property manager or landlord keeps units in Plot Yangu and marks the empty ones as vacant.",
+      "For properties synced to the cloud, vacant unit details are listed automatically. Nothing extra to post.",
+      "A house hunter opens the SAMUHIA WhatsApp menu, chooses House to Rent and types the area they want.",
+      "They pick a unit from the matches and see its rent, deposit and details.",
+      "They contact the manager, or confirm their phone number and send an inquiry. The manager receives it by SMS and calls back."
+    ],
+    "safeguards": {
+      "title": "Built to protect landlords and tenants",
+      "items": [
+        "Only unit facts are shown: size, type, condition, rent and deposit. Tenant records and the landlord's personal details are never listed.",
+        "A unit disappears from the list as soon as it is no longer marked vacant.",
+        "Inquiries are limited per person each day, and a repeat inquiry for the same unit is blocked, so managers are not flooded.",
+        "The house hunter sees exactly what will be sent and confirms it before anything goes out."
+      ]
+    },
+    "audiences": [
+      {
+        "id": "managers",
+        "title": "Why property managers and landlords list here",
+        "lead": "House to Rent turns the units you already track in Plot Yangu into leads, on the channel people already use.",
+        "items": [
+          "No separate listing to write or keep up to date. Your vacancies come from your Plot Yangu records.",
+          "Reach people searching by area on WhatsApp, in English or Kiswahili.",
+          "Inquiries arrive by SMS with the person's number, ready for a call back.",
+          "Works for homes and for commercial space such as shops, offices, stalls and warehouses.",
+          "Pairs with Landlord Watch: landlords see the vacancies and the rent, and agents fill the units."
+        ]
+      }
+    ],
+    "facts": [
+      { "label": "Where", "value": "WhatsApp" },
+      { "label": "Search by", "value": "Area" },
+      { "label": "Listings come from", "value": "Vacant units in Plot Yangu" },
+      { "label": "Languages", "value": "English and Kiswahili" },
+      { "label": "Contact", "value": "Manager's details or an SMS inquiry" }
+    ],
+    "related": ["plot-yangu", "payments"],
+    "relatedFeatures": ["landlord-watch"],
+    "faq": [
+      {
+        "q": "How do I find a house to rent on WhatsApp?",
+        "a": "Open the SAMUHIA WhatsApp menu, choose House to Rent and type the area you want to live in. You will see the vacant units listed there, with rent and deposit, and can open any one for details."
+      },
+      {
+        "q": "What details do I see for each unit?",
+        "a": "The unit size and number, the property name, the address, whether it is residential or commercial, its condition, the monthly rent and the deposit."
+      },
+      {
+        "q": "Can I search for shops and offices as well as houses?",
+        "a": "Yes. Listings include shops, offices, stalls and warehouses alongside single rooms, bedsitters, studios, bedroom units and maisonettes."
+      },
+      {
+        "q": "How does my inquiry reach the property manager?",
+        "a": "You confirm your phone number and the message, and it is sent to the manager by SMS. The manager then contacts you. You can also use the manager's contact details directly."
+      },
+      {
+        "q": "How do I list my vacant units?",
+        "a": "Manage the property in Plot Yangu with cloud sync and mark empty units as vacant. They are listed automatically, and they leave the list when they are no longer vacant."
+      },
+      {
+        "q": "Are tenant details shown in listings?",
+        "a": "No. Listings show unit facts only. Tenant records and the landlord's personal details are never part of a listing."
+      }
+    ]
+  }
+]

@@ -1,4 +1,4 @@
-import { site, founder, products, abs } from '../lib/data.js';
+import { site, founder, products, features, abs } from '../lib/data.js';
 
 const ORG_ID = () => abs('/#org');
 const SITE_ID = () => abs('/#website');
@@ -22,7 +22,7 @@ export const organization = () => ({
   address: { '@type': 'PostalAddress', addressCountry: site.countryCode },
   areaServed: { '@type': 'Country', name: site.countryName },
   contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
-  knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses'],
+  knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses', 'Landlord rent reporting for agent-managed properties', 'Rental listings and vacant unit search on WhatsApp'],
   ...(site.social.length ? { sameAs: site.social.map((s) => s.url) } : {}),
 });
 
@@ -117,4 +117,25 @@ export const productItemList = () => ({
   '@type': 'ItemList',
   name: 'SAMUHIA products',
   itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/products/${p.slug}/`), name: p.name })),
+});
+
+/** A named feature of a product (Landlord Watch, House to Rent), described as a Service tied to its product's SoftwareApplication. */
+export const featureService = (f) => ({
+  '@type': 'Service',
+  '@id': abs(`/features/${f.slug}/`) + '#service',
+  name: f.name,
+  serviceType: f.serviceType,
+  description: f.description,
+  url: abs(`/features/${f.slug}/`),
+  provider: { '@id': ORG_ID() },
+  areaServed: { '@type': 'Country', name: site.countryName },
+  audience: { '@type': 'Audience', audienceType: f.audience },
+  availableChannel: f.channels.map((c) => ({ '@type': 'ServiceChannel', name: c, availableLanguage: ['English', 'Swahili'] })),
+  isRelatedTo: { '@id': abs(`/products/${f.product}/`) + '#app' },
+});
+
+export const featureItemList = () => ({
+  '@type': 'ItemList',
+  name: 'SAMUHIA features',
+  itemListElement: features.map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/features/${f.slug}/`), name: f.name })),
 });

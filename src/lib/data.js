@@ -18,6 +18,12 @@ export const security = readJson(CONTENT, 'security.json');
 export const pages = readJson(CONTENT, 'pages.json');
 export const careers = readJson(CONTENT, 'careers.json');
 export const solutions = readJson(CONTENT, 'solutions.json');
+export const features = readJson(CONTENT, 'features.json').sort((a, b) => a.order - b.order);
+export const featureBySlug = (slug) => {
+  const f = features.find((x) => x.slug === slug);
+  if (!f) throw new Error(`Unknown feature slug: ${slug}`);
+  return f;
+};
 export const brand = readJson(SRC, 'assets', 'brand', 'brand.json');
 
 export const products = fs

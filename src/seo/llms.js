@@ -1,6 +1,6 @@
 // /llms.txt (llmstxt.org format) and /llms-full.txt
-import { site, products, solutions, abs, productBySlug, careers } from '../lib/data.js';
-import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown } from './markdown.js';
+import { site, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
+import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown } from './markdown.js';
 
 const md = (p) => abs(p + 'index.md');
 
@@ -17,6 +17,10 @@ ${products.map((p) => `- [${p.name}](${md(`/products/${p.slug}/`)}): ${p.descrip
 ## Solutions
 
 ${solutions.map((s) => `- [${s.title}](${md(`/solutions/${s.slug}/`)}): ${s.description} Recommended: ${productBySlug(s.product).name}.`).join('\n')}
+
+## Features
+
+${features.map((f) => `- [${f.name}](${md(`/features/${f.slug}/`)}): ${f.cardDescription}`).join('\n')}
 
 ## Company
 
@@ -41,6 +45,8 @@ export const llmsFullTxt = () =>
     ...products.map(productMarkdown),
     solutionsIndexMarkdown(),
     ...solutions.map(solutionMarkdown),
+    featuresIndexMarkdown(),
+    ...features.map(featureMarkdown),
     pricingMarkdown(),
     aboutMarkdown(),
     founderMarkdown(),

@@ -9,7 +9,7 @@
   "color": "#7A3E8E",
   "abbr": "PY",
   "description": "Properties, units, tenants, invoices and M-Pesa rent in one dashboard. Works offline on web, Android and desktop.",
-  "longDescription": "Plot Yangu is a property management app for landlords and property agents in Kenya. It keeps properties, units, tenants, invoices and M-Pesa payments in one dashboard, stores your data on your device first so it works offline, and syncs across devices in the cloud on paid plans.",
+  "longDescription": "Plot Yangu is a property management app for landlords and property agents in Kenya. It keeps properties, units, tenants, invoices and M-Pesa payments in one dashboard, stores your data on your device first so it works offline, and syncs across devices in the cloud on paid plans. Landlord Watch gives landlords of agent-managed properties a read-only view of their rent on WhatsApp or the web, and House to Rent lists vacant units for people searching by area on WhatsApp.",
   "problem": "Rent tracking, arrears, expenses and tenant messages are scattered, so owners rarely see the true financial picture of their properties.",
   "features": [
     "Multiple properties and units",
@@ -18,6 +18,8 @@
     "M-Pesa rent collection, matched to the right invoice",
     "Automatic tenant messages: SMS first, WhatsApp backup for tenants who opted in",
     "Arrears tracking",
+    "Landlord Watch: landlords of agent-managed properties see rent collected, pending and payable on WhatsApp or the web",
+    "House to Rent: vacant units listed for people searching by area on WhatsApp, with SMS inquiries to the manager",
     "Excel and PDF exports and reports",
     "Your own logo on invoices (Business and above)",
     "Multi-device cloud sync (Solo and above)",
@@ -47,6 +49,10 @@
     {
       "label": "Payments",
       "value": "M-Pesa through Samuhia Payments"
+    },
+    {
+      "label": "WhatsApp",
+      "value": "Landlord Watch and House to Rent, in English and Kiswahili"
     }
   ],
   "plans": [
@@ -89,8 +95,8 @@
         "Automatic tenant notifications",
         "WhatsApp support"
       ],
-      "highlight": false,
-      "tag": ""
+      "highlight": true,
+      "tag": "For a Single Property Owner"
     },
     {
       "name": "Business",
@@ -141,7 +147,7 @@
   "priceSummary": "Six plans from free to KES 5,600 a month. See the plans above.",
   "ctaLabel": "Open Plot Yangu",
   "ctaSecondary": "View pricing",
-  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf.",
+  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf. Landlord Watch and House to Rent extend Plot Yangu to landlords and house hunters on WhatsApp.",
   "related": [
     "payments",
     "desk"
@@ -167,6 +173,14 @@
     {
       "q": "How do I pay for a plan?",
       "a": "By M-Pesa. You get a prompt on your phone and confirm with your PIN. Payments are processed through Paystack."
+    },
+    {
+      "q": "What is Landlord Watch?",
+      "a": "Landlord Watch lets a landlord whose property is managed by an agency see rent billed, collected and pending, the agent's commission, the net amount payable and who has paid, on WhatsApp or the web. It is read-only, and tenant details stay hidden until the landlord unlocks them with a one-time SMS code."
+    },
+    {
+      "q": "What is House to Rent?",
+      "a": "House to Rent lets people search for vacant units by area on WhatsApp and send an inquiry to the property manager by SMS. Units marked vacant in Plot Yangu are listed automatically for properties synced to the cloud."
     }
   ],
   "presentation": {
@@ -236,5 +250,9 @@
     ]
   },
   "schemaCategory": "BusinessApplication",
-  "operatingSystem": "Web, Android, Windows, macOS, Linux"
+  "operatingSystem": "Web, Android, Windows, macOS, Linux",
+  "featureSlugs": [
+    "landlord-watch",
+    "house-to-rent"
+  ]
 }

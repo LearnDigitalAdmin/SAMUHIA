@@ -11,6 +11,12 @@
     "title": "Solutions for real operations.",
     "lead": "Start with the problem you need to solve and we will point you to the SAMUHIA product built for it."
   },
+  "features": {
+    "seoTitle": "Features: Landlord Watch and House to Rent | SAMUHIA",
+    "description": "Landlord Watch gives agent-managed landlords a live view of rent. House to Rent lists vacant units on WhatsApp. Both are part of Plot Yangu.",
+    "title": "Features that connect landlords, agents and tenants.",
+    "lead": "Two Plot Yangu features built for how rental property works in Kenya: landlords who want visibility, and people who want a place to live."
+  },
   "pricing": {
     "seoTitle": "Pricing — SAMUHIA Plans in Kenya Shillings",
     "description": "Plans and pricing for Plot Yangu, MyChama and MyRegister, plus how fees work for Samuhia Desk and Samuhia Payments. All prices in KES.",
@@ -23,7 +29,13 @@
     "description": "Guides, product updates and stories from SAMUHIA.",
     "title": "Stories are coming.",
     "lead": "We're building a library of product stories, guides and insights. Check back soon.",
-    "sections": ["Blog", "Guides", "Case Studies", "Product Updates", "Documentation"],
+    "sections": [
+      "Blog",
+      "Guides",
+      "Case Studies",
+      "Product Updates",
+      "Documentation"
+    ],
     "draft": true
   },
   "support": {

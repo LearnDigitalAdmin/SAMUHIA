@@ -1,5 +1,5 @@
 import { esc, each } from '../lib/html.js';
-import { site, products, solutions, build } from '../lib/data.js';
+import { site, products, solutions, features, build } from '../lib/data.js';
 import { lockup } from './brand.js';
 
 const col = (title, links) => `<div><p class="ftitle">${esc(title)}</p><ul>${each(links, (l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`)}</ul></div>`;
@@ -20,6 +20,7 @@ export const footer = () => {
     <div class="cols">
       ${col('Products', products.map((p) => ({ label: p.name, href: `/products/${p.slug}/` })))}
       ${col('Solutions', solutions.map((s) => ({ label: s.title.replace(/^For /, ''), href: `/solutions/${s.slug}/` })))}
+      ${col('Features', features.map((f) => ({ label: f.name, href: `/features/${f.slug}/` })))}
       ${each(site.footerColumns, (c) => col(c.title, c.links))}
     </div>
     <div class="fmark" aria-hidden="true">${esc(site.name)}</div>

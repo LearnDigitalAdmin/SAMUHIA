@@ -4,6 +4,7 @@ import { breadcrumbList } from '../seo/jsonld.js';
 import { homePage } from './home.js';
 import { allProductPages } from './products.js';
 import { allSolutionPages } from './solutions.js';
+import { allFeaturePages } from './features.js';
 import { aboutPage, founderPage, securityPage } from './company.js';
 import { allCareerPages } from './careers.js';
 import { pricingPage } from './pricing.js';
@@ -14,6 +15,7 @@ export const allPages = () => {
     homePage(),
     ...allProductPages(),
     ...allSolutionPages(),
+    ...allFeaturePages(),
     pricingPage(),
     aboutPage(),
     founderPage(),

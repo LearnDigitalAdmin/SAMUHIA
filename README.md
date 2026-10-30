@@ -26,7 +26,8 @@ samuhia-website/
 │  └─ lib/                  fs, css bundler, validator (links, titles, JSON-LD)
 ├─ src/
 │  ├─ content/              ★ ALL COPY LIVES HERE (JSON): site, home, about, founder, security,
-│  │  └─ products/*.json      pages, solutions, one file per product
+│  │  │                     pages, solutions, features (Landlord Watch, House to Rent)
+│  │  └─ products/*.json      one file per product
 │  ├─ pages/                Page builders (home, products, solutions, company, pricing, misc) + registry
 │  ├─ components/           header, footer, cards, mockup, ecosystem, pricing, faq, facts, brand …
 │  ├─ layouts/base.js       <head>: canonical, robots, hreflang, Open Graph, Twitter, JSON-LD, icons
@@ -42,7 +43,7 @@ samuhia-website/
 
 ## What is built for SEO
 
-- One page per product, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.
+- One page per product, feature, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.
 - Unique `<title>` and meta description per page, canonical, `hreflang="en-KE"`, robots directives, Open Graph and Twitter cards.
 - JSON-LD: Organization, Person, WebSite, WebPage/AboutPage/ContactPage/ProfilePage, BreadcrumbList, `SoftwareApplication` with KES `Offer`s, FAQPage generated from the same text users see, ItemList.
 - `sitemap.xml` (indexable pages only), `robots.txt`, `site.webmanifest`, `.well-known/security.txt`.

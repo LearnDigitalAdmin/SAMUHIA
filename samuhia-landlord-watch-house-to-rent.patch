@@ -1,0 +1,622 @@
+From c7df7d8e38ebfe960b6244b99c8f768400803b5d Mon Sep 17 00:00:00 2001
+From: SAMUHIA Web <info@samuhia.co.ke>
+Date: Fri, 30 Oct 2026 11:02:05 +0000
+Subject: [PATCH] Add Landlord Watch and House to Rent feature pages, update
+ SEO and LLM files
+
+- New /features/ index plus /features/landlord-watch/ and /features/house-to-rent/
+  (content in src/content/features.json, builder in src/pages/features.js)
+- Per-feature title, description, canonical, Service + FAQPage + Breadcrumb JSON-LD
+- Markdown twins, llms.txt and llms-full.txt include the new features
+- Sitemap picks up the new pages automatically
+- Plot Yangu product page: feature list, facts, FAQ and a Featured capabilities section
+- Footer gets a Features column; organization knowsAbout extended
+- Public copy describes outcomes and privacy behaviour only (no internals)
+---
+ README.md                            |   5 +-
+ src/components/footer.js             |   3 +-
+ src/content/features.json            | 193 +++++++++++++++++++++++++++
+ src/content/pages.json               |  14 +-
+ src/content/products/plot-yangu.json |  24 +++-
+ src/lib/data.js                      |   6 +
+ src/pages/features.js                |  66 +++++++++
+ src/pages/index.js                   |   2 +
+ src/pages/products.js                |   3 +-
+ src/seo/jsonld.js                    |  25 +++-
+ src/seo/llms.js                      |  10 +-
+ src/seo/markdown.js                  |  28 +++-
+ 12 files changed, 366 insertions(+), 13 deletions(-)
+ create mode 100644 src/content/features.json
+ create mode 100644 src/pages/features.js
+
+diff --git a/README.md b/README.md
+index 9629ecc..70a483b 100644
+--- a/README.md
++++ b/README.md
+@@ -26,7 +26,8 @@ samuhia-website/
+ │  └─ lib/                  fs, css bundler, validator (links, titles, JSON-LD)
+ ├─ src/
+ │  ├─ content/              ★ ALL COPY LIVES HERE (JSON): site, home, about, founder, security,
+-│  │  └─ products/*.json      pages, solutions, one file per product
++│  │  │                     pages, solutions, features (Landlord Watch, House to Rent)
++│  │  └─ products/*.json      one file per product
+ │  ├─ pages/                Page builders (home, products, solutions, company, pricing, misc) + registry
+ │  ├─ components/           header, footer, cards, mockup, ecosystem, pricing, faq, facts, brand …
+ │  ├─ layouts/base.js       <head>: canonical, robots, hreflang, Open Graph, Twitter, JSON-LD, icons
+@@ -42,7 +43,7 @@ samuhia-website/
+ 
+ ## What is built for SEO
+ 
+-- One page per product, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.
++- One page per product, feature, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.
+ - Unique `<title>` and meta description per page, canonical, `hreflang="en-KE"`, robots directives, Open Graph and Twitter cards.
+ - JSON-LD: Organization, Person, WebSite, WebPage/AboutPage/ContactPage/ProfilePage, BreadcrumbList, `SoftwareApplication` with KES `Offer`s, FAQPage generated from the same text users see, ItemList.
+ - `sitemap.xml` (indexable pages only), `robots.txt`, `site.webmanifest`, `.well-known/security.txt`.
+diff --git a/src/components/footer.js b/src/components/footer.js
+index a1b7837..ac3c26b 100644
+--- a/src/components/footer.js
++++ b/src/components/footer.js
+@@ -1,5 +1,5 @@
+ import { esc, each } from '../lib/html.js';
+-import { site, products, solutions, build } from '../lib/data.js';
++import { site, products, solutions, features, build } from '../lib/data.js';
+ import { lockup } from './brand.js';
+ 
+ const col = (title, links) => `<div><p class="ftitle">${esc(title)}</p><ul>${each(links, (l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`)}</ul></div>`;
+@@ -20,6 +20,7 @@ export const footer = () => {
+     <div class="cols">
+       ${col('Products', products.map((p) => ({ label: p.name, href: `/products/${p.slug}/` })))}
+       ${col('Solutions', solutions.map((s) => ({ label: s.title.replace(/^For /, ''), href: `/solutions/${s.slug}/` })))}
++      ${col('Features', features.map((f) => ({ label: f.name, href: `/features/${f.slug}/` })))}
+       ${each(site.footerColumns, (c) => col(c.title, c.links))}
+     </div>
+     <div class="fmark" aria-hidden="true">${esc(site.name)}</div>
+diff --git a/src/content/features.json b/src/content/features.json
+new file mode 100644
+index 0000000..feb001d
+--- /dev/null
++++ b/src/content/features.json
+@@ -0,0 +1,193 @@
++[
++  {
++    "order": 1,
++    "slug": "landlord-watch",
++    "name": "Landlord Watch",
++    "product": "plot-yangu",
++    "kicker": "Plot Yangu feature · WhatsApp and web",
++    "seoTitle": "Landlord Watch: See Agent-Managed Rent | SAMUHIA",
++    "description": "Landlord Watch shows landlords with agent-managed properties what rent was collected, what is pending and what is payable, on WhatsApp or the web.",
++    "cardDescription": "A read-only view of rent collection, commission and net payable for landlords whose properties are managed by an agency.",
++    "title": "Landlord Watch",
++    "lead": "If an agency manages your property, you should not have to chase a phone call to find out whether rent came in. Landlord Watch gives you a read-only view of your property's rent collection, on WhatsApp or the web, in English or Kiswahili.",
++    "audience": "Landlords whose properties are managed by an agency or property manager, and the agencies that manage them",
++    "serviceType": "Landlord rent reporting",
++    "channels": ["WhatsApp", "Web"],
++    "ctaLabel": "Open Plot Yangu",
++    "ctaHref": "https://plot.samuhia.co.ke",
++    "ctaSecondaryLabel": "Talk to us about Landlord Watch",
++    "ctaSecondaryHref": "/contact/",
++    "problem": "When a landlord hands a property to an agency, the numbers often arrive once a month, if at all. The landlord waits to learn what was collected, what is outstanding and what they will be paid, and the agency answers the same questions again and again.",
++    "capabilitiesTitle": "What a landlord can see",
++    "capabilities": [
++      "Occupancy: active tenants, occupied units and vacant units",
++      "The month's invoices at a glance: paid, part-paid and unpaid",
++      "Rent billed, collected and still pending, with a collection rate",
++      "The agent's commission and the net amount payable to the landlord",
++      "How much was collected by the due date and how much after it",
++      "Who has paid and who has not, unit by unit",
++      "A month-by-month trend, and any earlier month on request",
++      "The monthly statement: income, deductions and net payable",
++      "An official monthly statement as a PDF"
++    ],
++    "steps": [
++      "Your agent manages the property in Plot Yangu and gives you the property's ID.",
++      "Open Landlord Watch on WhatsApp (choose it from the menu or type WATCH) or from the Landlord Watch button on the Plot Yangu sign-in screen, and enter the property ID.",
++      "See the property summary straight away. Tenant names and phone numbers stay hidden until you unlock them.",
++      "To unlock details, ask for a one-time code. It is sent by SMS to the owner phone number on file for the property.",
++      "Browse the tenants list, the money breakdown and earlier months, and request the monthly statement PDF."
++    ],
++    "safeguards": {
++      "title": "Privacy and control",
++      "items": [
++        "Landlord Watch is for viewing. It does not change invoices, payments or tenant records.",
++        "Tenant names and phone numbers are hidden by default.",
++        "Details unlock with a one-time SMS code sent to the owner phone on file, and the unlock is temporary.",
++        "Signing in on the web with the phone number registered as the property owner's unlocks details without a separate code.",
++        "If no owner phone number is on file, details stay hidden until the agent adds one."
++      ]
++    },
++    "audiences": [
++      {
++        "id": "agencies",
++        "title": "Why agencies offer Landlord Watch",
++        "lead": "Landlord Watch works from the records you already keep in Plot Yangu. You stay the system of record, and your landlords get a clear window onto their own property.",
++        "items": [
++          "Answers the landlord's routine question, \"has the rent come in?\", before they have to ask it.",
++          "Landlords see figures drawn from your Plot Yangu records, so month-end conversations are about the numbers rather than whether they exist.",
++          "Tenant names and phone numbers are protected by default, so you can offer transparency without handing over your tenant list.",
++          "Landlords can check at any time on WhatsApp, the channel they already use.",
++          "A visible, professional reporting service helps you win new landlords and keep the ones you have."
++        ]
++      }
++    ],
++    "facts": [
++      { "label": "Who it's for", "value": "Landlords with agent-managed properties" },
++      { "label": "Where", "value": "WhatsApp and the Plot Yangu web app" },
++      { "label": "Languages", "value": "English and Kiswahili" },
++      { "label": "Access", "value": "Read-only; one-time SMS code unlocks tenant details" },
++      { "label": "Part of", "value": "Plot Yangu" }
++    ],
++    "related": ["plot-yangu", "payments", "desk"],
++    "relatedFeatures": ["house-to-rent"],
++    "faq": [
++      {
++        "q": "What is Landlord Watch?",
++        "a": "Landlord Watch is a Plot Yangu feature that lets a landlord whose property is managed by an agency see how the property is performing: rent billed, collected and pending, the agent's commission, the net amount payable and who has paid. It is available on WhatsApp and on the web, in English and Kiswahili."
++      },
++      {
++        "q": "Can a landlord change anything in Landlord Watch?",
++        "a": "No. Landlord Watch is read-only. The agency keeps managing invoices, payments and tenants in Plot Yangu."
++      },
++      {
++        "q": "Can landlords see tenant names and phone numbers?",
++        "a": "Only after they unlock them. Tenant details are hidden by default, and a landlord unlocks them with a one-time code sent by SMS to the owner phone number on file."
++      },
++      {
++        "q": "How does a landlord get access?",
++        "a": "Ask your agent for your property's ID in Plot Yangu, then open Landlord Watch on WhatsApp or the web and enter it."
++      },
++      {
++        "q": "Does my agency need Plot Yangu?",
++        "a": "Yes. Landlord Watch shows properties that your agency manages in Plot Yangu. Agencies can start on the Plot Yangu product page."
++      },
++      {
++        "q": "Can I get a monthly statement?",
++        "a": "Yes. You can request an official monthly statement as a PDF. If a fee applies, the price is shown and you pay by M-Pesa before the statement is generated."
++      }
++    ]
++  },
++  {
++    "order": 2,
++    "slug": "house-to-rent",
++    "name": "House to Rent",
++    "product": "plot-yangu",
++    "kicker": "Plot Yangu feature · WhatsApp",
++    "seoTitle": "House to Rent / House to Let on WhatsApp | SAMUHIA",
++    "description": "Find a house to rent or let by area on WhatsApp, see rent and deposit, and send an inquiry to the property manager by SMS. In English and Kiswahili.",
++    "cardDescription": "Search vacant units by area on WhatsApp and send an inquiry straight to the property manager.",
++    "title": "House to Rent",
++    "lead": "Looking for a house to let in Kenya usually means calling around. House to Rent lets people type an area on WhatsApp, browse vacant units with their rent and deposit, and send an inquiry straight to the property manager.",
++    "audience": "People looking for a house, room, shop or office to rent, and property managers and landlords with vacant units",
++    "serviceType": "Rental listings",
++    "channels": ["WhatsApp"],
++    "ctaLabel": "Open Plot Yangu",
++    "ctaHref": "https://plot.samuhia.co.ke",
++    "ctaSecondaryLabel": "Talk to us about listing your units",
++    "ctaSecondaryHref": "/contact/",
++    "problem": "Every vacant unit is rent that is not being earned, and a unit nobody knows about stays vacant. House hunters, on the other hand, spend days phoning agents and visiting buildings that turn out to be full.",
++    "capabilitiesTitle": "What a house hunter can do",
++    "capabilities": [
++      "Search by area, for example Naivasha or Mirera, in English or Kiswahili",
++      "Browse vacant units: single rooms, bedsitters, studios, one, two and three bedrooms, maisonettes, shops, offices, stalls and warehouses",
++      "See the property name, address, type, condition, monthly rent and deposit",
++      "View the property manager's contact details",
++      "Send an inquiry by SMS to the manager from inside WhatsApp, after confirming the message and the phone number to call back"
++    ],
++    "steps": [
++      "A property manager or landlord keeps units in Plot Yangu and marks the empty ones as vacant.",
++      "For properties synced to the cloud, vacant unit details are listed automatically. Nothing extra to post.",
++      "A house hunter opens the SAMUHIA WhatsApp menu, chooses House to Rent and types the area they want.",
++      "They pick a unit from the matches and see its rent, deposit and details.",
++      "They contact the manager, or confirm their phone number and send an inquiry. The manager receives it by SMS and calls back."
++    ],
++    "safeguards": {
++      "title": "Built to protect landlords and tenants",
++      "items": [
++        "Only unit facts are shown: size, type, condition, rent and deposit. Tenant records and the landlord's personal details are never listed.",
++        "A unit disappears from the list as soon as it is no longer marked vacant.",
++        "Inquiries are limited per person each day, and a repeat inquiry for the same unit is blocked, so managers are not flooded.",
++        "The house hunter sees exactly what will be sent and confirms it before anything goes out."
++      ]
++    },
++    "audiences": [
++      {
++        "id": "managers",
++        "title": "Why property managers and landlords list here",
++        "lead": "House to Rent turns the units you already track in Plot Yangu into leads, on the channel people already use.",
++        "items": [
++          "No separate listing to write or keep up to date. Your vacancies come from your Plot Yangu records.",
++          "Reach people searching by area on WhatsApp, in English or Kiswahili.",
++          "Inquiries arrive by SMS with the person's number, ready for a call back.",
++          "Works for homes and for commercial space such as shops, offices, stalls and warehouses.",
++          "Pairs with Landlord Watch: landlords see the vacancies and the rent, and agents fill the units."
++        ]
++      }
++    ],
++    "facts": [
++      { "label": "Where", "value": "WhatsApp" },
++      { "label": "Search by", "value": "Area" },
++      { "label": "Listings come from", "value": "Vacant units in Plot Yangu" },
++      { "label": "Languages", "value": "English and Kiswahili" },
++      { "label": "Contact", "value": "Manager's details or an SMS inquiry" }
++    ],
++    "related": ["plot-yangu", "payments"],
++    "relatedFeatures": ["landlord-watch"],
++    "faq": [
++      {
++        "q": "How do I find a house to rent on WhatsApp?",
++        "a": "Open the SAMUHIA WhatsApp menu, choose House to Rent and type the area you want to live in. You will see the vacant units listed there, with rent and deposit, and can open any one for details."
++      },
++      {
++        "q": "What details do I see for each unit?",
++        "a": "The unit size and number, the property name, the address, whether it is residential or commercial, its condition, the monthly rent and the deposit."
++      },
++      {
++        "q": "Can I search for shops and offices as well as houses?",
++        "a": "Yes. Listings include shops, offices, stalls and warehouses alongside single rooms, bedsitters, studios, bedroom units and maisonettes."
++      },
++      {
++        "q": "How does my inquiry reach the property manager?",
++        "a": "You confirm your phone number and the message, and it is sent to the manager by SMS. The manager then contacts you. You can also use the manager's contact details directly."
++      },
++      {
++        "q": "How do I list my vacant units?",
++        "a": "Manage the property in Plot Yangu with cloud sync and mark empty units as vacant. They are listed automatically, and they leave the list when they are no longer vacant."
++      },
++      {
++        "q": "Are tenant details shown in listings?",
++        "a": "No. Listings show unit facts only. Tenant records and the landlord's personal details are never part of a listing."
++      }
++    ]
++  }
++]
+diff --git a/src/content/pages.json b/src/content/pages.json
+index af7b602..9cd2f06 100644
+--- a/src/content/pages.json
++++ b/src/content/pages.json
+@@ -11,6 +11,12 @@
+     "title": "Solutions for real operations.",
+     "lead": "Start with the problem you need to solve and we will point you to the SAMUHIA product built for it."
+   },
++  "features": {
++    "seoTitle": "Features: Landlord Watch and House to Rent | SAMUHIA",
++    "description": "Landlord Watch gives agent-managed landlords a live view of rent. House to Rent lists vacant units on WhatsApp. Both are part of Plot Yangu.",
++    "title": "Features that connect landlords, agents and tenants.",
++    "lead": "Two Plot Yangu features built for how rental property works in Kenya: landlords who want visibility, and people who want a place to live."
++  },
+   "pricing": {
+     "seoTitle": "Pricing — SAMUHIA Plans in Kenya Shillings",
+     "description": "Plans and pricing for Plot Yangu, MyChama and MyRegister, plus how fees work for Samuhia Desk and Samuhia Payments. All prices in KES.",
+@@ -23,7 +29,13 @@
+     "description": "Guides, product updates and stories from SAMUHIA.",
+     "title": "Stories are coming.",
+     "lead": "We're building a library of product stories, guides and insights. Check back soon.",
+-    "sections": ["Blog", "Guides", "Case Studies", "Product Updates", "Documentation"],
++    "sections": [
++      "Blog",
++      "Guides",
++      "Case Studies",
++      "Product Updates",
++      "Documentation"
++    ],
+     "draft": true
+   },
+   "support": {
+diff --git a/src/content/products/plot-yangu.json b/src/content/products/plot-yangu.json
+index e40b0e5..15113a7 100644
+--- a/src/content/products/plot-yangu.json
++++ b/src/content/products/plot-yangu.json
+@@ -9,7 +9,7 @@
+   "color": "#7A3E8E",
+   "abbr": "PY",
+   "description": "Properties, units, tenants, invoices and M-Pesa rent in one dashboard. Works offline on web, Android and desktop.",
+-  "longDescription": "Plot Yangu is a property management app for landlords and property agents in Kenya. It keeps properties, units, tenants, invoices and M-Pesa payments in one dashboard, stores your data on your device first so it works offline, and syncs across devices in the cloud on paid plans.",
++  "longDescription": "Plot Yangu is a property management app for landlords and property agents in Kenya. It keeps properties, units, tenants, invoices and M-Pesa payments in one dashboard, stores your data on your device first so it works offline, and syncs across devices in the cloud on paid plans. Landlord Watch gives landlords of agent-managed properties a read-only view of their rent on WhatsApp or the web, and House to Rent lists vacant units for people searching by area on WhatsApp.",
+   "problem": "Rent tracking, arrears, expenses and tenant messages are scattered, so owners rarely see the true financial picture of their properties.",
+   "features": [
+     "Multiple properties and units",
+@@ -18,6 +18,8 @@
+     "M-Pesa rent collection, matched to the right invoice",
+     "Automatic tenant messages: SMS first, WhatsApp backup for tenants who opted in",
+     "Arrears tracking",
++    "Landlord Watch: landlords of agent-managed properties see rent collected, pending and payable on WhatsApp or the web",
++    "House to Rent: vacant units listed for people searching by area on WhatsApp, with SMS inquiries to the manager",
+     "Excel and PDF exports and reports",
+     "Your own logo on invoices (Business and above)",
+     "Multi-device cloud sync (Solo and above)",
+@@ -47,6 +49,10 @@
+     {
+       "label": "Payments",
+       "value": "M-Pesa through Samuhia Payments"
++    },
++    {
++      "label": "WhatsApp",
++      "value": "Landlord Watch and House to Rent, in English and Kiswahili"
+     }
+   ],
+   "plans": [
+@@ -141,7 +147,7 @@
+   "priceSummary": "Six plans from free to KES 5,600 a month. See the plans above.",
+   "ctaLabel": "Open Plot Yangu",
+   "ctaSecondary": "View pricing",
+-  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf.",
++  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf. Landlord Watch and House to Rent extend Plot Yangu to landlords and house hunters on WhatsApp.",
+   "related": [
+     "payments",
+     "desk"
+@@ -167,6 +173,14 @@
+     {
+       "q": "How do I pay for a plan?",
+       "a": "By M-Pesa. You get a prompt on your phone and confirm with your PIN. Payments are processed through Paystack."
++    },
++    {
++      "q": "What is Landlord Watch?",
++      "a": "Landlord Watch lets a landlord whose property is managed by an agency see rent billed, collected and pending, the agent's commission, the net amount payable and who has paid, on WhatsApp or the web. It is read-only, and tenant details stay hidden until the landlord unlocks them with a one-time SMS code."
++    },
++    {
++      "q": "What is House to Rent?",
++      "a": "House to Rent lets people search for vacant units by area on WhatsApp and send an inquiry to the property manager by SMS. Units marked vacant in Plot Yangu are listed automatically for properties synced to the cloud."
+     }
+   ],
+   "presentation": {
+@@ -236,5 +250,9 @@
+     ]
+   },
+   "schemaCategory": "BusinessApplication",
+-  "operatingSystem": "Web, Android, Windows, macOS, Linux"
++  "operatingSystem": "Web, Android, Windows, macOS, Linux",
++  "featureSlugs": [
++    "landlord-watch",
++    "house-to-rent"
++  ]
+ }
+diff --git a/src/lib/data.js b/src/lib/data.js
+index c4febe4..ae1cf4b 100644
+--- a/src/lib/data.js
++++ b/src/lib/data.js
+@@ -18,6 +18,12 @@ export const security = readJson(CONTENT, 'security.json');
+ export const pages = readJson(CONTENT, 'pages.json');
+ export const careers = readJson(CONTENT, 'careers.json');
+ export const solutions = readJson(CONTENT, 'solutions.json');
++export const features = readJson(CONTENT, 'features.json').sort((a, b) => a.order - b.order);
++export const featureBySlug = (slug) => {
++  const f = features.find((x) => x.slug === slug);
++  if (!f) throw new Error(`Unknown feature slug: ${slug}`);
++  return f;
++};
+ export const brand = readJson(SRC, 'assets', 'brand', 'brand.json');
+ 
+ export const products = fs
+diff --git a/src/pages/features.js b/src/pages/features.js
+new file mode 100644
+index 0000000..9dc149e
+--- /dev/null
++++ b/src/pages/features.js
+@@ -0,0 +1,66 @@
++import { esc, each } from '../lib/html.js';
++import { pages, features, featureBySlug, productBySlug } from '../lib/data.js';
++import { relatedList } from '../components/cards.js';
++import { facts } from '../components/facts.js';
++import { faq } from '../components/faq.js';
++import * as ld from '../seo/jsonld.js';
++import { featureMarkdown, featuresIndexMarkdown } from '../seo/markdown.js';
++
++const featureCard = (f) => `
++<article class="card" data-reveal>
++  <span class="cat">${esc(productBySlug(f.product).name)} feature</span>
++  <h3>${esc(f.name)}</h3>
++  <p>${esc(f.cardDescription)}</p>
++  <p><strong>On:</strong> ${esc(f.channels.join(' and '))}</p>
++  <a class="lnk" href="/features/${esc(f.slug)}/">Explore ${esc(f.name)} →</a>
++</article>`;
++
++export const featuresIndex = () => {
++  const c = pages.features;
++  return {
++    path: '/features/',
++    title: c.seoTitle,
++    description: c.description,
++    crumbs: [{ label: 'Features' }],
++    hasMarkdown: true,
++    markdown: featuresIndexMarkdown(),
++    jsonld: [ld.webPage({ path: '/features/', title: c.seoTitle, description: c.description, type: 'CollectionPage' }), ld.featureItemList()],
++    body: `<div class="page wrap"><p class="eyebrow">Features</p><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="grid g2" style="margin-top:40px">${each(features, featureCard)}</div></div>`,
++  };
++};
++
++export const featurePage = (f) => {
++  const p = productBySlug(f.product);
++  const path = `/features/${f.slug}/`;
++  const cta = `<a class="btn pri" href="${esc(f.ctaHref)}" rel="noopener">${esc(f.ctaLabel)}</a>`;
++  const cta2 = `<a class="btn" href="${esc(f.ctaSecondaryHref)}">${esc(f.ctaSecondaryLabel)}</a>`;
++  const others = (f.relatedFeatures || []).map(featureBySlug);
++  const body = `<div class="page wrap"><article>
++  <p class="eyebrow">${esc(f.kicker)}</p>
++  <h1>${esc(f.title)}</h1>
++  <p class="lead">${esc(f.lead)}</p>
++  <div class="row">${cta}${cta2}</div>
++  <section aria-labelledby="problem"><h2 id="problem">The problem</h2><p>${esc(f.problem)}</p></section>
++  <section aria-labelledby="capabilities"><h2 id="capabilities">${esc(f.capabilitiesTitle)}</h2><ul class="chk">${each(f.capabilities, (x) => `<li>${esc(x)}</li>`)}</ul></section>
++  <section aria-labelledby="how"><h2 id="how">How it works</h2><ol class="steps">${each(f.steps, (s) => `<li>${esc(s)}</li>`)}</ol></section>
++  <section aria-labelledby="safeguards"><h2 id="safeguards">${esc(f.safeguards.title)}</h2><ul class="chk">${each(f.safeguards.items, (x) => `<li>${esc(x)}</li>`)}</ul></section>
++  ${each(f.audiences, (a) => `<section aria-labelledby="${esc(a.id)}"><h2 id="${esc(a.id)}">${esc(a.title)}</h2><p>${esc(a.lead)}</p><ul class="chk">${each(a.items, (x) => `<li>${esc(x)}</li>`)}</ul></section>`)}
++  <section aria-labelledby="glance"><h2 id="glance">At a glance</h2>${facts(f.facts)}</section>
++  <section aria-labelledby="part"><h2 id="part">Part of ${esc(p.name)}</h2><p style="margin-bottom:18px">${esc(f.name)} is a feature of <a href="/products/${esc(p.slug)}/">${esc(p.name)}</a>, SAMUHIA's property management product.${others.length ? ` See also: ${others.map((o) => `<a href="/features/${esc(o.slug)}/">${esc(o.name)}</a>`).join(', ')}.` : ''}</p>${relatedList(f.related)}</section>
++  <section aria-labelledby="faq"><h2 id="faq">FAQ</h2>${faq(f.faq)}</section>
++  <div class="row">${cta}${cta2}<a class="btn" href="/features/">All features</a></div>
++</article></div>`;
++  return {
++    path,
++    title: f.seoTitle,
++    description: f.description,
++    crumbs: [{ label: 'Features', href: '/features/' }, { label: f.name }],
++    ogType: 'website',
++    hasMarkdown: true,
++    markdown: featureMarkdown(f),
++    body,
++    jsonld: [ld.webPage({ path, title: f.seoTitle, description: f.description, extra: { mainEntity: { '@id': ld.featureService(f)['@id'] } } }), ld.featureService(f), ld.faqPage(f.faq)],
++  };
++};
++
++export const allFeaturePages = () => [featuresIndex(), ...features.map(featurePage)];
+diff --git a/src/pages/index.js b/src/pages/index.js
+index 79fb1c4..e86b092 100644
+--- a/src/pages/index.js
++++ b/src/pages/index.js
+@@ -4,6 +4,7 @@ import { breadcrumbList } from '../seo/jsonld.js';
+ import { homePage } from './home.js';
+ import { allProductPages } from './products.js';
+ import { allSolutionPages } from './solutions.js';
++import { allFeaturePages } from './features.js';
+ import { aboutPage, founderPage, securityPage } from './company.js';
+ import { allCareerPages } from './careers.js';
+ import { pricingPage } from './pricing.js';
+@@ -14,6 +15,7 @@ export const allPages = () => {
+     homePage(),
+     ...allProductPages(),
+     ...allSolutionPages(),
++    ...allFeaturePages(),
+     pricingPage(),
+     aboutPage(),
+     founderPage(),
+diff --git a/src/pages/products.js b/src/pages/products.js
+index 980a0a6..43cbb7c 100644
+--- a/src/pages/products.js
++++ b/src/pages/products.js
+@@ -1,5 +1,5 @@
+ import { esc, each } from '../lib/html.js';
+-import { site, pages, products, solutions } from '../lib/data.js';
++import { site, pages, products, solutions, featureBySlug } from '../lib/data.js';
+ import { productCard, badge, relatedList } from '../components/cards.js';
+ import { icon } from '../components/brand.js';
+ import { mockup } from '../components/mockup.js';
+@@ -46,6 +46,7 @@ export const productPage = (p) => {
+   </div>
+   <section aria-labelledby="problem"><h2 id="problem">The problem</h2><p>${esc(p.problem)}</p></section>
+   <section aria-labelledby="capabilities"><h2 id="capabilities">Core capabilities</h2><ul class="chk">${each(p.features, (f) => `<li>${esc(f)}</li>`)}</ul></section>
++  ${p.featureSlugs?.length ? `<section aria-labelledby="featured"><h2 id="featured">Featured capabilities</h2><div class="grid g2">${each(p.featureSlugs.map(featureBySlug), (f) => `<article class="card"><h3>${esc(f.name)}</h3><p>${esc(f.cardDescription)}</p><a class="lnk" href="/features/${esc(f.slug)}/">Read about ${esc(f.name)} →</a></article>`)}</div></section>` : ''}
+   <section aria-labelledby="how"><h2 id="how">How it works</h2><ol class="steps">${each(p.steps, (s) => `<li>${esc(s)}</li>`)}</ol></section>
+   <section aria-labelledby="glance"><h2 id="glance">At a glance</h2>${facts(p.facts)}</section>
+   <section aria-labelledby="audience"><h2 id="audience">Who it's for</h2><p>${esc(p.audience)}.</p>${solution ? `<p style="margin-top:10px"><a href="/solutions/${esc(solution.slug)}/">See the ${esc(solution.title.replace(/^For /, ''))} solution →</a></p>` : ''}</section>
+diff --git a/src/seo/jsonld.js b/src/seo/jsonld.js
+index 1fc3f50..588cd69 100644
+--- a/src/seo/jsonld.js
++++ b/src/seo/jsonld.js
+@@ -1,4 +1,4 @@
+-import { site, founder, products, abs } from '../lib/data.js';
++import { site, founder, products, features, abs } from '../lib/data.js';
+ 
+ const ORG_ID = () => abs('/#org');
+ const SITE_ID = () => abs('/#website');
+@@ -22,7 +22,7 @@ export const organization = () => ({
+   address: { '@type': 'PostalAddress', addressCountry: site.countryCode },
+   areaServed: { '@type': 'Country', name: site.countryName },
+   contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
+-  knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses'],
++  knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses', 'Landlord rent reporting for agent-managed properties', 'Rental listings and vacant unit search on WhatsApp'],
+   ...(site.social.length ? { sameAs: site.social.map((s) => s.url) } : {}),
+ });
+ 
+@@ -118,3 +118,24 @@ export const productItemList = () => ({
+   name: 'SAMUHIA products',
+   itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/products/${p.slug}/`), name: p.name })),
+ });
++
++/** A named feature of a product (Landlord Watch, House to Rent), described as a Service tied to its product's SoftwareApplication. */
++export const featureService = (f) => ({
++  '@type': 'Service',
++  '@id': abs(`/features/${f.slug}/`) + '#service',
++  name: f.name,
++  serviceType: f.serviceType,
++  description: f.description,
++  url: abs(`/features/${f.slug}/`),
++  provider: { '@id': ORG_ID() },
++  areaServed: { '@type': 'Country', name: site.countryName },
++  audience: { '@type': 'Audience', audienceType: f.audience },
++  availableChannel: f.channels.map((c) => ({ '@type': 'ServiceChannel', name: c, availableLanguage: ['English', 'Swahili'] })),
++  isRelatedTo: { '@id': abs(`/products/${f.product}/`) + '#app' },
++});
++
++export const featureItemList = () => ({
++  '@type': 'ItemList',
++  name: 'SAMUHIA features',
++  itemListElement: features.map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/features/${f.slug}/`), name: f.name })),
++});
+diff --git a/src/seo/llms.js b/src/seo/llms.js
+index ad3e669..6a68ede 100644
+--- a/src/seo/llms.js
++++ b/src/seo/llms.js
+@@ -1,6 +1,6 @@
+ // /llms.txt (llmstxt.org format) and /llms-full.txt
+-import { site, products, solutions, abs, productBySlug, careers } from '../lib/data.js';
+-import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown } from './markdown.js';
++import { site, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
++import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown } from './markdown.js';
+ 
+ const md = (p) => abs(p + 'index.md');
+ 
+@@ -18,6 +18,10 @@ ${products.map((p) => `- [${p.name}](${md(`/products/${p.slug}/`)}): ${p.descrip
+ 
+ ${solutions.map((s) => `- [${s.title}](${md(`/solutions/${s.slug}/`)}): ${s.description} Recommended: ${productBySlug(s.product).name}.`).join('\n')}
+ 
++## Features
++
++${features.map((f) => `- [${f.name}](${md(`/features/${f.slug}/`)}): ${f.cardDescription}`).join('\n')}
++
+ ## Company
+ 
+ - [About ${site.name}](${md('/about/')}): Mission, vision, principles and journey.
+@@ -41,6 +45,8 @@ export const llmsFullTxt = () =>
+     ...products.map(productMarkdown),
+     solutionsIndexMarkdown(),
+     ...solutions.map(solutionMarkdown),
++    featuresIndexMarkdown(),
++    ...features.map(featureMarkdown),
+     pricingMarkdown(),
+     aboutMarkdown(),
+     founderMarkdown(),
+diff --git a/src/seo/markdown.js b/src/seo/markdown.js
+index 98784b4..c4e32b5 100644
+--- a/src/seo/markdown.js
++++ b/src/seo/markdown.js
+@@ -1,6 +1,6 @@
+ // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
+ // Written for LLM ingestion: dense, factual, no navigation chrome.
+-import { site, home, about, founder, pages, products, solutions, productBySlug, abs, careers } from '../lib/data.js';
++import { site, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
+ import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
+ 
+ const list = (items) => items.map((x) => `- ${x}`).join('\n');
+@@ -129,3 +129,29 @@ export const careerPathMarkdown = (p) =>
+     `## Questions\n${p.faq.map((q) => `### ${fill(q.q)}\n${fill(q.a)}`).join('\n\n')}`,
+     `**Page:** ${abs(`/careers/${p.slug}/`)}  \n**Apply:** ${productBySlug('desk').appUrl}`,
+   );
++
++export const featureMarkdown = (f) => {
++  const p = productBySlug(f.product);
++  return nl(
++    `# ${f.name}`,
++    `> ${f.description}`,
++    list([
++      `**Part of:** [${p.name}](${abs(`/products/${p.slug}/`)})`,
++      `**Built for:** ${f.audience}`,
++      `**Available on:** ${f.channels.join(' and ')}`,
++      `**Web page:** ${abs(`/features/${f.slug}/`)}`,
++      `**Publisher:** ${site.legalName} (${abs('/')})`,
++    ]),
++    `## Overview\n${f.lead}`,
++    `## The problem it solves\n${f.problem}`,
++    `## ${f.capabilitiesTitle}\n${list(f.capabilities)}`,
++    `## How it works\n${f.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
++    `## ${f.safeguards.title}\n${list(f.safeguards.items)}`,
++    ...f.audiences.map((a) => `## ${a.title}\n${a.lead}\n\n${list(a.items)}`),
++    `## At a glance\n${list(f.facts.map((x) => `**${x.label}:** ${x.value}`))}`,
++    `## Frequently asked questions\n${f.faq.map((q) => `### ${q.q}\n${q.a}`).join('\n\n')}`,
++  );
++};
++
++export const featuresIndexMarkdown = () =>
++  nl(`# ${pages.features.title}`, `> ${pages.features.description}`, features.map((f) => `## ${f.name}\n${f.cardDescription}\n\n- Part of: ${productBySlug(f.product).name}\n- Page: ${abs(`/features/${f.slug}/`)}`).join('\n\n'));
+-- 
+2.43.0
+

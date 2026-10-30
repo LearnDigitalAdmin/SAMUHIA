@@ -1,6 +1,6 @@
 // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
 // Written for LLM ingestion: dense, factual, no navigation chrome.
-import { site, home, about, founder, pages, products, solutions, productBySlug, abs, careers } from '../lib/data.js';
+import { site, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
 import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
 
 const list = (items) => items.map((x) => `- ${x}`).join('\n');
@@ -129,3 +129,29 @@ export const careerPathMarkdown = (p) =>
     `## Questions\n${p.faq.map((q) => `### ${fill(q.q)}\n${fill(q.a)}`).join('\n\n')}`,
     `**Page:** ${abs(`/careers/${p.slug}/`)}  \n**Apply:** ${productBySlug('desk').appUrl}`,
   );
+
+export const featureMarkdown = (f) => {
+  const p = productBySlug(f.product);
+  return nl(
+    `# ${f.name}`,
+    `> ${f.description}`,
+    list([
+      `**Part of:** [${p.name}](${abs(`/products/${p.slug}/`)})`,
+      `**Built for:** ${f.audience}`,
+      `**Available on:** ${f.channels.join(' and ')}`,
+      `**Web page:** ${abs(`/features/${f.slug}/`)}`,
+      `**Publisher:** ${site.legalName} (${abs('/')})`,
+    ]),
+    `## Overview\n${f.lead}`,
+    `## The problem it solves\n${f.problem}`,
+    `## ${f.capabilitiesTitle}\n${list(f.capabilities)}`,
+    `## How it works\n${f.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
+    `## ${f.safeguards.title}\n${list(f.safeguards.items)}`,
+    ...f.audiences.map((a) => `## ${a.title}\n${a.lead}\n\n${list(a.items)}`),
+    `## At a glance\n${list(f.facts.map((x) => `**${x.label}:** ${x.value}`))}`,
+    `## Frequently asked questions\n${f.faq.map((q) => `### ${q.q}\n${q.a}`).join('\n\n')}`,
+  );
+};
+
+export const featuresIndexMarkdown = () =>
+  nl(`# ${pages.features.title}`, `> ${pages.features.description}`, features.map((f) => `## ${f.name}\n${f.cardDescription}\n\n- Part of: ${productBySlug(f.product).name}\n- Page: ${abs(`/features/${f.slug}/`)}`).join('\n\n'));
