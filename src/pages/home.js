@@ -1,5 +1,6 @@
 import { esc, each } from '../lib/html.js';
-import { site, home, founder, products, solutions } from '../lib/data.js';
+import { botCallout } from '../components/whatsapp.js';
+import { site, bot, home, founder, products, solutions } from '../lib/data.js';
 import { productCard, solutionCard } from '../components/cards.js';
 import { ecosystem } from '../components/ecosystem.js';
 import { faq } from '../components/faq.js';
@@ -75,10 +76,12 @@ export const homePage = () => {
     </div>
     <div>
       <h2 style="font-size:1.6rem">${esc(h.cta.contactTitle)}</h2>
-      <p style="margin-top:12px"><a href="mailto:${esc(site.email)}">${esc(site.email)}</a><br><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a><br><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
+      <p style="margin-top:12px"><a href="mailto:${esc(site.email)}">${esc(site.email)}</a><br><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a><br><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a><br><a href="${esc(bot.url)}" rel="noopener">WhatsApp bot ${esc(bot.phoneSpaced)}</a></p>
     </div>
   </div>
 </section>
+
+<section aria-labelledby="bot-title"><div class="wrap">${botCallout({ id: 'bot-title', title: h.bot.title, text: h.bot.text })}</div></section>
 
 <section aria-labelledby="faq-title">
   <div class="wrap"><h2 id="faq-title">Frequently asked questions</h2><div style="margin-top:20px">${faq(h.faq)}</div></div>

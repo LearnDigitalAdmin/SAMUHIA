@@ -1,4 +1,4 @@
-import { site, founder, products, features, abs } from '../lib/data.js';
+import { site, bot, founder, products, features, abs } from '../lib/data.js';
 
 const ORG_ID = () => abs('/#org');
 const SITE_ID = () => abs('/#website');
@@ -21,7 +21,7 @@ export const organization = () => ({
   telephone: site.phone,
   address: { '@type': 'PostalAddress', addressCountry: site.countryCode },
   areaServed: { '@type': 'Country', name: site.countryName },
-  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }, { '@type': 'ContactPoint', name: bot.name, contactType: 'customer support', telephone: bot.phone, url: bot.url, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
   knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses', 'Landlord rent reporting for agent-managed properties', 'Rental listings and vacant unit search on WhatsApp'],
   ...(site.social.length ? { sameAs: site.social.map((s) => s.url) } : {}),
 });
@@ -130,7 +130,12 @@ export const featureService = (f) => ({
   provider: { '@id': ORG_ID() },
   areaServed: { '@type': 'Country', name: site.countryName },
   audience: { '@type': 'Audience', audienceType: f.audience },
-  availableChannel: f.channels.map((c) => ({ '@type': 'ServiceChannel', name: c, availableLanguage: ['English', 'Swahili'] })),
+  availableChannel: f.channels.map((c) => ({
+    '@type': 'ServiceChannel',
+    name: c,
+    availableLanguage: ['English', 'Swahili'],
+    ...(c === 'WhatsApp' ? { serviceUrl: bot.url, servicePhone: { '@type': 'ContactPoint', telephone: bot.phone } } : {}),
+  })),
   isRelatedTo: { '@id': abs(`/products/${f.product}/`) + '#app' },
 });
 

@@ -1,5 +1,6 @@
 import { esc, each } from '../lib/html.js';
-import { site, pages, products } from '../lib/data.js';
+import { site, bot, pages, products } from '../lib/data.js';
+import { botCallout, botButton } from '../components/whatsapp.js';
 import * as ld from '../seo/jsonld.js';
 
 export const resourcesPage = () => {
@@ -26,7 +27,7 @@ export const supportPage = () => {
     description: c.description,
     crumbs: [{ label: 'Support' }],
     jsonld: [ld.webPage({ path: '/support/', title: c.seoTitle, description: c.description })],
-    body: `<div class="page wrap"><p class="eyebrow">Support</p><h1>${esc(c.title)}</h1><div class="grid g3" style="margin-top:32px">${each([...products.map((p) => p.name), 'General'], (x) => `<a class="card link" href="/contact/?topic=${encodeURIComponent(x)}"><h3>${esc(x)}</h3><p>Contact support →</p></a>`)}</div>${status}</div>`,
+    body: `<div class="page wrap"><p class="eyebrow">Support</p><h1>${esc(c.title)}</h1>${botCallout({ id: 'support-bot', title: 'Fastest way to get started: WhatsApp', text: 'Message the SAMUHIA WhatsApp bot to pay rent, get a rent invoice, open My Chama, use Landlord Watch or search for a house to rent. For help from our team, choose a product below.' })}<div class="grid g3" style="margin-top:32px">${each([...products.map((p) => p.name), 'General'], (x) => `<a class="card link" href="/contact/?topic=${encodeURIComponent(x)}"><h3>${esc(x)}</h3><p>Contact support →</p></a>`)}</div>${status}</div>`,
   };
 };
 
@@ -52,6 +53,7 @@ export const contactPage = () => {
     <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
     <p><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a></p>
     <p><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
+    <p><strong>${esc(bot.name)}</strong><br><a href="${esc(bot.url)}" rel="noopener">${esc(bot.phoneSpaced)}</a><br><span class="muted">Pay rent, get invoices, Landlord Watch, House to Rent and My Chama.</span></p>
     ${site.social.length ? `<p class="muted" style="margin-top:12px">${each(site.social, (s) => `<a href="${esc(s.url)}" rel="me noopener">${esc(s.name)}</a> `)}</p>` : ''}
   </div>
 </div></div>`,
@@ -83,6 +85,6 @@ export const notFoundPage = () => {
     title: `${c.seoTitle} | ${site.name}`,
     description: c.description,
     jsonld: [],
-    body: `<div class="page wrap"><div class="big404" aria-hidden="true">404</div><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="row"><a class="btn pri" href="/">Back to ${esc(site.name)}</a><a class="btn" href="/products/">Explore products</a></div></div>`,
+    body: `<div class="page wrap"><div class="big404" aria-hidden="true">404</div><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="row"><a class="btn pri" href="/">Back to ${esc(site.name)}</a><a class="btn" href="/products/">Explore products</a>${botButton('Chat on WhatsApp', { cls: 'btn' })}</div></div>`,
   };
 };

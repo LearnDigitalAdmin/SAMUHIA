@@ -1,5 +1,5 @@
 import { esc, each } from '../lib/html.js';
-import { site, products, solutions, features, build } from '../lib/data.js';
+import { site, bot, products, solutions, features, build } from '../lib/data.js';
 import { lockup } from './brand.js';
 
 const col = (title, links) => `<div><p class="ftitle">${esc(title)}</p><ul>${each(links, (l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`)}</ul></div>`;
@@ -16,6 +16,7 @@ export const footer = () => {
       <a href="/" aria-label="${esc(site.name)} home">${lockup('samuhia', 44, { reversed: true })}</a>
       <p>${esc(site.shortDescription)}</p>
       <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a> · <a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a> · <a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
+      <p>${esc(bot.name)}: <a href="${esc(bot.url)}" rel="noopener">${esc(bot.phoneSpaced)}</a></p>
     </div>
     <div class="cols">
       ${col('Products', products.map((p) => ({ label: p.name, href: `/products/${p.slug}/` })))}

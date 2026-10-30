@@ -146,6 +146,10 @@
     {
       "q": "Can members use it without installing an app?",
       "a": "Members can install the web app, and a WhatsApp assistant handles common member actions."
+    },
+    {
+      "q": "Is there a WhatsApp number for MyChama?",
+      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose My Chama from the menu. It works in English and Kiswahili."
     }
   ],
   "presentation": {
@@ -203,5 +207,6 @@
     ]
   },
   "schemaCategory": "FinanceApplication",
-  "operatingSystem": "Web (installable), WhatsApp"
+  "operatingSystem": "Web (installable), WhatsApp",
+  "whatsappBot": "Members can open My Chama from the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili."
 }

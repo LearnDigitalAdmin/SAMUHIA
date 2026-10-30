@@ -75,6 +75,10 @@
     {
       "q": "Do landlords or agents need their own Paystack account?",
       "a": "No. You add your M-Pesa, bank, paybill or till details and settlement is set up for you."
+    },
+    {
+      "q": "Can tenants pay rent on WhatsApp?",
+      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose Pay Rent or Get Rent Invoice from the menu."
     }
   ],
   "presentation": {
@@ -129,5 +133,6 @@
     ]
   },
   "schemaCategory": "FinanceApplication",
-  "operatingSystem": "Web (installable PWA)"
+  "operatingSystem": "Web (installable PWA)",
+  "whatsappBot": "Tenants can pay rent and get a rent invoice by messaging the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili."
 }

@@ -2,6 +2,7 @@ import { esc, each } from '../lib/html.js';
 import { site, pages, solutions, productBySlug } from '../lib/data.js';
 import { solutionCard } from '../components/cards.js';
 import { faq } from '../components/faq.js';
+import { botCallout } from '../components/whatsapp.js';
 import * as ld from '../seo/jsonld.js';
 import { solutionMarkdown, solutionsIndexMarkdown } from '../seo/markdown.js';
 
@@ -36,6 +37,7 @@ export const solutionPage = (s) => {
   <p class="eyebrow">Solution</p><h1>${esc(s.title)}</h1><p class="lead">${esc(s.description)}</p>
   <section aria-labelledby="rec"><h2 id="rec">Recommended: ${esc(p.name)}</h2><p>${esc(p.longDescription)}</p></section>
   <section aria-labelledby="does"><h2 id="does">What you can do</h2><ul class="chk">${each(p.features.slice(0, 8), (f) => `<li>${esc(f)}</li>`)}</ul></section>
+  ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: 'Also on WhatsApp', text: p.whatsappBot }) : ''}
   <section aria-labelledby="price"><h2 id="price">Pricing</h2><p>${esc(p.priceSummary)}</p></section>
   <section aria-labelledby="qa"><h2 id="qa">Common questions</h2>${faq(p.faq.slice(0, 3))}</section>
   <div class="row"><a class="btn pri" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>

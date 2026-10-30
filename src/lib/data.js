@@ -38,6 +38,10 @@ export const productBySlug = (slug) => {
   return p;
 };
 
+/** WhatsApp bot: one source of truth for the number and every wa.me link. */
+export const botLink = (text) => `https://wa.me/${site.bot.whatsapp}` + (text ? `?text=${encodeURIComponent(text)}` : '');
+export const bot = { ...site.bot, url: botLink(site.bot.prefill), cta: 'Chat on WhatsApp' };
+
 /** Runtime build options (set by scripts/build.js from CLI flags). */
 export const build = {
   noindex: false,

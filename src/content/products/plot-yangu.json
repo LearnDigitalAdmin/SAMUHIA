@@ -181,6 +181,10 @@
     {
       "q": "What is House to Rent?",
       "a": "House to Rent lets people search for vacant units by area on WhatsApp and send an inquiry to the property manager by SMS. Units marked vacant in Plot Yangu are listed automatically for properties synced to the cloud."
+    },
+    {
+      "q": "Is there a WhatsApp number for Plot Yangu?",
+      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473. From its menu, landlords can use Landlord Watch, tenants can pay rent and get rent invoices, and anyone can search House to Rent. It works in English and Kiswahili."
     }
   ],
   "presentation": {
@@ -254,5 +258,6 @@
   "featureSlugs": [
     "landlord-watch",
     "house-to-rent"
-  ]
+  ],
+  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili."
 }

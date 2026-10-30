@@ -1,0 +1,696 @@
+From 6ed3c24fa48cac817d9c7207434e262f6432f933 Mon Sep 17 00:00:00 2001
+From: SAMUHIA Web <info@samuhia.co.ke>
+Date: Fri, 30 Oct 2026 11:23:22 +0000
+Subject: [PATCH] Connect the SAMUHIA WhatsApp bot (+254 101 716 473) across
+ the site, SEO and LLM files
+
+- site.json 'bot' block is the single source for the number; wa.me links generated in lib/data.js
+- Footer, home page (callout, CTA column, FAQ), contact, support and 404 pages
+- Feature pages (Landlord Watch, House to Rent): WhatsApp button, callout, facts, steps, FAQ
+- Plot Yangu, MyChama and Samuhia Payments product pages and matching solution pages: callout + FAQ
+- Organization JSON-LD gets a WhatsApp bot ContactPoint; feature Service channel gets serviceUrl/servicePhone
+- Markdown twins, llms.txt and llms-full.txt mention the bot
+- Support and contact meta descriptions mention the bot
+---
+ README.md                            |   1 +
+ src/components/footer.js             |   3 +-
+ src/components/whatsapp.js           |  10 +++
+ src/content/features.json            | 110 +++++++++++++++++++++------
+ src/content/home.json                |  11 ++-
+ src/content/pages.json               |   4 +-
+ src/content/products/mychama.json    |   7 +-
+ src/content/products/payments.json   |   7 +-
+ src/content/products/plot-yangu.json |   7 +-
+ src/content/site.json                |   8 ++
+ src/lib/data.js                      |   4 +
+ src/pages/features.js                |   8 +-
+ src/pages/home.js                    |   7 +-
+ src/pages/misc.js                    |   8 +-
+ src/pages/products.js                |   2 +
+ src/pages/solutions.js               |   2 +
+ src/seo/jsonld.js                    |  11 ++-
+ src/seo/llms.js                      |   7 +-
+ src/seo/markdown.js                  |   8 +-
+ src/styles/components.css            |  25 ++++++
+ 20 files changed, 205 insertions(+), 45 deletions(-)
+ create mode 100644 src/components/whatsapp.js
+
+diff --git a/README.md b/README.md
+index 70a483b..134a8b2 100644
+--- a/README.md
++++ b/README.md
+@@ -61,6 +61,7 @@ samuhia-website/
+ ## Before you launch: checklist
+ 
+ - [ ] `site.json` → `url` is your real domain
++- [ ] `site.json` → `bot` holds the WhatsApp bot number; every wa.me link on the site is generated from it
+ - [ ] Add `social` links, `verification.google`
+ - [ ] Add founder photo and links in `founder.json`
+ - [ ] Write real Privacy / Terms text, then remove `"draft": true` in `pages.json`
+diff --git a/src/components/footer.js b/src/components/footer.js
+index ac3c26b..d5b570b 100644
+--- a/src/components/footer.js
++++ b/src/components/footer.js
+@@ -1,5 +1,5 @@
+ import { esc, each } from '../lib/html.js';
+-import { site, products, solutions, features, build } from '../lib/data.js';
++import { site, bot, products, solutions, features, build } from '../lib/data.js';
+ import { lockup } from './brand.js';
+ 
+ const col = (title, links) => `<div><p class="ftitle">${esc(title)}</p><ul>${each(links, (l) => `<li><a href="${esc(l.href)}">${esc(l.label)}</a></li>`)}</ul></div>`;
+@@ -16,6 +16,7 @@ export const footer = () => {
+       <a href="/" aria-label="${esc(site.name)} home">${lockup('samuhia', 44, { reversed: true })}</a>
+       <p>${esc(site.shortDescription)}</p>
+       <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a> · <a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a> · <a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
++      <p>${esc(bot.name)}: <a href="${esc(bot.url)}" rel="noopener">${esc(bot.phoneSpaced)}</a></p>
+     </div>
+     <div class="cols">
+       ${col('Products', products.map((p) => ({ label: p.name, href: `/products/${p.slug}/` })))}
+diff --git a/src/components/whatsapp.js b/src/components/whatsapp.js
+new file mode 100644
+index 0000000..59c697c
+--- /dev/null
++++ b/src/components/whatsapp.js
+@@ -0,0 +1,10 @@
++import { esc } from '../lib/html.js';
++import { bot, botLink } from '../lib/data.js';
++
++/** A link button that opens the SAMUHIA WhatsApp bot (optionally with a prefilled first message). */
++export const botButton = (label = bot.cta, { text, cls = 'btn pri' } = {}) =>
++  `<a class="${esc(cls)}" href="${esc(botLink(text ?? bot.prefill))}" rel="noopener">${esc(label)}</a>`;
++
++/** A callout band: heading, one sentence, the number, and a button. */
++export const botCallout = ({ id = 'whatsapp-bot', title = 'Chat with SAMUHIA on WhatsApp', text, text2 = '' }) =>
++  `<section aria-labelledby="${esc(id)}"><div class="bot-callout"><div><h2 id="${esc(id)}">${esc(title)}</h2><p>${esc(text)}</p>${text2 ? `<p>${esc(text2)}</p>` : ''}<p class="bot-num">${esc(bot.name)}: <a href="${esc(bot.url)}" rel="noopener">${esc(bot.phoneSpaced)}</a></p></div>${botButton()}</div></section>`;
+diff --git a/src/content/features.json b/src/content/features.json
+index feb001d..e61cce6 100644
+--- a/src/content/features.json
++++ b/src/content/features.json
+@@ -12,7 +12,10 @@
+     "lead": "If an agency manages your property, you should not have to chase a phone call to find out whether rent came in. Landlord Watch gives you a read-only view of your property's rent collection, on WhatsApp or the web, in English or Kiswahili.",
+     "audience": "Landlords whose properties are managed by an agency or property manager, and the agencies that manage them",
+     "serviceType": "Landlord rent reporting",
+-    "channels": ["WhatsApp", "Web"],
++    "channels": [
++      "WhatsApp",
++      "Web"
++    ],
+     "ctaLabel": "Open Plot Yangu",
+     "ctaHref": "https://plot.samuhia.co.ke",
+     "ctaSecondaryLabel": "Talk to us about Landlord Watch",
+@@ -32,7 +35,7 @@
+     ],
+     "steps": [
+       "Your agent manages the property in Plot Yangu and gives you the property's ID.",
+-      "Open Landlord Watch on WhatsApp (choose it from the menu or type WATCH) or from the Landlord Watch button on the Plot Yangu sign-in screen, and enter the property ID.",
++      "Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose Landlord Watch from the menu (or type WATCH), or use the Landlord Watch button on the Plot Yangu sign-in screen. Then enter the property ID.",
+       "See the property summary straight away. Tenant names and phone numbers stay hidden until you unlock them.",
+       "To unlock details, ask for a one-time code. It is sent by SMS to the owner phone number on file for the property.",
+       "Browse the tenants list, the money breakdown and earlier months, and request the monthly statement PDF."
+@@ -62,19 +65,48 @@
+       }
+     ],
+     "facts": [
+-      { "label": "Who it's for", "value": "Landlords with agent-managed properties" },
+-      { "label": "Where", "value": "WhatsApp and the Plot Yangu web app" },
+-      { "label": "Languages", "value": "English and Kiswahili" },
+-      { "label": "Access", "value": "Read-only; one-time SMS code unlocks tenant details" },
+-      { "label": "Part of", "value": "Plot Yangu" }
+-    ],
+-    "related": ["plot-yangu", "payments", "desk"],
+-    "relatedFeatures": ["house-to-rent"],
++      {
++        "label": "Who it's for",
++        "value": "Landlords with agent-managed properties"
++      },
++      {
++        "label": "Where",
++        "value": "WhatsApp and the Plot Yangu web app"
++      },
++      {
++        "label": "Languages",
++        "value": "English and Kiswahili"
++      },
++      {
++        "label": "Access",
++        "value": "Read-only; one-time SMS code unlocks tenant details"
++      },
++      {
++        "label": "Part of",
++        "value": "Plot Yangu"
++      },
++      {
++        "label": "WhatsApp number",
++        "value": "+254 101 716 473"
++      }
++    ],
++    "related": [
++      "plot-yangu",
++      "payments",
++      "desk"
++    ],
++    "relatedFeatures": [
++      "house-to-rent"
++    ],
+     "faq": [
+       {
+         "q": "What is Landlord Watch?",
+         "a": "Landlord Watch is a Plot Yangu feature that lets a landlord whose property is managed by an agency see how the property is performing: rent billed, collected and pending, the agent's commission, the net amount payable and who has paid. It is available on WhatsApp and on the web, in English and Kiswahili."
+       },
++      {
++        "q": "What is the WhatsApp number for Landlord Watch?",
++        "a": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, then choose Landlord Watch from the menu or type WATCH. You can pick English or Kiswahili."
++      },
+       {
+         "q": "Can a landlord change anything in Landlord Watch?",
+         "a": "No. Landlord Watch is read-only. The agency keeps managing invoices, payments and tenants in Plot Yangu."
+@@ -95,7 +127,9 @@
+         "q": "Can I get a monthly statement?",
+         "a": "Yes. You can request an official monthly statement as a PDF. If a fee applies, the price is shown and you pay by M-Pesa before the statement is generated."
+       }
+-    ]
++    ],
++    "botTitle": "Use Landlord Watch on WhatsApp",
++    "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose Landlord Watch from the menu or type WATCH, and enter your property ID."
+   },
+   {
+     "order": 2,
+@@ -110,7 +144,9 @@
+     "lead": "Looking for a house to let in Kenya usually means calling around. House to Rent lets people type an area on WhatsApp, browse vacant units with their rent and deposit, and send an inquiry straight to the property manager.",
+     "audience": "People looking for a house, room, shop or office to rent, and property managers and landlords with vacant units",
+     "serviceType": "Rental listings",
+-    "channels": ["WhatsApp"],
++    "channels": [
++      "WhatsApp"
++    ],
+     "ctaLabel": "Open Plot Yangu",
+     "ctaHref": "https://plot.samuhia.co.ke",
+     "ctaSecondaryLabel": "Talk to us about listing your units",
+@@ -127,7 +163,7 @@
+     "steps": [
+       "A property manager or landlord keeps units in Plot Yangu and marks the empty ones as vacant.",
+       "For properties synced to the cloud, vacant unit details are listed automatically. Nothing extra to post.",
+-      "A house hunter opens the SAMUHIA WhatsApp menu, chooses House to Rent and types the area they want.",
++      "A house hunter messages the SAMUHIA WhatsApp bot on +254 101 716 473, chooses House to Rent from the menu and types the area they want.",
+       "They pick a unit from the matches and see its rent, deposit and details.",
+       "They contact the manager, or confirm their phone number and send an inquiry. The manager receives it by SMS and calls back."
+     ],
+@@ -155,19 +191,47 @@
+       }
+     ],
+     "facts": [
+-      { "label": "Where", "value": "WhatsApp" },
+-      { "label": "Search by", "value": "Area" },
+-      { "label": "Listings come from", "value": "Vacant units in Plot Yangu" },
+-      { "label": "Languages", "value": "English and Kiswahili" },
+-      { "label": "Contact", "value": "Manager's details or an SMS inquiry" }
+-    ],
+-    "related": ["plot-yangu", "payments"],
+-    "relatedFeatures": ["landlord-watch"],
++      {
++        "label": "Where",
++        "value": "WhatsApp"
++      },
++      {
++        "label": "Search by",
++        "value": "Area"
++      },
++      {
++        "label": "Listings come from",
++        "value": "Vacant units in Plot Yangu"
++      },
++      {
++        "label": "Languages",
++        "value": "English and Kiswahili"
++      },
++      {
++        "label": "Contact",
++        "value": "Manager's details or an SMS inquiry"
++      },
++      {
++        "label": "WhatsApp number",
++        "value": "+254 101 716 473"
++      }
++    ],
++    "related": [
++      "plot-yangu",
++      "payments"
++    ],
++    "relatedFeatures": [
++      "landlord-watch"
++    ],
+     "faq": [
+       {
+         "q": "How do I find a house to rent on WhatsApp?",
+         "a": "Open the SAMUHIA WhatsApp menu, choose House to Rent and type the area you want to live in. You will see the vacant units listed there, with rent and deposit, and can open any one for details."
+       },
++      {
++        "q": "What is the WhatsApp number for House to Rent?",
++        "a": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, then choose House to Rent from the menu and type the area you are looking in. You can pick English or Kiswahili."
++      },
+       {
+         "q": "What details do I see for each unit?",
+         "a": "The unit size and number, the property name, the address, whether it is residential or commercial, its condition, the monthly rent and the deposit."
+@@ -188,6 +252,8 @@
+         "q": "Are tenant details shown in listings?",
+         "a": "No. Listings show unit facts only. Tenant records and the landlord's personal details are never part of a listing."
+       }
+-    ]
++    ],
++    "botTitle": "Use House to Rent on WhatsApp",
++    "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose House to Rent from the menu and type the area you want."
+   }
+ ]
+diff --git a/src/content/home.json b/src/content/home.json
+index 8bd1450..090a1f2 100644
+--- a/src/content/home.json
++++ b/src/content/home.json
+@@ -120,7 +120,16 @@
+     {
+       "q": "Where is SAMUHIA based?",
+       "a": "SAMUHIA currently operates from Kenya and is building toward broader international expansion."
++    },
++    {
++      "q": "Is there a SAMUHIA WhatsApp number?",
++      "a": "Yes. The SAMUHIA WhatsApp bot is on +254 101 716 473. Message it to pay rent, get a rent invoice, open My Chama, use Landlord Watch or search House to Rent, in English or Kiswahili. To reach the SAMUHIA team directly, use the details on the Contact page."
+     }
+   ],
+-  "description": "SAMUHIA is a Kenyan technology company building practical digital products for property management, schools, chamas, payments and small businesses."
++  "description": "SAMUHIA is a Kenyan technology company building practical digital products for property management, schools, chamas, payments and small businesses.",
++  "bot": {
++    "title": "Chat with SAMUHIA on WhatsApp",
++    "text": "Our WhatsApp bot is open on +254 101 716 473. Message it to pay rent, get a rent invoice, open your chama, follow your property with Landlord Watch or search for a house to rent, in English or Kiswahili.",
++    "text2": ""
++  }
+ }
+diff --git a/src/content/pages.json b/src/content/pages.json
+index 9cd2f06..796d857 100644
+--- a/src/content/pages.json
++++ b/src/content/pages.json
+@@ -40,12 +40,12 @@
+   },
+   "support": {
+     "seoTitle": "Support — Get Help With SAMUHIA Products",
+-    "description": "Get help with Plot Yangu, MyChama, MyRegister, Samuhia Desk, Samuhia Payments and general SAMUHIA questions.",
++    "description": "Get help with Plot Yangu, MyChama, MyRegister, Samuhia Desk and Payments, or message the SAMUHIA WhatsApp bot on +254 101 716 473.",
+     "title": "What can we help with?"
+   },
+   "contact": {
+     "seoTitle": "Contact SAMUHIA — Email, Phone and WhatsApp",
+-    "description": "Contact SAMUHIA by email, phone or WhatsApp, or send a message about any product.",
++    "description": "Contact SAMUHIA by email, phone or WhatsApp, or message the SAMUHIA WhatsApp bot on +254 101 716 473 to pay rent and more.",
+     "title": "Let's build what matters."
+   },
+   "careers": {
+diff --git a/src/content/products/mychama.json b/src/content/products/mychama.json
+index d2bd840..a2fa1a0 100644
+--- a/src/content/products/mychama.json
++++ b/src/content/products/mychama.json
+@@ -146,6 +146,10 @@
+     {
+       "q": "Can members use it without installing an app?",
+       "a": "Members can install the web app, and a WhatsApp assistant handles common member actions."
++    },
++    {
++      "q": "Is there a WhatsApp number for MyChama?",
++      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose My Chama from the menu. It works in English and Kiswahili."
+     }
+   ],
+   "presentation": {
+@@ -203,5 +207,6 @@
+     ]
+   },
+   "schemaCategory": "FinanceApplication",
+-  "operatingSystem": "Web (installable), WhatsApp"
++  "operatingSystem": "Web (installable), WhatsApp",
++  "whatsappBot": "Members can open My Chama from the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili."
+ }
+diff --git a/src/content/products/payments.json b/src/content/products/payments.json
+index 99ee55b..8ee0ef6 100644
+--- a/src/content/products/payments.json
++++ b/src/content/products/payments.json
+@@ -75,6 +75,10 @@
+     {
+       "q": "Do landlords or agents need their own Paystack account?",
+       "a": "No. You add your M-Pesa, bank, paybill or till details and settlement is set up for you."
++    },
++    {
++      "q": "Can tenants pay rent on WhatsApp?",
++      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose Pay Rent or Get Rent Invoice from the menu."
+     }
+   ],
+   "presentation": {
+@@ -129,5 +133,6 @@
+     ]
+   },
+   "schemaCategory": "FinanceApplication",
+-  "operatingSystem": "Web (installable PWA)"
++  "operatingSystem": "Web (installable PWA)",
++  "whatsappBot": "Tenants can pay rent and get a rent invoice by messaging the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili."
+ }
+diff --git a/src/content/products/plot-yangu.json b/src/content/products/plot-yangu.json
+index 15113a7..98f353d 100644
+--- a/src/content/products/plot-yangu.json
++++ b/src/content/products/plot-yangu.json
+@@ -181,6 +181,10 @@
+     {
+       "q": "What is House to Rent?",
+       "a": "House to Rent lets people search for vacant units by area on WhatsApp and send an inquiry to the property manager by SMS. Units marked vacant in Plot Yangu are listed automatically for properties synced to the cloud."
++    },
++    {
++      "q": "Is there a WhatsApp number for Plot Yangu?",
++      "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473. From its menu, landlords can use Landlord Watch, tenants can pay rent and get rent invoices, and anyone can search House to Rent. It works in English and Kiswahili."
+     }
+   ],
+   "presentation": {
+@@ -254,5 +258,6 @@
+   "featureSlugs": [
+     "landlord-watch",
+     "house-to-rent"
+-  ]
++  ],
++  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili."
+ }
+diff --git a/src/content/site.json b/src/content/site.json
+index 7fe5e65..04ef0b4 100644
+--- a/src/content/site.json
++++ b/src/content/site.json
+@@ -15,6 +15,14 @@
+   "phone": "+254791286165",
+   "phoneDisplay": "0791 286 165",
+   "whatsapp": "254791286165",
++  "bot": {
++    "name": "SAMUHIA WhatsApp bot",
++    "phone": "+254101716473",
++    "phoneDisplay": "0101 716 473",
++    "phoneSpaced": "+254 101 716 473",
++    "whatsapp": "254101716473",
++    "prefill": "Hi"
++  },
+   "themeColor": "#0B1210",
+   "ogImage": "/assets/og/samuhia-og.png",
+   "ogImageAlt": "SAMUHIA Technology Group logo with the five SAMUHIA product icons",
+diff --git a/src/lib/data.js b/src/lib/data.js
+index ae1cf4b..71a5093 100644
+--- a/src/lib/data.js
++++ b/src/lib/data.js
+@@ -38,6 +38,10 @@ export const productBySlug = (slug) => {
+   return p;
+ };
+ 
++/** WhatsApp bot: one source of truth for the number and every wa.me link. */
++export const botLink = (text) => `https://wa.me/${site.bot.whatsapp}` + (text ? `?text=${encodeURIComponent(text)}` : '');
++export const bot = { ...site.bot, url: botLink(site.bot.prefill), cta: 'Chat on WhatsApp' };
++
+ /** Runtime build options (set by scripts/build.js from CLI flags). */
+ export const build = {
+   noindex: false,
+diff --git a/src/pages/features.js b/src/pages/features.js
+index 9dc149e..9005505 100644
+--- a/src/pages/features.js
++++ b/src/pages/features.js
+@@ -2,6 +2,7 @@ import { esc, each } from '../lib/html.js';
+ import { pages, features, featureBySlug, productBySlug } from '../lib/data.js';
+ import { relatedList } from '../components/cards.js';
+ import { facts } from '../components/facts.js';
++import { botButton, botCallout } from '../components/whatsapp.js';
+ import { faq } from '../components/faq.js';
+ import * as ld from '../seo/jsonld.js';
+ import { featureMarkdown, featuresIndexMarkdown } from '../seo/markdown.js';
+@@ -32,14 +33,14 @@ export const featuresIndex = () => {
+ export const featurePage = (f) => {
+   const p = productBySlug(f.product);
+   const path = `/features/${f.slug}/`;
+-  const cta = `<a class="btn pri" href="${esc(f.ctaHref)}" rel="noopener">${esc(f.ctaLabel)}</a>`;
++  const cta = `<a class="btn" href="${esc(f.ctaHref)}" rel="noopener">${esc(f.ctaLabel)}</a>`;
+   const cta2 = `<a class="btn" href="${esc(f.ctaSecondaryHref)}">${esc(f.ctaSecondaryLabel)}</a>`;
+   const others = (f.relatedFeatures || []).map(featureBySlug);
+   const body = `<div class="page wrap"><article>
+   <p class="eyebrow">${esc(f.kicker)}</p>
+   <h1>${esc(f.title)}</h1>
+   <p class="lead">${esc(f.lead)}</p>
+-  <div class="row">${cta}${cta2}</div>
++  <div class="row">${botButton(`Open ${f.name} on WhatsApp`)}${cta}${cta2}</div>
+   <section aria-labelledby="problem"><h2 id="problem">The problem</h2><p>${esc(f.problem)}</p></section>
+   <section aria-labelledby="capabilities"><h2 id="capabilities">${esc(f.capabilitiesTitle)}</h2><ul class="chk">${each(f.capabilities, (x) => `<li>${esc(x)}</li>`)}</ul></section>
+   <section aria-labelledby="how"><h2 id="how">How it works</h2><ol class="steps">${each(f.steps, (s) => `<li>${esc(s)}</li>`)}</ol></section>
+@@ -47,8 +48,9 @@ export const featurePage = (f) => {
+   ${each(f.audiences, (a) => `<section aria-labelledby="${esc(a.id)}"><h2 id="${esc(a.id)}">${esc(a.title)}</h2><p>${esc(a.lead)}</p><ul class="chk">${each(a.items, (x) => `<li>${esc(x)}</li>`)}</ul></section>`)}
+   <section aria-labelledby="glance"><h2 id="glance">At a glance</h2>${facts(f.facts)}</section>
+   <section aria-labelledby="part"><h2 id="part">Part of ${esc(p.name)}</h2><p style="margin-bottom:18px">${esc(f.name)} is a feature of <a href="/products/${esc(p.slug)}/">${esc(p.name)}</a>, SAMUHIA's property management product.${others.length ? ` See also: ${others.map((o) => `<a href="/features/${esc(o.slug)}/">${esc(o.name)}</a>`).join(', ')}.` : ''}</p>${relatedList(f.related)}</section>
++  ${botCallout({ id: 'whatsapp-bot', title: f.botTitle, text: f.botText })}
+   <section aria-labelledby="faq"><h2 id="faq">FAQ</h2>${faq(f.faq)}</section>
+-  <div class="row">${cta}${cta2}<a class="btn" href="/features/">All features</a></div>
++  <div class="row">${botButton(`Open ${f.name} on WhatsApp`)}${cta}${cta2}<a class="btn" href="/features/">All features</a></div>
+ </article></div>`;
+   return {
+     path,
+diff --git a/src/pages/home.js b/src/pages/home.js
+index d939e3b..d829a75 100644
+--- a/src/pages/home.js
++++ b/src/pages/home.js
+@@ -1,5 +1,6 @@
+ import { esc, each } from '../lib/html.js';
+-import { site, home, founder, products, solutions } from '../lib/data.js';
++import { botCallout } from '../components/whatsapp.js';
++import { site, bot, home, founder, products, solutions } from '../lib/data.js';
+ import { productCard, solutionCard } from '../components/cards.js';
+ import { ecosystem } from '../components/ecosystem.js';
+ import { faq } from '../components/faq.js';
+@@ -75,11 +76,13 @@ export const homePage = () => {
+     </div>
+     <div>
+       <h2 style="font-size:1.6rem">${esc(h.cta.contactTitle)}</h2>
+-      <p style="margin-top:12px"><a href="mailto:${esc(site.email)}">${esc(site.email)}</a><br><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a><br><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
++      <p style="margin-top:12px"><a href="mailto:${esc(site.email)}">${esc(site.email)}</a><br><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a><br><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a><br><a href="${esc(bot.url)}" rel="noopener">WhatsApp bot ${esc(bot.phoneSpaced)}</a></p>
+     </div>
+   </div>
+ </section>
+ 
++<section aria-labelledby="bot-title"><div class="wrap">${botCallout({ id: 'bot-title', title: h.bot.title, text: h.bot.text })}</div></section>
++
+ <section aria-labelledby="faq-title">
+   <div class="wrap"><h2 id="faq-title">Frequently asked questions</h2><div style="margin-top:20px">${faq(h.faq)}</div></div>
+ </section>`;
+diff --git a/src/pages/misc.js b/src/pages/misc.js
+index 02eef98..858ece1 100644
+--- a/src/pages/misc.js
++++ b/src/pages/misc.js
+@@ -1,5 +1,6 @@
+ import { esc, each } from '../lib/html.js';
+-import { site, pages, products } from '../lib/data.js';
++import { site, bot, pages, products } from '../lib/data.js';
++import { botCallout, botButton } from '../components/whatsapp.js';
+ import * as ld from '../seo/jsonld.js';
+ 
+ export const resourcesPage = () => {
+@@ -26,7 +27,7 @@ export const supportPage = () => {
+     description: c.description,
+     crumbs: [{ label: 'Support' }],
+     jsonld: [ld.webPage({ path: '/support/', title: c.seoTitle, description: c.description })],
+-    body: `<div class="page wrap"><p class="eyebrow">Support</p><h1>${esc(c.title)}</h1><div class="grid g3" style="margin-top:32px">${each([...products.map((p) => p.name), 'General'], (x) => `<a class="card link" href="/contact/?topic=${encodeURIComponent(x)}"><h3>${esc(x)}</h3><p>Contact support →</p></a>`)}</div>${status}</div>`,
++    body: `<div class="page wrap"><p class="eyebrow">Support</p><h1>${esc(c.title)}</h1>${botCallout({ id: 'support-bot', title: 'Fastest way to get started: WhatsApp', text: 'Message the SAMUHIA WhatsApp bot to pay rent, get a rent invoice, open My Chama, use Landlord Watch or search for a house to rent. For help from our team, choose a product below.' })}<div class="grid g3" style="margin-top:32px">${each([...products.map((p) => p.name), 'General'], (x) => `<a class="card link" href="/contact/?topic=${encodeURIComponent(x)}"><h3>${esc(x)}</h3><p>Contact support →</p></a>`)}</div>${status}</div>`,
+   };
+ };
+ 
+@@ -52,6 +53,7 @@ export const contactPage = () => {
+     <p><a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
+     <p><a href="mailto:${esc(site.altEmail)}">${esc(site.altEmail)}</a></p>
+     <p><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a><br><a href="https://wa.me/${esc(site.whatsapp)}" rel="noopener">WhatsApp</a></p>
++    <p><strong>${esc(bot.name)}</strong><br><a href="${esc(bot.url)}" rel="noopener">${esc(bot.phoneSpaced)}</a><br><span class="muted">Pay rent, get invoices, Landlord Watch, House to Rent and My Chama.</span></p>
+     ${site.social.length ? `<p class="muted" style="margin-top:12px">${each(site.social, (s) => `<a href="${esc(s.url)}" rel="me noopener">${esc(s.name)}</a> `)}</p>` : ''}
+   </div>
+ </div></div>`,
+@@ -83,6 +85,6 @@ export const notFoundPage = () => {
+     title: `${c.seoTitle} | ${site.name}`,
+     description: c.description,
+     jsonld: [],
+-    body: `<div class="page wrap"><div class="big404" aria-hidden="true">404</div><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="row"><a class="btn pri" href="/">Back to ${esc(site.name)}</a><a class="btn" href="/products/">Explore products</a></div></div>`,
++    body: `<div class="page wrap"><div class="big404" aria-hidden="true">404</div><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p><div class="row"><a class="btn pri" href="/">Back to ${esc(site.name)}</a><a class="btn" href="/products/">Explore products</a>${botButton('Chat on WhatsApp', { cls: 'btn' })}</div></div>`,
+   };
+ };
+diff --git a/src/pages/products.js b/src/pages/products.js
+index 43cbb7c..77f7c6a 100644
+--- a/src/pages/products.js
++++ b/src/pages/products.js
+@@ -3,6 +3,7 @@ import { site, pages, products, solutions, featureBySlug } from '../lib/data.js'
+ import { productCard, badge, relatedList } from '../components/cards.js';
+ import { icon } from '../components/brand.js';
+ import { mockup } from '../components/mockup.js';
++import { botCallout } from '../components/whatsapp.js';
+ import { facts } from '../components/facts.js';
+ import { faq } from '../components/faq.js';
+ import { priceBlock } from '../components/pricing.js';
+@@ -48,6 +49,7 @@ export const productPage = (p) => {
+   <section aria-labelledby="capabilities"><h2 id="capabilities">Core capabilities</h2><ul class="chk">${each(p.features, (f) => `<li>${esc(f)}</li>`)}</ul></section>
+   ${p.featureSlugs?.length ? `<section aria-labelledby="featured"><h2 id="featured">Featured capabilities</h2><div class="grid g2">${each(p.featureSlugs.map(featureBySlug), (f) => `<article class="card"><h3>${esc(f.name)}</h3><p>${esc(f.cardDescription)}</p><a class="lnk" href="/features/${esc(f.slug)}/">Read about ${esc(f.name)} →</a></article>`)}</div></section>` : ''}
+   <section aria-labelledby="how"><h2 id="how">How it works</h2><ol class="steps">${each(p.steps, (s) => `<li>${esc(s)}</li>`)}</ol></section>
++  ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: `${p.name} on WhatsApp`, text: p.whatsappBot }) : ''}
+   <section aria-labelledby="glance"><h2 id="glance">At a glance</h2>${facts(p.facts)}</section>
+   <section aria-labelledby="audience"><h2 id="audience">Who it's for</h2><p>${esc(p.audience)}.</p>${solution ? `<p style="margin-top:10px"><a href="/solutions/${esc(solution.slug)}/">See the ${esc(solution.title.replace(/^For /, ''))} solution →</a></p>` : ''}</section>
+   <section aria-labelledby="pricing"><h2 id="pricing">Pricing</h2>${priceBlock(p)}</section>
+diff --git a/src/pages/solutions.js b/src/pages/solutions.js
+index 8f2164f..e2fe87a 100644
+--- a/src/pages/solutions.js
++++ b/src/pages/solutions.js
+@@ -2,6 +2,7 @@ import { esc, each } from '../lib/html.js';
+ import { site, pages, solutions, productBySlug } from '../lib/data.js';
+ import { solutionCard } from '../components/cards.js';
+ import { faq } from '../components/faq.js';
++import { botCallout } from '../components/whatsapp.js';
+ import * as ld from '../seo/jsonld.js';
+ import { solutionMarkdown, solutionsIndexMarkdown } from '../seo/markdown.js';
+ 
+@@ -36,6 +37,7 @@ export const solutionPage = (s) => {
+   <p class="eyebrow">Solution</p><h1>${esc(s.title)}</h1><p class="lead">${esc(s.description)}</p>
+   <section aria-labelledby="rec"><h2 id="rec">Recommended: ${esc(p.name)}</h2><p>${esc(p.longDescription)}</p></section>
+   <section aria-labelledby="does"><h2 id="does">What you can do</h2><ul class="chk">${each(p.features.slice(0, 8), (f) => `<li>${esc(f)}</li>`)}</ul></section>
++  ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: 'Also on WhatsApp', text: p.whatsappBot }) : ''}
+   <section aria-labelledby="price"><h2 id="price">Pricing</h2><p>${esc(p.priceSummary)}</p></section>
+   <section aria-labelledby="qa"><h2 id="qa">Common questions</h2>${faq(p.faq.slice(0, 3))}</section>
+   <div class="row"><a class="btn pri" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>
+diff --git a/src/seo/jsonld.js b/src/seo/jsonld.js
+index 588cd69..5745efb 100644
+--- a/src/seo/jsonld.js
++++ b/src/seo/jsonld.js
+@@ -1,4 +1,4 @@
+-import { site, founder, products, features, abs } from '../lib/data.js';
++import { site, bot, founder, products, features, abs } from '../lib/data.js';
+ 
+ const ORG_ID = () => abs('/#org');
+ const SITE_ID = () => abs('/#website');
+@@ -21,7 +21,7 @@ export const organization = () => ({
+   telephone: site.phone,
+   address: { '@type': 'PostalAddress', addressCountry: site.countryCode },
+   areaServed: { '@type': 'Country', name: site.countryName },
+-  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
++  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email, telephone: site.phone, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }, { '@type': 'ContactPoint', name: bot.name, contactType: 'customer support', telephone: bot.phone, url: bot.url, areaServed: site.countryCode, availableLanguage: ['English', 'Swahili'] }],
+   knowsAbout: ['Property management software', 'School attendance software', 'Chama and group savings management', 'Mobile money payments', 'Digital services for small businesses', 'Landlord rent reporting for agent-managed properties', 'Rental listings and vacant unit search on WhatsApp'],
+   ...(site.social.length ? { sameAs: site.social.map((s) => s.url) } : {}),
+ });
+@@ -130,7 +130,12 @@ export const featureService = (f) => ({
+   provider: { '@id': ORG_ID() },
+   areaServed: { '@type': 'Country', name: site.countryName },
+   audience: { '@type': 'Audience', audienceType: f.audience },
+-  availableChannel: f.channels.map((c) => ({ '@type': 'ServiceChannel', name: c, availableLanguage: ['English', 'Swahili'] })),
++  availableChannel: f.channels.map((c) => ({
++    '@type': 'ServiceChannel',
++    name: c,
++    availableLanguage: ['English', 'Swahili'],
++    ...(c === 'WhatsApp' ? { serviceUrl: bot.url, servicePhone: { '@type': 'ContactPoint', telephone: bot.phone } } : {}),
++  })),
+   isRelatedTo: { '@id': abs(`/products/${f.product}/`) + '#app' },
+ });
+ 
+diff --git a/src/seo/llms.js b/src/seo/llms.js
+index 6a68ede..df2ea1b 100644
+--- a/src/seo/llms.js
++++ b/src/seo/llms.js
+@@ -1,5 +1,5 @@
+ // /llms.txt (llmstxt.org format) and /llms-full.txt
+-import { site, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
++import { site, bot, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
+ import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown } from './markdown.js';
+ 
+ const md = (p) => abs(p + 'index.md');
+@@ -8,7 +8,7 @@ export const llmsTxt = () => `# ${site.name}
+ 
+ > ${site.description}
+ 
+-${site.legalName} is based in ${site.countryName} and was founded in ${site.foundingYear}. Its products are: ${products.map((p) => p.name).join(', ')}. Samuhia Payments is the shared payment layer behind the other products. Prices are in Kenya shillings (KES); payments are made by M-Pesa. Contact: ${site.email}, ${site.phone}.
++${site.legalName} is based in ${site.countryName} and was founded in ${site.foundingYear}. Its products are: ${products.map((p) => p.name).join(', ')}. Samuhia Payments is the shared payment layer behind the other products. Prices are in Kenya shillings (KES); payments are made by M-Pesa. Contact: ${site.email}, ${site.phone}. The SAMUHIA WhatsApp bot (pay rent, rent invoices, My Chama, Landlord Watch, House to Rent) is at ${bot.phoneSpaced}: ${bot.url}
+ 
+ ## Products
+ 
+@@ -29,7 +29,8 @@ ${features.map((f) => `- [${f.name}](${md(`/features/${f.slug}/`)}): ${f.cardDes
+ - [Pricing](${md('/pricing/')}): Plans and fees for every product, in KES.
+ - [Careers](${md('/careers/')}): Samuhia Desk agent programme, earning estimates in KES and open paths.
+ ${careers.paths.map((p) => `  - [${p.name}](${md(`/careers/${p.slug}/`)})`).join('\n')}
+-- [Contact](${abs('/contact/')}): Email, phone, WhatsApp and contact form.
++- [Contact](${abs('/contact/')}): Email, phone, WhatsApp, the WhatsApp bot (${bot.phoneSpaced}) and contact form.
++- [WhatsApp bot](${bot.url}): Chat with the SAMUHIA bot to pay rent, get a rent invoice, open My Chama, use Landlord Watch or search House to Rent.
+ 
+ ## Optional
+ 
+diff --git a/src/seo/markdown.js b/src/seo/markdown.js
+index c4e32b5..67bbbba 100644
+--- a/src/seo/markdown.js
++++ b/src/seo/markdown.js
+@@ -1,6 +1,6 @@
+ // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
+ // Written for LLM ingestion: dense, factual, no navigation chrome.
+-import { site, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
++import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
+ import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
+ 
+ const list = (items) => items.map((x) => `- ${x}`).join('\n');
+@@ -31,6 +31,7 @@ export const productMarkdown = (p) =>
+     `## How it works\n${p.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
+     `## At a glance\n${list(p.facts.map((f) => `**${f.label}:** ${f.value}`))}`,
+     `## Pricing\n${plansMarkdown(p)}${p.priceNote ? `\n\n${p.priceNote}` : ''}`,
++    p.whatsappBot ? `## On WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
+     p.careersCta ? `## Careers\n${p.careersCta.text} ${abs(p.careersCta.href)}` : '',
+     `## Part of the SAMUHIA ecosystem\n${p.connects}`,
+     `## Frequently asked questions\n${p.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
+@@ -43,6 +44,7 @@ export const solutionMarkdown = (s) => {
+     `> ${s.description}`,
+     `## Recommended product: ${p.name}\n${p.longDescription}`,
+     `**Product page:** ${abs(`/products/${p.slug}/`)}  \n**Open the app:** ${p.appUrl}`,
++    p.whatsappBot ? `## Also on WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
+     `## What you can do\n${list(p.features.slice(0, 8))}`,
+     `## Pricing\n${p.priceSummary}`,
+   );
+@@ -75,7 +77,8 @@ export const homeMarkdown = () =>
+   nl(
+     `# ${site.name} — ${site.tagline}`,
+     `> ${site.description}`,
+-    list([`**Legal name:** ${site.legalName}`, `**Founded:** ${site.foundingYear}, ${site.countryName}`, `**Founder & CEO:** ${founder.name}`, `**Email:** ${site.email}`, `**Phone / WhatsApp:** ${site.phone}`, `**Website:** ${abs('/')}`]),
++    list([`**Legal name:** ${site.legalName}`, `**Founded:** ${site.foundingYear}, ${site.countryName}`, `**Founder & CEO:** ${founder.name}`, `**Email:** ${site.email}`, `**Phone / WhatsApp:** ${site.phone}`, `**${bot.name}:** ${bot.phoneSpaced} (${bot.url})`, `**Website:** ${abs('/')}`]),
++    `## ${home.bot.title}\n${home.bot.text} Chat: ${bot.url}`,
+     `## Products\n${list(products.map((p) => `[${p.name}](${abs(`/products/${p.slug}/`)}) — ${p.description}`))}`,
+     `## Story\n${home.story.paragraphs.join('\n\n')}\n\n${home.story.closing}`,
+     `## Frequently asked questions\n${home.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
+@@ -139,6 +142,7 @@ export const featureMarkdown = (f) => {
+       `**Part of:** [${p.name}](${abs(`/products/${p.slug}/`)})`,
+       `**Built for:** ${f.audience}`,
+       `**Available on:** ${f.channels.join(' and ')}`,
++      `**WhatsApp bot:** ${bot.phoneSpaced} (${bot.url})`,
+       `**Web page:** ${abs(`/features/${f.slug}/`)}`,
+       `**Publisher:** ${site.legalName} (${abs('/')})`,
+     ]),
+diff --git a/src/styles/components.css b/src/styles/components.css
+index 9d17626..ba5534a 100644
+--- a/src/styles/components.css
++++ b/src/styles/components.css
+@@ -634,3 +634,28 @@ footer a:hover {
+   color: var(--color-muted);
+   font-weight: 400;
+ }
++
++/* WhatsApp bot callout */
++.bot-callout {
++  display:flex;
++  flex-wrap:wrap;
++  align-items:center;
++  justify-content:space-between;
++  gap:20px;
++  padding:clamp(22px,4vw,36px);
++  border-radius:var(--r);
++  background:var(--dark);
++  color:#fff;
++}
++.bot-callout h2 {
++  margin:0!important;
++}
++.bot-callout p {
++  color:#B7C0BB;
++  max-width:58ch;
++  margin-top:6px;
++}
++.bot-callout .bot-num a {
++  color:#fff;
++  font-weight:600;
++}
+-- 
+2.43.0
+

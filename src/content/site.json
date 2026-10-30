@@ -15,6 +15,14 @@
   "phone": "+254791286165",
   "phoneDisplay": "0791 286 165",
   "whatsapp": "254791286165",
+  "bot": {
+    "name": "SAMUHIA WhatsApp bot",
+    "phone": "+254101716473",
+    "phoneDisplay": "0101 716 473",
+    "phoneSpaced": "+254 101 716 473",
+    "whatsapp": "254101716473",
+    "prefill": "Hi"
+  },
   "themeColor": "#0B1210",
   "ogImage": "/assets/og/samuhia-og.png",
   "ogImageAlt": "SAMUHIA Technology Group logo with the five SAMUHIA product icons",

@@ -3,6 +3,7 @@ import { site, pages, products, solutions, featureBySlug } from '../lib/data.js'
 import { productCard, badge, relatedList } from '../components/cards.js';
 import { icon } from '../components/brand.js';
 import { mockup } from '../components/mockup.js';
+import { botCallout } from '../components/whatsapp.js';
 import { facts } from '../components/facts.js';
 import { faq } from '../components/faq.js';
 import { priceBlock } from '../components/pricing.js';
@@ -48,6 +49,7 @@ export const productPage = (p) => {
   <section aria-labelledby="capabilities"><h2 id="capabilities">Core capabilities</h2><ul class="chk">${each(p.features, (f) => `<li>${esc(f)}</li>`)}</ul></section>
   ${p.featureSlugs?.length ? `<section aria-labelledby="featured"><h2 id="featured">Featured capabilities</h2><div class="grid g2">${each(p.featureSlugs.map(featureBySlug), (f) => `<article class="card"><h3>${esc(f.name)}</h3><p>${esc(f.cardDescription)}</p><a class="lnk" href="/features/${esc(f.slug)}/">Read about ${esc(f.name)} →</a></article>`)}</div></section>` : ''}
   <section aria-labelledby="how"><h2 id="how">How it works</h2><ol class="steps">${each(p.steps, (s) => `<li>${esc(s)}</li>`)}</ol></section>
+  ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: `${p.name} on WhatsApp`, text: p.whatsappBot }) : ''}
   <section aria-labelledby="glance"><h2 id="glance">At a glance</h2>${facts(p.facts)}</section>
   <section aria-labelledby="audience"><h2 id="audience">Who it's for</h2><p>${esc(p.audience)}.</p>${solution ? `<p style="margin-top:10px"><a href="/solutions/${esc(solution.slug)}/">See the ${esc(solution.title.replace(/^For /, ''))} solution →</a></p>` : ''}</section>
   <section aria-labelledby="pricing"><h2 id="pricing">Pricing</h2>${priceBlock(p)}</section>

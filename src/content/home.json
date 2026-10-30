@@ -120,7 +120,16 @@
     {
       "q": "Where is SAMUHIA based?",
       "a": "SAMUHIA currently operates from Kenya and is building toward broader international expansion."
+    },
+    {
+      "q": "Is there a SAMUHIA WhatsApp number?",
+      "a": "Yes. The SAMUHIA WhatsApp bot is on +254 101 716 473. Message it to pay rent, get a rent invoice, open My Chama, use Landlord Watch or search House to Rent, in English or Kiswahili. To reach the SAMUHIA team directly, use the details on the Contact page."
     }
   ],
-  "description": "SAMUHIA is a Kenyan technology company building practical digital products for property management, schools, chamas, payments and small businesses."
+  "description": "SAMUHIA is a Kenyan technology company building practical digital products for property management, schools, chamas, payments and small businesses.",
+  "bot": {
+    "title": "Chat with SAMUHIA on WhatsApp",
+    "text": "Our WhatsApp bot is open on +254 101 716 473. Message it to pay rent, get a rent invoice, open your chama, follow your property with Landlord Watch or search for a house to rent, in English or Kiswahili.",
+    "text2": ""
+  }
 }

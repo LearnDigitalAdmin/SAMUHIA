@@ -12,7 +12,10 @@
     "lead": "If an agency manages your property, you should not have to chase a phone call to find out whether rent came in. Landlord Watch gives you a read-only view of your property's rent collection, on WhatsApp or the web, in English or Kiswahili.",
     "audience": "Landlords whose properties are managed by an agency or property manager, and the agencies that manage them",
     "serviceType": "Landlord rent reporting",
-    "channels": ["WhatsApp", "Web"],
+    "channels": [
+      "WhatsApp",
+      "Web"
+    ],
     "ctaLabel": "Open Plot Yangu",
     "ctaHref": "https://plot.samuhia.co.ke",
     "ctaSecondaryLabel": "Talk to us about Landlord Watch",
@@ -32,7 +35,7 @@
     ],
     "steps": [
       "Your agent manages the property in Plot Yangu and gives you the property's ID.",
-      "Open Landlord Watch on WhatsApp (choose it from the menu or type WATCH) or from the Landlord Watch button on the Plot Yangu sign-in screen, and enter the property ID.",
+      "Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose Landlord Watch from the menu (or type WATCH), or use the Landlord Watch button on the Plot Yangu sign-in screen. Then enter the property ID.",
       "See the property summary straight away. Tenant names and phone numbers stay hidden until you unlock them.",
       "To unlock details, ask for a one-time code. It is sent by SMS to the owner phone number on file for the property.",
       "Browse the tenants list, the money breakdown and earlier months, and request the monthly statement PDF."
@@ -62,18 +65,47 @@
       }
     ],
     "facts": [
-      { "label": "Who it's for", "value": "Landlords with agent-managed properties" },
-      { "label": "Where", "value": "WhatsApp and the Plot Yangu web app" },
-      { "label": "Languages", "value": "English and Kiswahili" },
-      { "label": "Access", "value": "Read-only; one-time SMS code unlocks tenant details" },
-      { "label": "Part of", "value": "Plot Yangu" }
+      {
+        "label": "Who it's for",
+        "value": "Landlords with agent-managed properties"
+      },
+      {
+        "label": "Where",
+        "value": "WhatsApp and the Plot Yangu web app"
+      },
+      {
+        "label": "Languages",
+        "value": "English and Kiswahili"
+      },
+      {
+        "label": "Access",
+        "value": "Read-only; one-time SMS code unlocks tenant details"
+      },
+      {
+        "label": "Part of",
+        "value": "Plot Yangu"
+      },
+      {
+        "label": "WhatsApp number",
+        "value": "+254 101 716 473"
+      }
     ],
-    "related": ["plot-yangu", "payments", "desk"],
-    "relatedFeatures": ["house-to-rent"],
+    "related": [
+      "plot-yangu",
+      "payments",
+      "desk"
+    ],
+    "relatedFeatures": [
+      "house-to-rent"
+    ],
     "faq": [
       {
         "q": "What is Landlord Watch?",
         "a": "Landlord Watch is a Plot Yangu feature that lets a landlord whose property is managed by an agency see how the property is performing: rent billed, collected and pending, the agent's commission, the net amount payable and who has paid. It is available on WhatsApp and on the web, in English and Kiswahili."
+      },
+      {
+        "q": "What is the WhatsApp number for Landlord Watch?",
+        "a": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, then choose Landlord Watch from the menu or type WATCH. You can pick English or Kiswahili."
       },
       {
         "q": "Can a landlord change anything in Landlord Watch?",
@@ -95,7 +127,9 @@
         "q": "Can I get a monthly statement?",
         "a": "Yes. You can request an official monthly statement as a PDF. If a fee applies, the price is shown and you pay by M-Pesa before the statement is generated."
       }
-    ]
+    ],
+    "botTitle": "Use Landlord Watch on WhatsApp",
+    "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose Landlord Watch from the menu or type WATCH, and enter your property ID."
   },
   {
     "order": 2,
@@ -110,7 +144,9 @@
     "lead": "Looking for a house to let in Kenya usually means calling around. House to Rent lets people type an area on WhatsApp, browse vacant units with their rent and deposit, and send an inquiry straight to the property manager.",
     "audience": "People looking for a house, room, shop or office to rent, and property managers and landlords with vacant units",
     "serviceType": "Rental listings",
-    "channels": ["WhatsApp"],
+    "channels": [
+      "WhatsApp"
+    ],
     "ctaLabel": "Open Plot Yangu",
     "ctaHref": "https://plot.samuhia.co.ke",
     "ctaSecondaryLabel": "Talk to us about listing your units",
@@ -127,7 +163,7 @@
     "steps": [
       "A property manager or landlord keeps units in Plot Yangu and marks the empty ones as vacant.",
       "For properties synced to the cloud, vacant unit details are listed automatically. Nothing extra to post.",
-      "A house hunter opens the SAMUHIA WhatsApp menu, chooses House to Rent and types the area they want.",
+      "A house hunter messages the SAMUHIA WhatsApp bot on +254 101 716 473, chooses House to Rent from the menu and types the area they want.",
       "They pick a unit from the matches and see its rent, deposit and details.",
       "They contact the manager, or confirm their phone number and send an inquiry. The manager receives it by SMS and calls back."
     ],
@@ -155,18 +191,46 @@
       }
     ],
     "facts": [
-      { "label": "Where", "value": "WhatsApp" },
-      { "label": "Search by", "value": "Area" },
-      { "label": "Listings come from", "value": "Vacant units in Plot Yangu" },
-      { "label": "Languages", "value": "English and Kiswahili" },
-      { "label": "Contact", "value": "Manager's details or an SMS inquiry" }
+      {
+        "label": "Where",
+        "value": "WhatsApp"
+      },
+      {
+        "label": "Search by",
+        "value": "Area"
+      },
+      {
+        "label": "Listings come from",
+        "value": "Vacant units in Plot Yangu"
+      },
+      {
+        "label": "Languages",
+        "value": "English and Kiswahili"
+      },
+      {
+        "label": "Contact",
+        "value": "Manager's details or an SMS inquiry"
+      },
+      {
+        "label": "WhatsApp number",
+        "value": "+254 101 716 473"
+      }
     ],
-    "related": ["plot-yangu", "payments"],
-    "relatedFeatures": ["landlord-watch"],
+    "related": [
+      "plot-yangu",
+      "payments"
+    ],
+    "relatedFeatures": [
+      "landlord-watch"
+    ],
     "faq": [
       {
         "q": "How do I find a house to rent on WhatsApp?",
         "a": "Open the SAMUHIA WhatsApp menu, choose House to Rent and type the area you want to live in. You will see the vacant units listed there, with rent and deposit, and can open any one for details."
+      },
+      {
+        "q": "What is the WhatsApp number for House to Rent?",
+        "a": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, then choose House to Rent from the menu and type the area you are looking in. You can pick English or Kiswahili."
       },
       {
         "q": "What details do I see for each unit?",
@@ -188,6 +252,8 @@
         "q": "Are tenant details shown in listings?",
         "a": "No. Listings show unit facts only. Tenant records and the landlord's personal details are never part of a listing."
       }
-    ]
+    ],
+    "botTitle": "Use House to Rent on WhatsApp",
+    "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose House to Rent from the menu and type the area you want."
   }
 ]

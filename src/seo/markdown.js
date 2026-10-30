@@ -1,6 +1,6 @@
 // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
 // Written for LLM ingestion: dense, factual, no navigation chrome.
-import { site, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
+import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
 import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
 
 const list = (items) => items.map((x) => `- ${x}`).join('\n');
@@ -31,6 +31,7 @@ export const productMarkdown = (p) =>
     `## How it works\n${p.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
     `## At a glance\n${list(p.facts.map((f) => `**${f.label}:** ${f.value}`))}`,
     `## Pricing\n${plansMarkdown(p)}${p.priceNote ? `\n\n${p.priceNote}` : ''}`,
+    p.whatsappBot ? `## On WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
     p.careersCta ? `## Careers\n${p.careersCta.text} ${abs(p.careersCta.href)}` : '',
     `## Part of the SAMUHIA ecosystem\n${p.connects}`,
     `## Frequently asked questions\n${p.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
@@ -43,6 +44,7 @@ export const solutionMarkdown = (s) => {
     `> ${s.description}`,
     `## Recommended product: ${p.name}\n${p.longDescription}`,
     `**Product page:** ${abs(`/products/${p.slug}/`)}  \n**Open the app:** ${p.appUrl}`,
+    p.whatsappBot ? `## Also on WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
     `## What you can do\n${list(p.features.slice(0, 8))}`,
     `## Pricing\n${p.priceSummary}`,
   );
@@ -75,7 +77,8 @@ export const homeMarkdown = () =>
   nl(
     `# ${site.name} — ${site.tagline}`,
     `> ${site.description}`,
-    list([`**Legal name:** ${site.legalName}`, `**Founded:** ${site.foundingYear}, ${site.countryName}`, `**Founder & CEO:** ${founder.name}`, `**Email:** ${site.email}`, `**Phone / WhatsApp:** ${site.phone}`, `**Website:** ${abs('/')}`]),
+    list([`**Legal name:** ${site.legalName}`, `**Founded:** ${site.foundingYear}, ${site.countryName}`, `**Founder & CEO:** ${founder.name}`, `**Email:** ${site.email}`, `**Phone / WhatsApp:** ${site.phone}`, `**${bot.name}:** ${bot.phoneSpaced} (${bot.url})`, `**Website:** ${abs('/')}`]),
+    `## ${home.bot.title}\n${home.bot.text} Chat: ${bot.url}`,
     `## Products\n${list(products.map((p) => `[${p.name}](${abs(`/products/${p.slug}/`)}) — ${p.description}`))}`,
     `## Story\n${home.story.paragraphs.join('\n\n')}\n\n${home.story.closing}`,
     `## Frequently asked questions\n${home.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
@@ -139,6 +142,7 @@ export const featureMarkdown = (f) => {
       `**Part of:** [${p.name}](${abs(`/products/${p.slug}/`)})`,
       `**Built for:** ${f.audience}`,
       `**Available on:** ${f.channels.join(' and ')}`,
+      `**WhatsApp bot:** ${bot.phoneSpaced} (${bot.url})`,
       `**Web page:** ${abs(`/features/${f.slug}/`)}`,
       `**Publisher:** ${site.legalName} (${abs('/')})`,
     ]),

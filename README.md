@@ -61,6 +61,7 @@ samuhia-website/
 ## Before you launch: checklist
 
 - [ ] `site.json` → `url` is your real domain
+- [ ] `site.json` → `bot` holds the WhatsApp bot number; every wa.me link on the site is generated from it
 - [ ] Add `social` links, `verification.google`
 - [ ] Add founder photo and links in `founder.json`
 - [ ] Write real Privacy / Terms text, then remove `"draft": true` in `pages.json`
