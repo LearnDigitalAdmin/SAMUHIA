@@ -97,9 +97,10 @@
   "priceSummary": "Free platform. Pay only for SMS tokens when you message parents.",
   "ctaLabel": "Open MyRegister",
   "ctaSecondary": "Learn how it works",
-  "connects": "SMS token top-ups by M-Pesa run through Samuhia Payments.",
+  "connects": "SMS token top-ups by M-Pesa run through Samuhia Payments, and approved Samuhia Desk agents can help schools get set up.",
   "related": [
-    "payments"
+    "payments",
+    "desk"
   ],
   "solution": "schools",
   "faq": [

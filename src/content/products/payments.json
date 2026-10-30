@@ -44,6 +44,10 @@
     {
       "label": "Powered by",
       "value": "Paystack"
+    },
+    {
+      "label": "Connects to",
+      "value": "Every SAMUHIA product"
     }
   ],
   "plans": [],
@@ -130,7 +134,8 @@
         "b": "Callback",
         "status": "Received"
       }
-    ]
+    ],
+    "hub": true
   },
   "schemaCategory": "FinanceApplication",
   "operatingSystem": "Web (installable PWA)",

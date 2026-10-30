@@ -40,7 +40,7 @@ export const productPage = (p) => {
       <p class="eyebrow" style="margin-top:16px">${esc(p.category)}</p>
       <h1>${esc(p.name)}</h1>
       <p class="lead">${esc(p.longDescription)}</p>
-      <p style="margin-top:14px">${badge(p.status)}</p>
+      <p style="margin-top:14px">${badge(p.status)}${p.presentation.hub ? ' <span class="badge hub" style="--hub:' + esc(p.presentation.ecoColor) + '">Connects to every product</span>' : ''}</p>
       <div class="row">${cta}${p.plans.length ? `<a class="btn" href="#pricing">View pricing</a>` : ''}</div>
     </div>
     ${mockup(p)}

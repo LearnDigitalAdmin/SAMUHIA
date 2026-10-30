@@ -659,3 +659,51 @@ footer a:hover {
   color:#fff;
   font-weight:600;
 }
+
+/* Hub products (Payments, Desk) in the ecosystem diagram */
+.node.hub {
+  border-color:rgba(255,255,255,.34);
+}
+.node.hub i {
+  box-shadow:0 0 0 3px rgba(255,255,255,.14);
+}
+.eco-key {
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px 20px;
+  max-width:580px;
+  margin:18px auto 0;
+  padding:0;
+  font-size:.78rem;
+  color:#B7C0BB;
+}
+.eco-key li {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eco-key i {
+  width:14px;
+  height:3px;
+  border-radius:2px;
+}
+.flow {
+  transition:stroke-opacity .25s,stroke-width .25s;
+}
+.eco:has(.node.hub[data-slug=payments]:hover) .flow.hub-payments,
+.eco:has(.node.hub[data-slug=payments].is-active) .flow.hub-payments,
+.eco:has(.node.hub[data-slug=desk]:hover) .flow.hub-desk,
+.eco:has(.node.hub[data-slug=desk].is-active) .flow.hub-desk {
+  stroke-opacity:1;
+  stroke-width:.55;
+}
+.badge.hub {
+  background:transparent;
+  color:var(--color-text);
+  border-color:var(--hub,var(--color-border));
+}
+.badge.hub:before {
+  color:var(--hub);
+}

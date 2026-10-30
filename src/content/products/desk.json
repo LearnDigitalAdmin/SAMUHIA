@@ -32,10 +32,26 @@
     "Paystack splits the payment and the agent's share is paid automatically. Earnings update in the dashboard."
   ],
   "facts": [
-    { "label": "Works on", "value": "Web dashboard" },
-    { "label": "Access", "value": "Approved agents only, one-time customer codes" },
-    { "label": "Payments", "value": "M-Pesa through Paystack" },
-    { "label": "Service prices", "value": "Fixed, from KES 100" }
+    {
+      "label": "Works on",
+      "value": "Web dashboard"
+    },
+    {
+      "label": "Access",
+      "value": "Approved agents only, one-time customer codes"
+    },
+    {
+      "label": "Payments",
+      "value": "M-Pesa through Paystack"
+    },
+    {
+      "label": "Service prices",
+      "value": "Fixed, from KES 100"
+    },
+    {
+      "label": "Connects to",
+      "value": "Every SAMUHIA product"
+    }
   ],
   "plans": [],
   "priceNote": "Desk agents keep 97.5% of every desk service after payment fees. Commission rates for subscriptions and SMS depend on rank and product.",
@@ -49,7 +65,12 @@
     "label": "View desk careers",
     "href": "/careers/"
   },
-  "related": ["mychama", "myregister", "plot-yangu", "payments"],
+  "related": [
+    "mychama",
+    "myregister",
+    "plot-yangu",
+    "payments"
+  ],
   "solution": "digital-services",
   "faq": [
     {
@@ -73,18 +94,54 @@
     "ecoX": 80,
     "ecoY": 20,
     "ecoColor": "#7C9BE8",
-    "chartBars": [60, 35, 75, 50, 68, 45],
-    "mockNav": ["Access", "Import", "Messages", "Reports", "Rent", "Earnings"],
+    "chartBars": [
+      60,
+      35,
+      75,
+      50,
+      68,
+      45
+    ],
+    "mockNav": [
+      "Access",
+      "Import",
+      "Messages",
+      "Reports",
+      "Rent",
+      "Earnings"
+    ],
     "mockKpis": [
-      { "label": "Customers", "value": "12" },
-      { "label": "Paid", "value": "9" },
-      { "label": "Pending", "value": "3" }
+      {
+        "label": "Customers",
+        "value": "12"
+      },
+      {
+        "label": "Paid",
+        "value": "9"
+      },
+      {
+        "label": "Pending",
+        "value": "3"
+      }
     ],
     "mockRows": [
-      { "a": "Excel import", "b": "Chama", "status": "Paid" },
-      { "a": "Schedule setup", "b": "School", "status": "Paid" },
-      { "a": "Manual entry", "b": "Landlord", "status": "Pending" }
-    ]
+      {
+        "a": "Excel import",
+        "b": "Chama",
+        "status": "Paid"
+      },
+      {
+        "a": "Schedule setup",
+        "b": "School",
+        "status": "Paid"
+      },
+      {
+        "a": "Manual entry",
+        "b": "Landlord",
+        "status": "Pending"
+      }
+    ],
+    "hub": true
   },
   "schemaCategory": "BusinessApplication",
   "operatingSystem": "Web"
