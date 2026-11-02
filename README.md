@@ -74,7 +74,7 @@ samuhia-website/
 - [ ] `site.json` → `bot` holds the WhatsApp bot number; every wa.me link on the site is generated from it
 - [ ] Add `social` links, `verification.google`
 - [ ] Add founder photo and links in `founder.json`
-- [ ] Write real Privacy / Terms text, then remove `"draft": true` in `pages.json`
+- [x] Privacy / Terms text lives in `src/content/legal.json` (version, dates and company details at the top). Have a Kenyan lawyer review it, then bump `version` and dates when it changes
 - [ ] Populate Resources, then remove its `"draft": true`
 - [ ] Confirm prices in each product file are current
 - [ ] `npm run check` shows no errors

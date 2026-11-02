@@ -9,7 +9,8 @@ import { aboutPage, founderPage, securityPage } from './company.js';
 import { allCareerPages } from './careers.js';
 import { leadPage } from './leads.js';
 import { pricingPage } from './pricing.js';
-import { resourcesPage, supportPage, contactPage, privacyPage, termsPage, notFoundPage } from './misc.js';
+import { resourcesPage, supportPage, contactPage, notFoundPage } from './misc.js';
+import { privacyPage, termsPage } from './legal.js';
 
 export const allPages = () => {
   const pages = [

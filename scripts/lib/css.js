@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // Order matters: tokens → base → layout → components → pages → utilities (responsive/a11y last).
-export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'leads.css', 'utilities.css'];
+export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'leads.css', 'legal.css', 'utilities.css'];
 
 /** Conservative CSS minifier (comments + whitespace). Safe for this stylesheet. */
 export const minify = (css) =>

@@ -56,17 +56,15 @@
   },
   "privacy": {
     "seoTitle": "Privacy Policy",
-    "description": "SAMUHIA privacy policy.",
+    "description": "How SAMUHIA collects, uses and protects personal data on its website and forms, how long we keep it, and your rights under Kenya's Data Protection Act, 2019.",
     "title": "Privacy Policy",
-    "lead": "Final legal text will be inserted before launch.",
-    "draft": true
+    "lead": ""
   },
   "terms": {
-    "seoTitle": "Terms of Service",
-    "description": "SAMUHIA terms of service.",
-    "title": "Terms of Service",
-    "lead": "Final legal text will be inserted before launch.",
-    "draft": true
+    "seoTitle": "Terms of Use",
+    "description": "The terms for using the SAMUHIA website and enquiry forms, plus where to find the separate terms for Plot Yangu, MyChama and our other products.",
+    "title": "Terms of Use",
+    "lead": ""
   },
   "notFound": {
     "seoTitle": "Page not found",

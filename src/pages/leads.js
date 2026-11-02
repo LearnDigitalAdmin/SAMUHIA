@@ -38,7 +38,7 @@ export const leadPage = () => {
     <div class="ld-frame" style="--ld-h:${Number(leads.formHeight)}px;--ld-h-m:${Number(leads.formHeightMobile)}px">
       <iframe src="${esc(formEmbedSrc())}" title="${esc(leads.iframeTitle)}" width="640" height="${Number(leads.formHeight)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"><a href="${esc(leads.formUrl)}" target="_blank" rel="noopener">${esc(leads.fallbackLabel)}</a></iframe>
     </div>
-    <p class="muted ld-consent">${esc(leads.consent)} <a href="/privacy/">${esc(leads.privacyLabel)}</a>.</p>
+    <p class="muted ld-consent">${esc(leads.consent)} <a href="/privacy/#enquiries">${esc(leads.privacyLabel)}</a>.</p>
   </section>
 
   <section aria-labelledby="talk">

@@ -60,21 +60,6 @@ export const contactPage = () => {
   };
 };
 
-const legal = (key) => {
-  const c = pages[key];
-  return {
-    path: `/${key}/`,
-    title: `${c.seoTitle} | ${site.name}`,
-    description: c.description,
-    noindex: !!c.draft, // remove "draft" in content/pages.json once real legal text is in place
-    crumbs: [{ label: c.title }],
-    jsonld: [ld.webPage({ path: `/${key}/`, title: c.seoTitle, description: c.description })],
-    body: `<div class="page wrap"><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p></div>`,
-  };
-};
-export const privacyPage = () => legal('privacy');
-export const termsPage = () => legal('terms');
-
 export const notFoundPage = () => {
   const c = pages.notFound;
   return {

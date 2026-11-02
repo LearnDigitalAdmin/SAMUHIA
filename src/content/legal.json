@@ -1,0 +1,601 @@
+{
+  "company": {
+    "legalName": "SAMUHIA BUSINESSES KENYA",
+    "shortName": "Samuhia",
+    "location": "Nakuru, Kenya",
+    "country": "Kenya",
+    "email": "info@samuhia.co.ke",
+    "whatsapp": "+254 791 286 165",
+    "whatsappHref": "https://wa.me/254791286165",
+    "site": "https://samuhia.co.ke",
+    "odpcUrl": "https://www.odpc.go.ke",
+    "odpcRegistrationNumber": "",
+    "replyDays": 30,
+    "liabilityFloorKes": "5,000",
+    "effective": "2 November 2026",
+    "updated": "2 November 2026",
+    "version": "1.0"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "This policy explains what personal data {{legalName}} collects through the {{site}} website, our enquiry and contact forms and our WhatsApp and phone lines, why, who handles it, how long we keep it and what rights you have under Kenya's Data Protection Act, 2019. Each SAMUHIA product (such as Plot Yangu and MyChama) has its own privacy policy for the data it handles; links are [below](#products).",
+    "summaryTitle": "The short version",
+    "summary": [
+      "**We never sell your data and we never share it for advertising or marketing.**",
+      "**This website sets no cookies and has no analytics or advertising trackers.** It loads one font service from Google, which receives your IP address (see [providers](#providers)).",
+      "**If you fill in an enquiry or contact form, we use what you send to reply and to follow up about the SAMUHIA product you asked about.**",
+      "**A few providers carry data for us**: Google (website hosting and Google Forms), Meta (WhatsApp) and email providers. They are listed [below](#providers).",
+      "**You have rights** to see, correct, delete and move your data, and to complain to the Data Protection Commissioner. Write to **{{email}}**."
+    ],
+    "sections": [
+      {
+        "id": "who-we-are",
+        "title": "Who we are and our role",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "This website is run by **{{legalName}}**, registered in {{country}} and operating from {{location}} (\"**{{shortName}}**\", \"**we**\", \"**us**\"). We handle personal data in line with the **Data Protection Act, 2019** and its regulations."
+          },
+          {
+            "type": "table",
+            "head": [
+              "Data",
+              "Our role"
+            ],
+            "rows": [
+              [
+                "Details you send us through this website, our forms, email, phone or WhatsApp, and technical data from visiting the website",
+                "**Data controller**: we decide why and how it is used"
+              ],
+              [
+                "Records that customers enter into a SAMUHIA product (for example a landlord's tenant list in Plot Yangu, or a chama's member list in MyChama)",
+                "Handled under that product's own privacy policy and terms (see [our products](#products))"
+              ]
+            ]
+          },
+          {
+            "type": "p",
+            "text": "The [Terms of Use](/terms/) apply alongside this policy."
+          }
+        ]
+      },
+      {
+        "id": "what-we-collect",
+        "title": "What we collect",
+        "blocks": [
+          {
+            "type": "table",
+            "head": [
+              "Where",
+              "What we hold"
+            ],
+            "rows": [
+              [
+                "**Enquiry and registration forms** (for example the Plot Yangu registration and enquiry form)",
+                "The details you type into the form, such as your email address, company name, phone number, area of operation, preferred contact method (phone call, email or WhatsApp) and your answers about your properties and needs. The forms are hosted by Google Forms."
+              ],
+              [
+                "**Contact form**",
+                "Your name, email address, the product you picked and your message. The form opens your email app with this text ready to send; nothing is sent until you send the email."
+              ],
+              [
+                "**Email, phone and WhatsApp**",
+                "Your name, phone number or email address, and what you write to us. If you message the SAMUHIA WhatsApp bot, its own handling of data is covered by the policy of the product it serves (see [our products](#products))."
+              ],
+              [
+                "**Website visits**",
+                "Technical data created when a page loads, such as your IP address, browser and device type, the page requested and the time. Our hosting provider (Google Firebase Hosting) keeps these in server logs for security and to run the site."
+              ],
+              [
+                "**Google Fonts**",
+                "When a page loads, your browser fetches a font from Google, so Google receives your IP address and browser details."
+              ]
+            ]
+          },
+          {
+            "type": "p",
+            "text": "**What we do not collect through this website:** no account or password, no payment or card details, no precise location, and no special categories of data (such as health, religion or biometrics). Please do not put them into a form or message."
+          },
+          {
+            "type": "p",
+            "text": "When you click a share button (WhatsApp, LinkedIn, X, Facebook or email), you leave our website and that service's own privacy policy applies."
+          }
+        ]
+      },
+      {
+        "id": "sources",
+        "title": "Where the data comes from",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "**From you**, when you fill in a form, write to us or call.",
+              "**From your device and our hosting provider**, as technical data when you visit."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "uses",
+        "title": "How we use data, and why we are allowed to",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "We use data **only** for the purposes below. The Data Protection Act requires a lawful basis for each:"
+          },
+          {
+            "type": "table",
+            "head": [
+              "What we do",
+              "Lawful basis"
+            ],
+            "rows": [
+              [
+                "Reply to your enquiry; contact you about the product you asked about, using the contact method you chose",
+                "Your consent when you submit a form; steps you ask us to take before a contract"
+              ],
+              [
+                "Set you up with a SAMUHIA product, and answer support questions",
+                "Contract; legitimate interest"
+              ],
+              [
+                "Keep the website secure, prevent misuse and fix faults",
+                "Legitimate interest in security and running the site"
+              ],
+              [
+                "Comply with law, court orders and regulator requests",
+                "Legal obligation"
+              ]
+            ]
+          },
+          {
+            "type": "p",
+            "text": "We do **not** use your data for advertising, to build marketing profiles, or to make automated decisions about you."
+          }
+        ]
+      },
+      {
+        "id": "no-sale",
+        "title": "We never sell or share your data",
+        "blocks": [
+          {
+            "type": "note",
+            "tone": "good",
+            "title": "Our promise",
+            "text": "We do **not sell, rent or trade** personal data. We do **not share** it with advertisers, data brokers or marketing companies for their own purposes. This website contains no advertising or third-party analytics trackers."
+          },
+          {
+            "type": "p",
+            "text": "A small number of providers handle data for us so the website and forms can work. They act on our instructions and only receive what their part of the job needs. We also disclose data where the law requires it, for example to a court or a regulator acting under a valid legal order. If {{shortName}} is ever sold or merged, personal data would go to the new owner only under this same policy, and we would tell you first."
+          }
+        ]
+      },
+      {
+        "id": "providers",
+        "title": "The providers that carry data for us",
+        "blocks": [
+          {
+            "type": "table",
+            "head": [
+              "Provider",
+              "What it does for us",
+              "What it receives"
+            ],
+            "rows": [
+              [
+                "**Google** (Firebase Hosting, Google Forms, Google Fonts)",
+                "Serves this website, hosts our enquiry forms and stores the answers sent to them, and serves the site font",
+                "Technical data of visits; everything you type into a Google Form; your IP address for fonts"
+              ],
+              [
+                "**Meta** (WhatsApp)",
+                "Carries WhatsApp messages when you chat with us or the SAMUHIA WhatsApp bot",
+                "Your phone number and messages, under Meta's terms"
+              ],
+              [
+                "**Email and telephone providers**",
+                "Carry the email, calls and SMS you exchange with us",
+                "Whatever is needed to deliver the message"
+              ]
+            ]
+          },
+          {
+            "type": "p",
+            "text": "These providers have their own privacy policies for data they handle as independent services. We do not add other providers without updating this policy."
+          }
+        ]
+      },
+      {
+        "id": "products",
+        "title": "Our products and their privacy policies",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "Data that people enter into a SAMUHIA product is covered by that product's own privacy policy, which also says whether we act as controller or processor for it:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "**Plot Yangu** (property management): [plot.samuhia.co.ke/privacy](https://plot.samuhia.co.ke/privacy)",
+              "**MyChama** (chama management): [chama.samuhia.co.ke/privacy](https://chama.samuhia.co.ke/privacy)",
+              "**MyRegister, Samuhia Desk and Samuhia Payments**: see the privacy policy shown in each app, or ask us at {{email}}."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "If this policy and a product's policy differ for data handled inside that product, the product's policy applies to that data."
+          }
+        ]
+      },
+      {
+        "id": "enquiries",
+        "title": "Enquiry and registration forms",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "When you submit a form such as the Plot Yangu registration and enquiry form, the answers are stored by Google Forms and read by our team. We use them to contact you about the product, by the method you chose. Submitting a form does not create a contract and does not sign you up for any paid plan. To have your enquiry deleted, or to stop us contacting you, write to {{email}}."
+          },
+          {
+            "type": "note",
+            "tone": "info",
+            "title": "Please enter only what the form asks for",
+            "text": "Do not enter passwords, National ID numbers, card numbers or M-Pesa PINs in any enquiry form or message to us. We will never ask for them there."
+          }
+        ]
+      },
+      {
+        "id": "transfers",
+        "title": "Sending data outside Kenya",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "Google and Meta run services in several countries, so data you send through this website, a Google Form or WhatsApp can be stored and processed outside Kenya. Where personal data leaves Kenya, we rely on providers that apply strong security and contractual protections, and we send only what the service needs, as the Data Protection Act, 2019 requires. You can ask us for more detail at {{email}}."
+          }
+        ]
+      },
+      {
+        "id": "retention",
+        "title": "How long we keep data",
+        "blocks": [
+          {
+            "type": "table",
+            "head": [
+              "Data",
+              "How long"
+            ],
+            "rows": [
+              [
+                "Enquiry and registration form answers",
+                "For as long as needed to handle your enquiry and the customer relationship that follows. If you do not become a customer, you can ask us to delete them at any time"
+              ],
+              [
+                "Contact form emails, WhatsApp and phone messages",
+                "For as long as needed to deal with your request and any follow-up"
+              ],
+              [
+                "Payment and subscription records created if you become a customer",
+                "As set out in the product's policy (for Plot Yangu and MyChama, 7 years for tax and accounting)"
+              ],
+              [
+                "Website server logs",
+                "For a limited period set by our hosting provider and our security needs"
+              ]
+            ]
+          },
+          {
+            "type": "p",
+            "text": "If the law or a court requires us to keep something longer, we will. When data is no longer needed, we delete or anonymise it."
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "title": "How we protect data",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "The website is served over encrypted connections (HTTPS) and our providers encrypt stored data.",
+              "It runs no third-party scripts and uses strict browser security rules (a content security policy) so only our own code and the Google Form you chose to open can run on a page.",
+              "Access to form answers and messages is limited to authorised SAMUHIA staff."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "No system is perfectly secure. If a breach puts your personal data at risk, we will tell the Data Protection Commissioner and the people affected within the times the law requires, and say what happened and what to do."
+          }
+        ]
+      },
+      {
+        "id": "rights",
+        "title": "Your rights",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "Under the Data Protection Act, 2019 you have the right to:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "be **informed** how your data is used (this policy);",
+              "**access** the personal data we hold about you;",
+              "**correct** data that is wrong or misleading;",
+              "**delete** data that is false or misleading, or that we no longer need;",
+              "**object** to, or ask us to **restrict**, certain uses;",
+              "**receive** your data in a common format and move it (data portability); and",
+              "**withdraw consent** where we rely on it, without affecting earlier use."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "**How to use them.** Email {{email}} from the address you used with us. We may need to confirm who you are. We aim to answer within **{{replyDays}} days**. Some data we must keep by law, and we will explain if so."
+          },
+          {
+            "type": "p",
+            "text": "**Complaints.** If you are not happy, please tell us first. You can also complain to the **Office of the Data Protection Commissioner** at [{{odpcUrl}}]({{odpcUrl}})."
+          }
+        ]
+      },
+      {
+        "id": "cookies",
+        "title": "Cookies and similar technology",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "This website does **not** use cookies, advertising or analytics trackers, and does not store anything in your browser's local storage. If we add any in future, we will update this policy first and ask for your consent where the law requires it. The Google Form on an enquiry page is run by Google and may use its own cookies inside the form; see [Google's privacy policy](https://policies.google.com/privacy)."
+          }
+        ]
+      },
+      {
+        "id": "children",
+        "title": "Children",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "This website and our products are for adults of 18 and over and businesses. We do not knowingly collect data from children. If you think a child has sent us their details, write to {{email}} and we will remove them."
+          }
+        ]
+      },
+      {
+        "id": "changes",
+        "title": "Changes to this policy",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "We may update this policy as the website, our products or the law change. The version and dates at the top show when it last changed. For a material change we will say so on this page and, where we hold your contact details, tell you before it takes effect."
+          }
+        ]
+      },
+      {
+        "id": "contact",
+        "title": "Contact us",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "**Company:** {{legalName}}, {{location}}.",
+              "**Privacy requests and questions:** [{{email}}](mailto:{{email}})",
+              "**WhatsApp:** [{{whatsapp}}]({{whatsappHref}})",
+              "**Regulator:** Office of the Data Protection Commissioner, [{{odpcUrl}}]({{odpcUrl}})"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "intro": "These terms cover your use of the {{site}} website and its enquiry and contact forms. SAMUHIA's products (such as Plot Yangu and MyChama) are governed by their own terms, linked [below](#products). By using this website you agree to these terms.",
+    "summaryTitle": "The short version",
+    "summary": [
+      "**This website is information.** It describes SAMUHIA and its products. It is not tax, legal or financial advice.",
+      "**Using a product means accepting that product's terms**, not just these ones.",
+      "**Prices, features and example figures can change.** Confirm current prices in each app before you subscribe. Earning estimates and dashboard mock-ups are illustrations, not promises.",
+      "**Filling in an enquiry form does not create a contract** and does not sign you up for anything.",
+      "**Kenyan law applies.** Write to **{{email}}** first if something goes wrong."
+    ],
+    "sections": [
+      {
+        "id": "who-we-are",
+        "title": "Who we are",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "This website is owned and operated by **{{legalName}}**, a business registered in {{country}} and operating from {{location}} (\"**{{shortName}}**\", \"**we**\", \"**us**\"). We build digital products for property management, schools, chamas, agent desks and payments. We are a software provider; we do not give legal, tax or financial advice."
+          }
+        ]
+      },
+      {
+        "id": "using-the-site",
+        "title": "Using this website",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "You may use this website for lawful, personal or business purposes. You must not:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "break the law, or help anyone else do so, through the website;",
+              "send spam, scam, misleading or abusive messages through our forms, email, phone or WhatsApp;",
+              "impersonate another person or business, or enter someone else's details without a lawful reason;",
+              "scrape, copy at scale, attack, overload or try to break into the website or the providers it depends on, or upload malware; or",
+              "use our forms to apply for a role or service that they are not meant for (for example, the Plot Yangu enquiry form is for people who want to manage properties, not for agent applications)."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "We may block access or refuse a request if the website is being misused."
+          }
+        ]
+      },
+      {
+        "id": "information",
+        "title": "Accuracy of information and example figures",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "We work to keep the website accurate, but we do not promise it is complete, current or error-free. In particular:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "**Prices and plans** are in Kenya shillings and can change. Confirm current prices in each app before you subscribe.",
+              "**Earning estimates and scenarios** for Samuhia Desk agents are illustrations based on stated assumptions. They are not a guarantee, offer of employment or promise of income.",
+              "**Dashboard mock-ups and numbers** shown on the website are illustrative and are not real customer data.",
+              "**Feature availability** may differ by plan, product or rollout stage; items marked \"Rolling out\" may not be active for every account on day one."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "Where the website and a product's own app or terms differ, the app and the product's terms are right."
+          }
+        ]
+      },
+      {
+        "id": "products",
+        "title": "Our products and their terms",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "Using a SAMUHIA product creates a separate agreement under that product's terms:"
+          },
+          {
+            "type": "ul",
+            "items": [
+              "**Plot Yangu**: [plot.samuhia.co.ke/terms](https://plot.samuhia.co.ke/terms)",
+              "**MyChama**: [chama.samuhia.co.ke/terms](https://chama.samuhia.co.ke/terms)",
+              "**MyRegister, Samuhia Desk and Samuhia Payments**: see the terms shown in each app, or ask us at {{email}}."
+            ]
+          },
+          {
+            "type": "p",
+            "text": "For anything you do inside a product, that product's terms apply. These Terms of Use govern only the website."
+          }
+        ]
+      },
+      {
+        "id": "enquiries",
+        "title": "Enquiry, registration and contact forms",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "Please give accurate details. We use them as described in our [Privacy Policy](/privacy/#enquiries).",
+              "Submitting a form is a request for us to contact you. It does **not** create a contract, does not sign you up for a paid plan, and does not oblige either of us to go further.",
+              "We may decline an enquiry, or not reply, if it is outside what we offer, incomplete, abusive or looks fraudulent.",
+              "We will never ask for your password, M-Pesa PIN or card number through a form, email or WhatsApp. Do not send them."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "links",
+        "title": "Third-party links and services",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "This website links to and embeds services we do not control, including Google Forms, WhatsApp, and social sharing sites. We are not responsible for their content or practices, and their own terms and privacy policies apply when you use them."
+          }
+        ]
+      },
+      {
+        "id": "ip",
+        "title": "Our intellectual property",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "The website, its text, design, logos, software and the names SAMUHIA, Plot Yangu, MyRegister, MyChama, Samuhia Desk and Samuhia Payments belong to {{legalName}} or its licensors. You may view the website and share links to it. You may not copy or reuse our content, logos or brand to suggest a connection with us without our written permission. If you send us feedback or ideas, we may use them without owing you anything."
+          }
+        ]
+      },
+      {
+        "id": "availability",
+        "title": "Availability",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "We work to keep the website available but do **not** promise it will be uninterrupted or error-free. We may change or remove pages at any time. The website depends on outside systems we do not control, such as hosting, networks and Google services. Events beyond our reasonable control excuse delay or failure to the extent they cause it."
+          }
+        ]
+      },
+      {
+        "id": "liability",
+        "title": "What we are not responsible for",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "The website is provided \"as is\" and \"as available\". To the fullest extent the law allows, we are **not liable** for loss arising from your use of, or reliance on, the website or a form; for outside services; for messages not delivered or not answered; or for indirect or consequential loss. Our total liability to you for all claims arising from the website in any 12-month period is limited to **KES {{liabilityFloorKes}}**."
+          },
+          {
+            "type": "note",
+            "tone": "info",
+            "title": "What these limits do not do",
+            "text": "Nothing in these terms limits or excludes liability for fraud, for death or personal injury caused by negligence, or for anything else that cannot lawfully be limited, and nothing takes away rights you have under the Consumer Protection Act, 2012 or the Data Protection Act, 2019 that cannot be waived. Liability for the products is set by each product's own terms."
+          }
+        ]
+      },
+      {
+        "id": "privacy",
+        "title": "Privacy",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "How we collect, use and protect personal data is explained in our [Privacy Policy](/privacy/), which forms part of these terms. In short: we use your data only to run the website and respond to you, we do not sell it, and we do not share it with advertisers or data brokers."
+          }
+        ]
+      },
+      {
+        "id": "changes",
+        "title": "Changes to these terms",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "We may update these terms, for example when the website, our products or the law change. We will post the new version here with a new date and version number. Using the website after a change takes effect means you accept it. For a material change that affects people who have enquired about our products, we will give notice before it takes effect where we hold their contact details."
+          }
+        ]
+      },
+      {
+        "id": "law",
+        "title": "Governing law and disagreements",
+        "blocks": [
+          {
+            "type": "p",
+            "text": "These terms are governed by the laws of {{country}}. If you have a complaint or dispute, first write to {{email}} so we can try to settle it in good faith; we aim to reply within 14 days. If we cannot settle it within 30 days, either of us may refer it to mediation in Nakuru and, failing that, to the courts of {{country}}, which have jurisdiction (the court at Nakuru being the first choice of venue where the law allows a choice). Complaints about how we handle personal data may also be made to the **Office of the Data Protection Commissioner** ([{{odpcUrl}}]({{odpcUrl}})). Nothing here stops either of us from asking a court for urgent relief."
+          }
+        ]
+      },
+      {
+        "id": "general",
+        "title": "General terms",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "**Entire agreement.** These terms and the [Privacy Policy](/privacy/) are the whole agreement between you and {{legalName}} about the website.",
+              "**Notices.** We may notify you on the website, by email, by SMS or by WhatsApp using details you gave us. You can notify us at {{email}}.",
+              "**If part is invalid.** If a court finds part of these terms unenforceable, the rest stays in force.",
+              "**No waiver.** If we do not enforce a right immediately, we have not given it up.",
+              "**Language.** These terms are written in English. Where we give a translation, the English text prevails."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "contact",
+        "title": "Contact us",
+        "blocks": [
+          {
+            "type": "ul",
+            "items": [
+              "**Company:** {{legalName}}, {{location}}.",
+              "**Email:** [{{email}}](mailto:{{email}})",
+              "**WhatsApp:** [{{whatsapp}}]({{whatsappHref}})",
+              "**Website:** [{{site}}]({{site}}/)"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
