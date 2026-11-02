@@ -12,10 +12,10 @@
     "lead": "Start with the problem you need to solve and we will point you to the SAMUHIA product built for it."
   },
   "features": {
-    "seoTitle": "Features: Landlord Watch and House to Rent | SAMUHIA",
-    "description": "Landlord Watch gives agent-managed landlords a live view of rent. House to Rent lists vacant units on WhatsApp. Both are part of Plot Yangu.",
+    "seoTitle": "Rental Features: Landlord Watch, Lipa Mos Mos | SAMUHIA",
+    "description": "Landlord Watch gives landlords a live view of rent, House to Rent lists vacant units on WhatsApp, and Lipa Mos Mos lets tenants pay rent a little at a time.",
     "title": "Features that connect landlords, agents and tenants.",
-    "lead": "Two Plot Yangu features built for how rental property works in Kenya: landlords who want visibility, and people who want a place to live."
+    "lead": "Three features built for how rental property works in Kenya: landlords who want visibility, people who want a place to live, and tenants who want to pay rent at their own pace."
   },
   "pricing": {
     "seoTitle": "Pricing — SAMUHIA Plans in Kenya Shillings",
@@ -50,9 +50,9 @@
   },
   "careers": {
     "seoTitle": "Careers at SAMUHIA — Samuhia Desk Agent Paths",
-    "description": "Join Samuhia Desk as an independent agent. Pick a Clerk, Senior, Chama, School or Property path and earn commission paid automatically, with KES estimates.",
+    "description": "Join Samuhia Desk as an independent agent. Start as a Clerk, grow into Senior and Lead, and earn commission paid automatically, plus monthly incentives.",
     "title": "Build income on the Samuhia network.",
-    "lead": "Samuhia Desk is our agent programme. Help chamas, schools and landlords go digital, keep up to {{keepPct}}% of every service you deliver and earn commission on every plan and SMS top-up, paid automatically."
+    "lead": "Samuhia Desk is our agent programme. Help chamas, schools and landlords go digital, keep up to {{keepPct}}% of every service you deliver, earn commission on every plan and SMS top-up, and grow a team as you rise from Clerk to Senior to Lead, all paid automatically."
   },
   "privacy": {
     "seoTitle": "Privacy Policy",

@@ -24,7 +24,8 @@
     "Your own logo on invoices (Business and above)",
     "Multi-device cloud sync (Solo and above)",
     "Works offline, data stored on your device",
-    "Web app, Android app and Windows, macOS and Linux desktop apps"
+    "Web app, Android app and Windows, macOS and Linux desktop apps",
+    "Lipa Mos Mos: tenants can pay rent a little at a time, and invoices keep an honest record of part-payments"
   ],
   "steps": [
     "Add a property. Everything saves to your device first, so it works with no signal.",
@@ -52,7 +53,7 @@
     },
     {
       "label": "WhatsApp",
-      "value": "Landlord Watch and House to Rent, in English and Kiswahili"
+      "value": "Landlord Watch, House to Rent and Lipa Mos Mos, in English and Kiswahili"
     }
   ],
   "plans": [
@@ -147,7 +148,7 @@
   "priceSummary": "Six plans from free to KES 5,600 a month. See the plans above.",
   "ctaLabel": "Open Plot Yangu",
   "ctaSecondary": "View pricing",
-  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf. Landlord Watch and House to Rent extend Plot Yangu to landlords and house hunters on WhatsApp.",
+  "connects": "Tenants pay rent through Samuhia Payments, and approved Samuhia Desk agents can support landlords and collect rent on their behalf. Landlord Watch and House to Rent extend Plot Yangu to landlords and house hunters on WhatsApp, and Lipa Mos Mos lets tenants pay rent a little at a time.",
   "related": [
     "payments",
     "desk"
@@ -257,7 +258,8 @@
   "operatingSystem": "Web, Android, Windows, macOS, Linux",
   "featureSlugs": [
     "landlord-watch",
-    "house-to-rent"
+    "house-to-rent",
+    "lipa-mos-mos"
   ],
   "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili."
 }

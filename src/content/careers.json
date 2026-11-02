@@ -5,10 +5,11 @@
     "platformCutPct": 2.5,
     "rankSharePct": {
       "clerk": 25,
-      "senior": 30
+      "senior": 30,
+      "lead": 30
     },
     "smsCostPerPartKes": 0.2,
-    "smsSharePct": 40,
+    "smsSharePct": 45,
     "smsRatesPerPart": [
       0.9,
       0.75,
@@ -47,7 +48,7 @@
     "manualEntryCapKes": 1000,
     "manualEntryServiceFeeKes": 200,
     "rentTakeCapKes": 250,
-    "rentDeskSharePct": 30,
+    "rentDeskSharePct": 40,
     "milestone": {
       "blockSize": 10,
       "bonusKes": 2000,
@@ -60,6 +61,7 @@
     "heroPoints": [
       "Independent, commission-based desks",
       "Paid automatically when the customer pays",
+      "Grow from Clerk to Senior to Lead, with monthly incentives for customers who stay",
       "Pick one path or combine them"
     ],
     "stats": [
@@ -81,9 +83,9 @@
       }
     ],
     "pathsTitle": "Choose your path",
-    "pathsLead": "Start as a Clerk, grow into Senior, and focus on the customers you know best. Each path has its own page you can share.",
+    "pathsLead": "Start as a Clerk, grow into Senior and then Lead, and focus on the customers you know best. Each path has its own page you can share.",
     "earnTitle": "How you earn",
-    "earnLead": "Seven ways to earn, all calculated from Samuhia's published prices. The split happens at the moment the customer pays, so there is no invoicing and no waiting for a statement.",
+    "earnLead": "Eight ways to earn. Commission comes from Samuhia's published prices and is split at the moment the customer pays, so there is no invoicing and no waiting for a statement. Team and retention incentives are added up and paid automatically each month.",
     "estimatesTitle": "What it could look like",
     "estimatesLead": "Illustrative months built only from current prices. They assume the accounts are already onboarded and paying. They are not promises, and your results depend on the customers you serve.",
     "journeyTitle": "From application to first payout",
@@ -146,12 +148,20 @@
       "status": "Live"
     },
     {
+      "key": "network",
+      "name": "Team and retention incentives",
+      "what": "Monthly rewards for finding customers who pay, keeping them active and supporting them well, plus a team share for Seniors and Leads.",
+      "rate": "Calculated by Samuhia and paid automatically each month",
+      "example": "Full terms are shared when your desk is approved.",
+      "status": "Live"
+    },
+    {
       "key": "support",
       "name": "Support quality bonus",
       "what": "A monthly bonus for confirmed, customer-verified support visits.",
-      "rate": "Set by Samuhia, not guaranteed",
-      "example": "Reviewed monthly and paid by Samuhia after approval.",
-      "status": "Discretionary"
+      "rate": "Paid automatically when the conditions are met",
+      "example": "Every visit must be confirmed by the customer with a code.",
+      "status": "Live"
     }
   ],
   "serviceRows": [
@@ -269,7 +279,7 @@
   "journey": [
     {
       "title": "Apply",
-      "text": "Create your desk account with your name, phone number, ID number and ward."
+      "text": "Create your desk account with your name, Safaricom phone number, ID number, and your county, constituency and ward. Have an agent code or an invite code? Add it to join that team."
     },
     {
       "title": "Verify",
@@ -277,7 +287,7 @@
     },
     {
       "title": "Train",
-      "text": "Samuhia reviews your application and invites you to training and certification."
+      "text": "Samuhia reviews your application and invites you to training and certification. Every application needs approval, whoever invited you."
     },
     {
       "title": "Activate",
@@ -289,7 +299,7 @@
     },
     {
       "title": "Get paid",
-      "text": "When the customer pays, Paystack splits the money and your share goes to your payout account."
+      "text": "When the customer pays, Paystack splits the money and your share goes to your payout account. Team and incentive earnings are added up and paid automatically each month."
     }
   ],
   "rules": [
@@ -300,6 +310,9 @@
     "Commission is earned only when a customer actually pays. Free plans, free trials and free sign-up SMS tokens earn nothing.",
     "Refunds are handled by Paystack and appear as reversals in your earnings.",
     "Customer information stays private. Samuhia may suspend or close a desk that breaks the rules.",
+    "One person, one desk: your ID number, phone number and email can belong to only one desk, and phone numbers must be Safaricom.",
+    "Places in each ward and constituency are limited, and ranks are set by Samuhia after review.",
+    "Team and incentive earnings follow your desk agreement. They can be adjusted or withheld when customers are refunded or the rules are broken.",
     "Estimates on this site assume a {{feePct}}% payment fee. The actual fee is set by Paystack, and prices can change."
   ],
   "faq": [
@@ -316,8 +329,8 @@
       "a": "Service charges and commissions are split automatically by Paystack at the moment the customer pays, after payment fees, and sent to your payout account. Milestone and support bonuses are reviewed and paid by Samuhia."
     },
     {
-      "q": "What is the difference between Clerk and Senior?",
-      "a": "Every new desk starts as a Clerk and earns {{clerkPct}}% of subscriptions. A Senior earns {{seniorPct}}%. Samuhia sets the rank after review, and there is no automatic promotion or fixed timeline."
+      "q": "What is the difference between Clerk, Senior and Lead?",
+      "a": "Every new desk starts as a Clerk and earns {{clerkPct}}% of subscriptions. Seniors and Leads earn {{seniorPct}}%, and add a team share as they build a team. Samuhia sets the rank after review, places are limited in each ward and constituency, and there is no automatic promotion or fixed timeline."
     },
     {
       "q": "What do I need to apply?",
@@ -330,6 +343,18 @@
     {
       "q": "Can I work on more than one path?",
       "a": "Yes. The paths describe where you focus, not separate accounts. One desk can support chamas, schools and landlords with the same app."
+    },
+    {
+      "q": "Can I build a team?",
+      "a": "Yes. Seniors and Leads can invite new agents, and new agents can join with a team's agent code. Every application still needs Samuhia's approval, whoever invited the applicant."
+    },
+    {
+      "q": "What is a County Admin desk?",
+      "a": "County Admin desks are appointed by Samuhia under a separate agreement. They help train and approve agents in their county. There is no public application for this role."
+    },
+    {
+      "q": "Do I need a Safaricom number?",
+      "a": "Yes. Desk accounts use a Safaricom phone number, and each person can have only one desk, checked by ID number and phone number."
     }
   ],
   "paths": [
@@ -361,7 +386,8 @@
         "sms",
         "pms",
         "rent",
-        "bonus"
+        "bonus",
+        "network"
       ],
       "tables": [
         "mychama",
@@ -409,15 +435,16 @@
         "pms",
         "rent",
         "bonus",
-        "support"
+        "support",
+        "network"
       ],
       "tables": [
         "mychama",
         "plot-yangu"
       ],
       "tableRank": "senior",
-      "callout": "On the same account, a Senior earns {{seniorPct}}% where a Clerk earns {{clerkPct}}%, a difference of 5 percentage points on every paid subscription.",
-      "next": "chama-desk",
+      "callout": "On the same account, a Senior earns {{seniorPct}}% where a Clerk earns {{clerkPct}}%, a difference of 5 percentage points on every paid subscription. Seniors can also invite Clerks to their team.",
+      "next": "desk-lead",
       "faq": [
         {
           "q": "How do I become a Senior Desk?",
@@ -426,6 +453,60 @@
         {
           "q": "Does a Senior earn more on desk services?",
           "a": "No. Desk services pay {{keepPct}}% to every rank. The higher share applies to subscriptions and reports."
+        },
+        {
+          "q": "Can a Senior Desk invite other agents?",
+          "a": "Yes. Seniors can invite new Clerks to join their team, and Clerks who use a Senior's code join that team. Every application still needs Samuhia's approval."
+        }
+      ]
+    },
+    {
+      "slug": "desk-lead",
+      "kind": "rank",
+      "rank": "lead",
+      "name": "Lead Desk",
+      "short": "Guide the Senior desks in your constituency and grow a team.",
+      "seoTitle": "Lead Desk Path — Samuhia Desk Careers",
+      "description": "Lead Desk agents earn {{leadPct}}% of every subscription and report, plus a team share from the Seniors and Clerks they support. See KES estimates and how rank is set.",
+      "eyebrow": "Path · Rank",
+      "headline": "Lead a team as a Lead Desk.",
+      "lead": "Leads earn {{leadPct}}% on their own customers and a team share on the paying, retained customers of the Seniors and Clerks in their team. Places are limited in each constituency, and rank is set by Samuhia after review.",
+      "forWho": [
+        "Seniors with a strong, retained customer base",
+        "Community organisers and business owners who can coach newer agents",
+        "Agents who want to build a team, not just a customer list"
+      ],
+      "youDo": [
+        "Everything a Senior does",
+        "Welcome, support and coach the Senior desks in your constituency",
+        "Invite new agents to your team. Every invite still needs Samuhia approval",
+        "Keep your team's customers paying and well supported"
+      ],
+      "earns": [
+        "services",
+        "chama",
+        "sms",
+        "pms",
+        "rent",
+        "bonus",
+        "support",
+        "network"
+      ],
+      "tables": [
+        "mychama",
+        "plot-yangu"
+      ],
+      "tableRank": "senior",
+      "callout": "On the accounts you serve yourself, a Lead earns the same {{leadPct}}% as a Senior. Team earnings depend on your team's paying, retained customers and are paid automatically each month.",
+      "next": "chama-desk",
+      "faq": [
+        {
+          "q": "How do I become a Lead Desk?",
+          "a": "Samuhia reviews Senior desks and sets the rank. Places are limited in each constituency, so there is no automatic promotion and no fixed timeline."
+        },
+        {
+          "q": "Can I earn from my team?",
+          "a": "Yes. Leads earn a team share on the paying, retained customers of the Seniors and Clerks in their team. It is added by Samuhia, so it does not reduce your team's pay. Terms are shared when you are approved."
         }
       ]
     },

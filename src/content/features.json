@@ -96,7 +96,8 @@
       "desk"
     ],
     "relatedFeatures": [
-      "house-to-rent"
+      "house-to-rent",
+      "lipa-mos-mos"
     ],
     "faq": [
       {
@@ -221,7 +222,8 @@
       "payments"
     ],
     "relatedFeatures": [
-      "landlord-watch"
+      "landlord-watch",
+      "lipa-mos-mos"
     ],
     "faq": [
       {
@@ -255,5 +257,150 @@
     ],
     "botTitle": "Use House to Rent on WhatsApp",
     "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose House to Rent from the menu and type the area you want."
+  },
+  {
+    "order": 3,
+    "slug": "lipa-mos-mos",
+    "name": "Lipa Mos Mos",
+    "product": "plot-yangu",
+    "kicker": "Plot Yangu feature · WhatsApp and web",
+    "seoTitle": "Lipa Mos Mos: Pay Rent Little by Little | SAMUHIA",
+    "description": "Pay your rent a little at a time with Lipa Mos Mos. Pay daily, weekly or every two weeks by M-Pesa on WhatsApp or the web. Your landlord is paid once it adds up.",
+    "cardDescription": "Pay rent in small instalments, daily, weekly or every two weeks, and your landlord is paid once it adds up.",
+    "title": "Lipa Mos Mos",
+    "lead": "Rent day is hard when the full amount has to arrive all at once. Lipa Mos Mos lets tenants pay rent in small instalments that fit how they earn, and see exactly how far they have come. Landlords and agents are paid once the rent adds up.",
+    "audience": "Tenants who earn daily or weekly, and landlords and agents who want rent to arrive on time",
+    "serviceType": "Rent instalment payments",
+    "channels": [
+      "WhatsApp",
+      "Web"
+    ],
+    "ctaLabel": "Open Samuhia Payments",
+    "ctaHref": "https://pay.samuhia.co.ke",
+    "ctaSecondaryLabel": "Talk to us about Lipa Mos Mos",
+    "ctaSecondaryHref": "/contact/",
+    "problem": "Many tenants are paid daily or weekly, but rent is due once a month. That gap leads to late payments, awkward reminders and landlords who spend their time chasing. Lipa Mos Mos matches rent to the way people actually earn.",
+    "capabilitiesTitle": "What a tenant can do",
+    "capabilities": [
+      "Pay rent a little at a time: daily, weekly or every two weeks",
+      "Choose how much to pay each time, from a small amount upwards",
+      "Pay by M-Pesa prompt from WhatsApp or the Samuhia Payments web app",
+      "See progress at a glance: what is paid, what is left and when the landlord is paid",
+      "Get short, friendly SMS updates on progress and when the landlord has been paid",
+      "Use it in English or Kiswahili on WhatsApp"
+    ],
+    "steps": [
+      "The landlord or agent turns on Lipa Mos Mos for their payout account in Samuhia Payments.",
+      "The tenant chooses Pay Rent on WhatsApp or opens the Samuhia Payments web app, finds their rent and picks Lipa Mos Mos.",
+      "They choose how often to pay and how much each time. The total is shown before they confirm.",
+      "Each payment is added to the rent balance and the progress bar moves up.",
+      "When the rent is covered, or on the monthly settlement date, the landlord is paid and the invoice is updated. A part-payment shows as partial, so the record is always honest."
+    ],
+    "safeguards": {
+      "title": "Clear, fair and protected",
+      "items": [
+        "Tenants see what they will be charged before they pay, and the rent is credited with exactly the amount they chose.",
+        "Every payment is checked before it counts towards the rent.",
+        "Landlords and agents are paid only to their own verified payout account.",
+        "Invoices show part-payments as partial, so nobody is told rent is settled when it is not.",
+        "Reminders are friendly and infrequent, never a flood."
+      ]
+    },
+    "audiences": [
+      {
+        "id": "landlords",
+        "title": "Why landlords and agents offer Lipa Mos Mos",
+        "lead": "Rent that arrives in small steps is rent that arrives.",
+        "items": [
+          "Fewer late payments and fewer difficult conversations",
+          "Tenants who earn daily or weekly can pay without waiting for a lump sum",
+          "Invoices update automatically, including part-payments",
+          "No change to how you manage your property in Plot Yangu",
+          "Pairs with Landlord Watch, so landlords can follow rent as it comes in"
+        ]
+      }
+    ],
+    "facts": [
+      {
+        "label": "Where",
+        "value": "WhatsApp and the Samuhia Payments web app"
+      },
+      {
+        "label": "Pay",
+        "value": "Daily, weekly or every two weeks"
+      },
+      {
+        "label": "Payment method",
+        "value": "M-Pesa"
+      },
+      {
+        "label": "Landlord is paid",
+        "value": "When the rent is covered, or on the monthly settlement date"
+      },
+      {
+        "label": "Fee",
+        "value": "Shown before every payment"
+      },
+      {
+        "label": "Languages",
+        "value": "English and Kiswahili on WhatsApp"
+      },
+      {
+        "label": "WhatsApp number",
+        "value": "+254 101 716 473"
+      }
+    ],
+    "related": [
+      "plot-yangu",
+      "payments"
+    ],
+    "relatedFeatures": [
+      "landlord-watch",
+      "house-to-rent"
+    ],
+    "faq": [
+      {
+        "q": "What is Lipa Mos Mos?",
+        "a": "Lipa Mos Mos is a SAMUHIA feature that lets tenants pay their rent a little at a time, daily, weekly or every two weeks. Each payment is added to the rent balance, and the landlord or agent is paid once the rent is covered."
+      },
+      {
+        "q": "Can I pay my rent in instalments in Kenya?",
+        "a": "Yes, if your landlord or agent has Lipa Mos Mos switched on. You pay by M-Pesa in small amounts that suit you, and you can see your progress until the rent is covered."
+      },
+      {
+        "q": "How do I pay rent little by little on WhatsApp?",
+        "a": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose Pay Rent, find your tenant record and pick Lipa Mos Mos. Choose how often you want to pay, enter an amount and approve the M-Pesa prompt."
+      },
+      {
+        "q": "How often can I pay?",
+        "a": "You can choose daily, weekly or every two weeks. You decide how much to pay each time, and you can pay more or less than the suggestion."
+      },
+      {
+        "q": "Does Lipa Mos Mos cost extra?",
+        "a": "A small service fee is added to each payment. You see the total before you confirm, and your rent is credited with exactly the amount you chose."
+      },
+      {
+        "q": "When does my landlord get paid?",
+        "a": "Your landlord or agent is paid when your rent is covered, or on the monthly settlement date, the 5th, with what you have paid so far. If the rent is not fully paid by then, the invoice shows as partially paid and your balance stays on your plan."
+      },
+      {
+        "q": "What happens if I miss a payment?",
+        "a": "You get a short, friendly SMS reminder. Your landlord's own tenancy terms still apply, so it is best to keep paying a little each time."
+      },
+      {
+        "q": "Is my money safe?",
+        "a": "Each payment is checked before it counts towards your rent, and landlords are paid only to their own verified payout account. You always see what you are about to pay before you confirm."
+      },
+      {
+        "q": "How can a landlord or agent offer Lipa Mos Mos?",
+        "a": "Set up your payout account in Samuhia Payments and switch on Lipa Mos Mos. It works with M-Pesa, Till and bank payout accounts, and you keep managing your property in Plot Yangu as usual."
+      },
+      {
+        "q": "Is Lipa Mos Mos available in Kiswahili?",
+        "a": "Yes. On WhatsApp you can choose English or Kiswahili, and the reminders and updates use simple, polite language in both."
+      }
+    ],
+    "botTitle": "Use Lipa Mos Mos on WhatsApp",
+    "botText": "Message the SAMUHIA WhatsApp bot on +254 101 716 473, choose Pay Rent, find your tenant record and pick Lipa Mos Mos."
   }
 ]

@@ -22,7 +22,7 @@ export const pathCards = (current) =>
     const prod = p.product ? productBySlug(p.product) : null;
     return `<a class="cr-path${p.slug === current ? ' cur' : ''}" href="${pathUrl(p.slug)}"${p.slug === current ? ' aria-current="page"' : ''} style="--c:${esc(prod ? prod.color : '#0F6B54')}">
   <span class="cr-k">${p.kind === 'rank' ? 'Rank' : 'Focus'}</span>
-  <span class="cr-ic">${prod ? icon(prod.slug, 36) : `<b>${p.rank === 'senior' ? 'S' : 'C'}</b>`}</span>
+  <span class="cr-ic">${prod ? icon(prod.slug, 36) : `<b>${p.rank === 'senior' ? 'S' : p.rank === 'lead' ? 'L' : 'C'}</b>`}</span>
   <strong>${esc(p.name)}</strong><span>${f(p.short)}</span><em>View path →</em></a>`;
   })}</div>`;
 

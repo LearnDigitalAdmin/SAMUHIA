@@ -20,7 +20,8 @@
     "Signed payment confirmations checked before any record is updated",
     "Each payment routed to the right product: rent, SMS credits, chama plans and contributions, shop sales, reports",
     "Transaction records and revenue summaries",
-    "SMS credit top-ups for SAMUHIA products"
+    "SMS credit top-ups for SAMUHIA products",
+    "Lipa Mos Mos: tenants pay rent a little at a time, daily, weekly or every two weeks, on WhatsApp or the web"
   ],
   "steps": [
     "A payment is requested and an M-Pesa or Airtel Money prompt reaches the payer's phone.",
@@ -83,6 +84,10 @@
     {
       "q": "Can tenants pay rent on WhatsApp?",
       "a": "Yes. Message the SAMUHIA WhatsApp bot on +254 101 716 473 and choose Pay Rent or Get Rent Invoice from the menu."
+    },
+    {
+      "q": "Can tenants pay rent in small instalments?",
+      "a": "Yes. With Lipa Mos Mos, a tenant pays rent a little at a time by M-Pesa, daily, weekly or every two weeks, and the landlord or agent is paid once the rent is covered. See the Lipa Mos Mos page for details."
     }
   ],
   "presentation": {
@@ -139,5 +144,8 @@
   },
   "schemaCategory": "FinanceApplication",
   "operatingSystem": "Web (installable PWA)",
-  "whatsappBot": "Tenants can pay rent and get a rent invoice by messaging the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili."
+  "whatsappBot": "Tenants can pay rent and get a rent invoice by messaging the SAMUHIA WhatsApp bot on +254 101 716 473, in English or Kiswahili. Tenants can also choose Lipa Mos Mos to pay rent a little at a time.",
+  "featureSlugs": [
+    "lipa-mos-mos"
+  ]
 }

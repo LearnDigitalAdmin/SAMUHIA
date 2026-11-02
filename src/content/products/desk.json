@@ -9,7 +9,7 @@
   "color": "#2F4A8A",
   "abbr": "SD",
   "description": "A secure workspace where approved agents set up, support and collect for chamas, schools and landlords, and are paid automatically.",
-  "longDescription": "Samuhia Desk is the workspace for approved Samuhia agents. With a customer's one-time code, an agent opens their MyChama, MyRegister or Plot Yangu account, imports or enters records, schedules SMS, runs reports and collects rent. Customers pay fixed prices by M-Pesa, and Paystack splits each payment so the agent's share reaches their payout account automatically.",
+  "longDescription": "Samuhia Desk is the workspace for approved Samuhia agents. With a customer's one-time code, an agent opens their MyChama, MyRegister or Plot Yangu account, imports or enters records, schedules SMS, runs reports and collects rent. Customers pay fixed prices by M-Pesa, and Paystack splits each payment so the agent's share reaches their payout account automatically. Agents grow from Clerk to Senior to Lead inside a clear team structure, with role-based dashboards, invitations and approvals, and monthly incentives for customers who keep paying.",
   "problem": "Many chamas, schools and landlords want to go digital but lack the time or skills to load records, set up reminders and run reports. Local people they trust could help, but there has been no safe, paid way to do it.",
   "features": [
     "One-time-code access to a customer's account, only with their permission",
@@ -22,10 +22,15 @@
     "Requests inbox: help requests from MyChama, MyRegister and Plot Yangu reach the right desk",
     "Earnings dashboard with commissions, service income, payables and refund reversals",
     "Automatic Paystack split at the moment the customer pays",
-    "Application, document upload, training and activation inside the app"
+    "Application, document upload, training and activation inside the app",
+    "Clear roles: Clerk, Senior, Lead and county Admin, each with its own dashboard and tools",
+    "Invite new agents to your team. Every application still needs Samuhia approval",
+    "Monthly incentives for finding customers who pay, keeping them active and supporting them well",
+    "SMS alert with an income snapshot when a customer's payment reaches you",
+    "One desk per person, checked by ID and a Safaricom phone number"
   ],
   "steps": [
-    "An agent applies, uploads ID documents and sets a payout account.",
+    "An agent applies with their name, Safaricom number, ID number and ward, uploads ID documents and sets a payout account.",
     "Samuhia reviews, trains and activates the desk.",
     "A customer asks for help and reads the agent a one-time code.",
     "The agent completes the job in the app and the customer pays the fixed price by M-Pesa.",

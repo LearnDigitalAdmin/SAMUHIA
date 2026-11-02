@@ -135,6 +135,7 @@ export const featureService = (f) => ({
     name: c,
     availableLanguage: ['English', 'Swahili'],
     ...(c === 'WhatsApp' ? { serviceUrl: bot.url, servicePhone: { '@type': 'ContactPoint', telephone: bot.phone } } : {}),
+    ...(c === 'Web' ? { serviceUrl: f.ctaHref } : {}),
   })),
   isRelatedTo: { '@id': abs(`/products/${f.product}/`) + '#app' },
 });

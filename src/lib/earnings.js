@@ -85,6 +85,7 @@ export const tokens = () => {
   return {
     clerkPct: A().rankSharePct.clerk,
     seniorPct: A().rankSharePct.senior,
+    leadPct: A().rankSharePct.lead,
     cutPct: A().platformCutPct,
     keepPct: 100 - A().platformCutPct,
     feePct: A().paystackFeePct,
