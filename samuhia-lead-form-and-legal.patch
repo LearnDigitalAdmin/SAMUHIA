@@ -1,0 +1,1544 @@
+From e1edd03f4f0d3bca2d0e6b466aa15421e11f5267 Mon Sep 17 00:00:00 2001
+From: Cognava <dev@samuhia.co.ke>
+Date: Mon, 2 Nov 2026 19:17:50 +0000
+Subject: [PATCH 1/2] Add Plot Yangu lead-capture page with embedded Google
+ Form
+
+- New page /products/plot-yangu/get-started/ (indexable, in sitemap, llms.txt, markdown twin)
+- CSP: allow frame-src https://docs.google.com so the iframe loads
+- CTAs on Plot Yangu product page, property-management solution page, footer
+- /get-plot-yangu short redirect
+- shareBar: optional label/text
+---
+ README.md                            |  10 +++
+ firebase.json                        |   5 +-
+ scripts/lib/css.js                   |   2 +-
+ src/components/careers.js            |   6 +-
+ src/content/plot-yangu-leads.json    |  57 ++++++++++++
+ src/content/products/plot-yangu.json |   7 +-
+ src/content/site.json                |   4 +
+ src/lib/data.js                      |   1 +
+ src/lib/leads.js                     |  33 +++++++
+ src/pages/index.js                   |   2 +
+ src/pages/leads.js                   |  73 ++++++++++++++++
+ src/pages/products.js                |   4 +-
+ src/pages/solutions.js               |   2 +-
+ src/seo/llms.js                      |   9 +-
+ src/seo/markdown.js                  |  25 +++++-
+ src/styles/leads.css                 | 124 +++++++++++++++++++++++++++
+ 16 files changed, 353 insertions(+), 11 deletions(-)
+ create mode 100644 src/content/plot-yangu-leads.json
+ create mode 100644 src/lib/leads.js
+ create mode 100644 src/pages/leads.js
+ create mode 100644 src/styles/leads.css
+
+diff --git a/README.md b/README.md
+index 134a8b2..7a6facb 100644
+--- a/README.md
++++ b/README.md
+@@ -41,6 +41,16 @@ samuhia-website/
+ └─ public/                  Build output (this is what Firebase serves; regenerated on every build)
+ ```
+ 
++## Plot Yangu lead form
++
++`/products/plot-yangu/get-started/` embeds a Google Form for prospective Plot Yangu customers (landlords, agencies, developers, cooperatives, caretakers). It is not linked from Samuhia Desk or careers pages.
++
++- Copy, form URL and iframe heights: `src/content/plot-yangu-leads.json` (`formUrl`, `formHeight`, `formHeightMobile`).
++- Page builder: `src/pages/leads.js`. Styles: `src/styles/leads.css`.
++- `firebase.json` CSP allows framing only `https://docs.google.com` (`frame-src`). If you move the form to another host, change it there.
++- Short link: `/get-plot-yangu` redirects to the page.
++- Google does not index the content of an iframe, so all rankable copy is real HTML on the page; the form is just the conversion widget.
++
+ ## What is built for SEO
+ 
+ - One page per product, feature, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.
+diff --git a/firebase.json b/firebase.json
+index d74ed12..bf060e9 100644
+--- a/firebase.json
++++ b/firebase.json
+@@ -4,6 +4,9 @@
+     "cleanUrls": true,
+     "trailingSlash": true,
+     "ignore": ["firebase.json", "**/node_modules/**", "**/.DS_Store"],
++    "redirects": [
++      { "source": "/get-plot-yangu{,/}", "destination": "/products/plot-yangu/get-started/", "type": 302 }
++    ],
+     "headers": [
+       {
+         "source": "**",
+@@ -14,7 +17,7 @@
+           { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+           { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+           { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+-          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests" },
++          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; frame-src https://docs.google.com; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests" },
+           { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=3600" }
+         ]
+       },
+diff --git a/scripts/lib/css.js b/scripts/lib/css.js
+index 4da2558..cedc8f8 100644
+--- a/scripts/lib/css.js
++++ b/scripts/lib/css.js
+@@ -2,7 +2,7 @@ import fs from 'node:fs';
+ import path from 'node:path';
+ 
+ // Order matters: tokens → base → layout → components → pages → utilities (responsive/a11y last).
+-export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'utilities.css'];
++export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'leads.css', 'utilities.css'];
+ 
+ /** Conservative CSS minifier (comments + whitespace). Safe for this stylesheet. */
+ export const minify = (css) =>
+diff --git a/src/components/careers.js b/src/components/careers.js
+index 3c73066..28a7dd3 100644
+--- a/src/components/careers.js
++++ b/src/components/careers.js
+@@ -68,13 +68,13 @@ export const faqList = (items) => each(items, (q) => `<details><summary>${f(q.q)
+ export const jumpNav = (items) => `<div class="cr-jump" role="navigation" aria-label="On this page">${each(items, ([id, label]) => `<a href="#${esc(id)}">${esc(label)}</a>`)}</div>`;
+ 
+ /** Plain-anchor share links (work with JS off) + progressive copy/share buttons. */
+-export const shareBar = ({ path, title }) => {
++export const shareBar = ({ path, title, label = 'Share this path', text: shareText } = {}) => {
+   const url = abs(path);
+-  const text = `${title} — ${site.name}`;
++  const text = shareText || `${title} — ${site.name}`;
+   const u = encodeURIComponent(url);
+   const t = encodeURIComponent(text);
+   const ext = 'target="_blank" rel="noopener noreferrer"';
+-  return `<aside class="cr-share" aria-label="Share this page"><div><strong>Share this path</strong><code>${esc(url.replace(/^https?:\/\//, ''))}</code></div><div class="cr-sl">
++  return `<aside class="cr-share" aria-label="Share this page"><div><strong>${esc(label)}</strong><code>${esc(url.replace(/^https?:\/\//, ''))}</code></div><div class="cr-sl">
+ <a href="https://wa.me/?text=${t}%20${u}" ${ext}>WhatsApp</a>
+ <a href="https://www.linkedin.com/sharing/share-offsite/?url=${u}" ${ext}>LinkedIn</a>
+ <a href="https://twitter.com/intent/tweet?text=${t}&amp;url=${u}" ${ext}>X</a>
+diff --git a/src/content/plot-yangu-leads.json b/src/content/plot-yangu-leads.json
+new file mode 100644
+index 0000000..fd48132
+--- /dev/null
++++ b/src/content/plot-yangu-leads.json
+@@ -0,0 +1,57 @@
++{
++  "product": "plot-yangu",
++  "path": "/products/plot-yangu/get-started/",
++  "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6dEv5ocJ3tnFn0gwFEUuWgV3W2wbhz2zlMvW7G11bf9CXDw/viewform",
++  "formHeight": 1583,
++  "formHeightMobile": 2000,
++  "seoTitle": "Get Plot Yangu: Rental Property Software in Kenya | SAMUHIA",
++  "description": "Register your interest in Plot Yangu, property management software for landlords, agencies and caretakers in Kenya. Free plan, M-Pesa rent.",
++  "eyebrow": "Plot Yangu",
++  "title": "Manage every property, unit and rent payment in one place.",
++  "lead": "Tell us about your properties and we will help you get started with Plot Yangu, the property management app for landlords, agencies and caretakers in Kenya.",
++  "points": [
++    "Free plan, no time limit",
++    "3 months of Business free, no card needed",
++    "M-Pesa rent collection",
++    "Works offline"
++  ],
++  "primaryCta": "Fill in the form",
++  "secondaryCta": "View pricing",
++  "formTitle": "Customer registration and enquiry",
++  "formLead": "This short form helps us understand your needs. You choose how we reach you: phone call, email or WhatsApp.",
++  "audienceTitle": "Who this form is for",
++  "audience": [
++    "Individual landlords and property owners",
++    "Property management agencies and real estate agents",
++    "Property developers",
++    "Members of housing cooperatives",
++    "Property managers and caretakers"
++  ],
++  "iframeTitle": "Plot Yangu customer registration and enquiry form",
++  "fallbackIntro": "Easier on a small screen, or the form not loading?",
++  "fallbackLabel": "Open the form on its own page",
++  "consent": "We use the details you submit to contact you about Plot Yangu.",
++  "privacyLabel": "Privacy policy",
++  "talkTitle": "Prefer to talk first?",
++  "talkText": "Call or message us and we will point you to the right Plot Yangu plan.",
++  "whatsappText": "Hi, I would like to know more about Plot Yangu.",
++  "benefitsTitle": "What Plot Yangu does for you",
++  "benefits": [
++    { "title": "Properties, units and tenants", "text": "Keep every property, unit and tenant record together, with phone numbers for invoices and messages." },
++    { "title": "Invoices and M-Pesa rent", "text": "Create PDF invoices in a few taps. M-Pesa payments are matched to the right invoice automatically." },
++    { "title": "Arrears and tenant messages", "text": "See who owes what. Invoice, payment and overdue messages go out by SMS, with WhatsApp as backup." },
++    { "title": "Vacant units, listed", "text": "Mark a unit vacant and, for cloud-synced properties, it is listed on House to Rent for people searching on WhatsApp." },
++    { "title": "Works offline", "text": "Your data is stored on your device first, so you can keep working with no signal. Cloud sync starts at the Solo plan." },
++    { "title": "Landlord Watch", "text": "If an agency manages your property, you can follow rent collected and pending on WhatsApp or the web, read-only." }
++  ],
++  "stepsTitle": "How Plot Yangu works",
++  "faqTitle": "Questions before you register",
++  "faq": [
++    { "q": "Who should complete this form?", "a": "Individual landlords and property owners, property management agencies and real estate agents, property developers, members of housing cooperatives, and property managers and caretakers." },
++    { "q": "What happens after I submit?", "a": "The SAMUHIA team uses the contact details you give, and the contact method you choose (phone call, email or WhatsApp), to follow up with you about Plot Yangu." },
++    { "q": "How much does Plot Yangu cost?", "a": "{{pricing}}" },
++    { "q": "Can I use Plot Yangu without internet?", "a": "Yes. Properties, tenants and invoices are stored on your device first. On Solo and above, data also syncs across your devices when you are online." },
++    { "q": "Is this form for tenants, or for agents who want to earn with Samuhia Desk?", "a": "No. This form is for people who want to manage properties with Plot Yangu. Tenants can pay rent and get rent invoices on the SAMUHIA WhatsApp bot, {{bot}}. To work as an agent, see the Samuhia Desk careers pages at samuhia.co.ke/careers/." },
++    { "q": "Can I speak to someone before I fill in the form?", "a": "Yes. Call {{phone}} or message us on WhatsApp, or email {{email}}." }
++  ]
++}
+diff --git a/src/content/products/plot-yangu.json b/src/content/products/plot-yangu.json
+index b9efd64..bbc2d81 100644
+--- a/src/content/products/plot-yangu.json
++++ b/src/content/products/plot-yangu.json
+@@ -261,5 +261,10 @@
+     "house-to-rent",
+     "lipa-mos-mos"
+   ],
+-  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili."
++  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili.",
++  "leadCta": {
++    "label": "Get started",
++    "href": "/products/plot-yangu/get-started/",
++    "text": "Landlords, agencies, developers, cooperatives and caretakers can register their interest here:"
++  }
+ }
+diff --git a/src/content/site.json b/src/content/site.json
+index 04ef0b4..ba144e1 100644
+--- a/src/content/site.json
++++ b/src/content/site.json
+@@ -115,6 +115,10 @@
+         {
+           "label": "Support",
+           "href": "/support/"
++        },
++        {
++          "label": "Get Plot Yangu",
++          "href": "/products/plot-yangu/get-started/"
+         }
+       ]
+     },
+diff --git a/src/lib/data.js b/src/lib/data.js
+index 71a5093..dfb4af8 100644
+--- a/src/lib/data.js
++++ b/src/lib/data.js
+@@ -17,6 +17,7 @@ export const founder = readJson(CONTENT, 'founder.json');
+ export const security = readJson(CONTENT, 'security.json');
+ export const pages = readJson(CONTENT, 'pages.json');
+ export const careers = readJson(CONTENT, 'careers.json');
++export const leads = readJson(CONTENT, 'plot-yangu-leads.json');
+ export const solutions = readJson(CONTENT, 'solutions.json');
+ export const features = readJson(CONTENT, 'features.json').sort((a, b) => a.order - b.order);
+ export const featureBySlug = (slug) => {
+diff --git a/src/lib/leads.js b/src/lib/leads.js
+new file mode 100644
+index 0000000..5711280
+--- /dev/null
++++ b/src/lib/leads.js
+@@ -0,0 +1,33 @@
++// Shared helpers for the Plot Yangu lead-capture page (used by the page builder and the Markdown twin).
++import { site, bot, leads, productBySlug } from './data.js';
++
++export const leadProduct = () => productBySlug(leads.product);
++
++/** Google Forms embed URL (?embedded=true removes the form chrome). The plain URL is the new-tab fallback. */
++export const formEmbedSrc = () => `${leads.formUrl}?embedded=true`;
++
++/** Opens WhatsApp to the company number with a prefilled message. */
++export const leadWhatsappUrl = () => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(leads.whatsappText)}`;
++
++/** Facts that must stay identical to the product file are derived from it, not retyped. */
++const tokens = () => {
++  const p = leadProduct();
++  const top = p.plans[p.plans.length - 1];
++  const trial = p.facts.find((f) => f.label === 'Free trial')?.value;
++  return {
++    pricing: `Plot Yangu has plans from free to ${top.price} a month, paid by M-Pesa. Free trial: ${trial}.`,
++    bot: bot.phoneSpaced,
++    phone: site.phoneDisplay,
++    email: site.email,
++  };
++};
++
++const fill = (s) => {
++  const t = tokens();
++  return s.replace(/\{\{(\w+)\}\}/g, (_, k) => {
++    if (!(k in t)) throw new Error(`plot-yangu-leads.json: unknown token {{${k}}}`);
++    return t[k];
++  });
++};
++
++export const leadFaq = () => leads.faq.map((f) => ({ q: fill(f.q), a: fill(f.a) }));
+diff --git a/src/pages/index.js b/src/pages/index.js
+index e86b092..88a1f14 100644
+--- a/src/pages/index.js
++++ b/src/pages/index.js
+@@ -7,6 +7,7 @@ import { allSolutionPages } from './solutions.js';
+ import { allFeaturePages } from './features.js';
+ import { aboutPage, founderPage, securityPage } from './company.js';
+ import { allCareerPages } from './careers.js';
++import { leadPage } from './leads.js';
+ import { pricingPage } from './pricing.js';
+ import { resourcesPage, supportPage, contactPage, privacyPage, termsPage, notFoundPage } from './misc.js';
+ 
+@@ -14,6 +15,7 @@ export const allPages = () => {
+   const pages = [
+     homePage(),
+     ...allProductPages(),
++    leadPage(),
+     ...allSolutionPages(),
+     ...allFeaturePages(),
+     pricingPage(),
+diff --git a/src/pages/leads.js b/src/pages/leads.js
+new file mode 100644
+index 0000000..d66bf8a
+--- /dev/null
++++ b/src/pages/leads.js
+@@ -0,0 +1,73 @@
++import { esc, each } from '../lib/html.js';
++import { site, leads, abs } from '../lib/data.js';
++import { icon } from '../components/brand.js';
++import { faq } from '../components/faq.js';
++import { shareBar } from '../components/careers.js';
++import { leadProduct, leadFaq, formEmbedSrc, leadWhatsappUrl } from '../lib/leads.js';
++import * as ld from '../seo/jsonld.js';
++import { leadMarkdown } from '../seo/markdown.js';
++
++/**
++ * /products/plot-yangu/get-started/ — lead-capture page for prospective Plot Yangu customers
++ * (landlords, agencies, developers, cooperatives, caretakers). Not linked from Samuhia Desk / careers pages.
++ *
++ * Search engines do not index the content of a cross-origin iframe, so everything that should rank
++ * (headline, audience, benefits, steps, FAQ) is real HTML on this page; the Google Form is the conversion widget.
++ */
++export const leadPage = () => {
++  const p = leadProduct();
++  const path = leads.path;
++  const faqs = leadFaq();
++  const crumbs = [{ label: 'Products', href: '/products/' }, { label: p.name, href: `/products/${p.slug}/` }, { label: 'Get started' }];
++
++  const body = `<div class="page wrap"><article>
++  <header class="ld-hero" style="--c:${esc(p.color)}">
++    <div class="pi" style="width:52px;height:52px">${icon(p.slug, 52, { lazy: false })}</div>
++    <p class="eyebrow">${esc(leads.eyebrow)}</p>
++    <h1>${esc(leads.title)}</h1>
++    <p class="lead">${esc(leads.lead)}</p>
++    <ul class="ld-pts">${each(leads.points, (x) => `<li>${esc(x)}</li>`)}</ul>
++    <div class="row"><a class="btn pri" href="#form">${esc(leads.primaryCta)}</a><a class="btn" href="/products/${esc(p.slug)}/#pricing">${esc(leads.secondaryCta)}</a></div>
++  </header>
++
++  <section aria-labelledby="form">
++    <h2 id="form">${esc(leads.formTitle)}</h2>
++    <p class="lead">${esc(leads.formLead)}</p>
++    <div class="ld-who"><h3>${esc(leads.audienceTitle)}</h3><ul class="chk">${each(leads.audience, (x) => `<li>${esc(x)}</li>`)}</ul></div>
++    <p class="muted ld-fallback">${esc(leads.fallbackIntro)} <a href="${esc(leads.formUrl)}" target="_blank" rel="noopener">${esc(leads.fallbackLabel)} →</a></p>
++    <div class="ld-frame" style="--ld-h:${Number(leads.formHeight)}px;--ld-h-m:${Number(leads.formHeightMobile)}px">
++      <iframe src="${esc(formEmbedSrc())}" title="${esc(leads.iframeTitle)}" width="640" height="${Number(leads.formHeight)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"><a href="${esc(leads.formUrl)}" target="_blank" rel="noopener">${esc(leads.fallbackLabel)}</a></iframe>
++    </div>
++    <p class="muted ld-consent">${esc(leads.consent)} <a href="/privacy/">${esc(leads.privacyLabel)}</a>.</p>
++  </section>
++
++  <section aria-labelledby="talk">
++    <div class="ld-talk"><div><h2 id="talk">${esc(leads.talkTitle)}</h2><p>${esc(leads.talkText)}</p><p class="ld-num"><a href="tel:${esc(site.phone)}">${esc(site.phoneDisplay)}</a> · <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p></div><a class="btn pri" href="${esc(leadWhatsappUrl())}" rel="noopener">WhatsApp us</a></div>
++  </section>
++
++  <section aria-labelledby="benefits"><h2 id="benefits">${esc(leads.benefitsTitle)}</h2>
++    <div class="grid g3">${each(leads.benefits, (b) => `<article class="card"><h3>${esc(b.title)}</h3><p>${esc(b.text)}</p></article>`)}</div>
++  </section>
++
++  <section aria-labelledby="how"><h2 id="how">${esc(leads.stepsTitle)}</h2><ol class="steps">${each(p.steps, (s) => `<li>${esc(s)}</li>`)}</ol>
++    <p style="margin-top:18px"><a href="/products/${esc(p.slug)}/">Read the full Plot Yangu overview →</a></p>
++  </section>
++
++  <section aria-labelledby="faq"><h2 id="faq">${esc(leads.faqTitle)}</h2>${faq(faqs)}</section>
++
++  <div class="row"><a class="btn pri" href="#form">${esc(leads.primaryCta)}</a><a class="btn" href="/products/${esc(p.slug)}/">About Plot Yangu</a></div>
++  ${shareBar({ path, title: 'Get Plot Yangu', label: 'Share this page', text: 'Plot Yangu: manage rental properties and M-Pesa rent in one app' })}
++</article></div>`;
++
++  return {
++    path,
++    title: leads.seoTitle,
++    description: leads.description,
++    crumbs,
++    ogType: 'website',
++    hasMarkdown: true,
++    markdown: leadMarkdown(),
++    body,
++    jsonld: [ld.webPage({ path, title: leads.seoTitle, description: leads.description, type: 'ContactPage', extra: { relatedLink: abs(`/products/${p.slug}/`) } }), ld.faqPage(faqs)],
++  };
++};
+diff --git a/src/pages/products.js b/src/pages/products.js
+index 4d607f3..fcb33b6 100644
+--- a/src/pages/products.js
++++ b/src/pages/products.js
+@@ -32,7 +32,9 @@ export const productPage = (p) => {
+   const withAudience = `${p.description} Built for ${p.audience.charAt(0).toLowerCase()}${p.audience.slice(1)}.`;
+   const description = withAudience.length <= 160 ? withAudience : p.description;
+   const crumbs = [{ label: 'Products', href: '/products/' }, { label: p.name }];
+-  const cta = `<a class="btn pri" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel)}</a>`;
++  const appBtn = (cls) => `<a class="${cls}" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel)}</a>`;
++  // Products with a lead-capture page lead with it; the app link becomes the secondary action.
++  const cta = p.leadCta ? `<a class="btn pri" href="${esc(p.leadCta.href)}">${esc(p.leadCta.label)}</a>${appBtn('btn')}` : appBtn('btn pri');
+   const body = `<div class="page wrap"><article>
+   <div class="grid g2" style="align-items:center;gap:48px">
+     <div>
+diff --git a/src/pages/solutions.js b/src/pages/solutions.js
+index e2fe87a..d67d3df 100644
+--- a/src/pages/solutions.js
++++ b/src/pages/solutions.js
+@@ -40,7 +40,7 @@ export const solutionPage = (s) => {
+   ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: 'Also on WhatsApp', text: p.whatsappBot }) : ''}
+   <section aria-labelledby="price"><h2 id="price">Pricing</h2><p>${esc(p.priceSummary)}</p></section>
+   <section aria-labelledby="qa"><h2 id="qa">Common questions</h2>${faq(p.faq.slice(0, 3))}</section>
+-  <div class="row"><a class="btn pri" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>
++  <div class="row">${p.leadCta ? `<a class="btn pri" href="${esc(p.leadCta.href)}">${esc(p.leadCta.label)} with ${esc(p.name)}</a>` : ''}<a class="btn${p.leadCta ? '' : ' pri'}" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>
+ </article></div>`,
+   };
+ };
+diff --git a/src/seo/llms.js b/src/seo/llms.js
+index df2ea1b..150cf71 100644
+--- a/src/seo/llms.js
++++ b/src/seo/llms.js
+@@ -1,6 +1,6 @@
+ // /llms.txt (llmstxt.org format) and /llms-full.txt
+-import { site, bot, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
+-import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown } from './markdown.js';
++import { site, bot, products, solutions, features, abs, productBySlug, careers, leads } from '../lib/data.js';
++import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown, leadMarkdown } from './markdown.js';
+ 
+ const md = (p) => abs(p + 'index.md');
+ 
+@@ -14,6 +14,10 @@ ${site.legalName} is based in ${site.countryName} and was founded in ${site.foun
+ 
+ ${products.map((p) => `- [${p.name}](${md(`/products/${p.slug}/`)}): ${p.description}`).join('\n')}
+ 
++## Get started
++
++- [Get Plot Yangu](${md(leads.path)}): Registration and enquiry form for landlords, property agencies, developers, housing cooperatives, managers and caretakers who want to manage rental properties with Plot Yangu.
++
+ ## Solutions
+ 
+ ${solutions.map((s) => `- [${s.title}](${md(`/solutions/${s.slug}/`)}): ${s.description} Recommended: ${productBySlug(s.product).name}.`).join('\n')}
+@@ -44,6 +48,7 @@ export const llmsFullTxt = () =>
+     homeMarkdown(),
+     productsIndexMarkdown(),
+     ...products.map(productMarkdown),
++    leadMarkdown(),
+     solutionsIndexMarkdown(),
+     ...solutions.map(solutionMarkdown),
+     featuresIndexMarkdown(),
+diff --git a/src/seo/markdown.js b/src/seo/markdown.js
+index 67bbbba..7c4ee01 100644
+--- a/src/seo/markdown.js
++++ b/src/seo/markdown.js
+@@ -1,6 +1,7 @@
+ // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
+ // Written for LLM ingestion: dense, factual, no navigation chrome.
+-import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
++import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers, leads } from '../lib/data.js';
++import { leadFaq, leadProduct, leadWhatsappUrl } from '../lib/leads.js';
+ import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
+ 
+ const list = (items) => items.map((x) => `- ${x}`).join('\n');
+@@ -32,6 +33,7 @@ export const productMarkdown = (p) =>
+     `## At a glance\n${list(p.facts.map((f) => `**${f.label}:** ${f.value}`))}`,
+     `## Pricing\n${plansMarkdown(p)}${p.priceNote ? `\n\n${p.priceNote}` : ''}`,
+     p.whatsappBot ? `## On WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
++    p.leadCta ? `## Get started\n${p.leadCta.text} ${abs(p.leadCta.href)}` : '',
+     p.careersCta ? `## Careers\n${p.careersCta.text} ${abs(p.careersCta.href)}` : '',
+     `## Part of the SAMUHIA ecosystem\n${p.connects}`,
+     `## Frequently asked questions\n${p.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
+@@ -159,3 +161,24 @@ export const featureMarkdown = (f) => {
+ 
+ export const featuresIndexMarkdown = () =>
+   nl(`# ${pages.features.title}`, `> ${pages.features.description}`, features.map((f) => `## ${f.name}\n${f.cardDescription}\n\n- Part of: ${productBySlug(f.product).name}\n- Page: ${abs(`/features/${f.slug}/`)}`).join('\n\n'));
++
++export const leadMarkdown = () => {
++  const p = leadProduct();
++  return nl(
++    `# ${leads.title}`,
++    `> ${leads.description}`,
++    leads.lead,
++    list([
++      `**Product:** [${p.name}](${abs(`/products/${p.slug}/`)}) — ${p.category}`,
++      `**Registration and enquiry form:** ${abs(leads.path)}`,
++      `**Form (opens on its own page):** ${leads.formUrl}`,
++      `**Phone:** ${site.phone}`,
++      `**Email:** ${site.email}`,
++      `**WhatsApp:** ${leadWhatsappUrl()}`,
++    ]),
++    `## Who this form is for\n${list(leads.audience)}`,
++    `## ${leads.benefitsTitle}\n${list(leads.benefits.map((b) => `**${b.title}:** ${b.text}`))}`,
++    `## ${leads.stepsTitle}\n${p.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
++    `## ${leads.faqTitle}\n${leadFaq().map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
++  );
++};
+diff --git a/src/styles/leads.css b/src/styles/leads.css
+new file mode 100644
+index 0000000..3ae13be
+--- /dev/null
++++ b/src/styles/leads.css
+@@ -0,0 +1,124 @@
++/* Plot Yangu lead page: hero band, embedded Google Form frame, contact band. */
++/* ===== LEADS ===== */
++.ld-hero {
++  position:relative;
++  overflow:hidden;
++  background:var(--dark);
++  color:#EDEAE3;
++  border-radius:12px;
++  padding:clamp(28px,5vw,64px);
++  background-image:radial-gradient(120% 90% at 100% 0,color-mix(in srgb,var(--c,#7A3E8E) 45%,transparent),transparent 60%);
++}
++.ld-hero .eyebrow {
++  color:#7FD1B9;
++  margin-top:16px;
++}
++.ld-hero h1 {
++  font-size:clamp(2.1rem,5vw,3.6rem);
++  max-width:20ch;
++}
++.ld-hero .lead {
++  color:#B7C0BB;
++  max-width:62ch;
++  margin-top:18px;
++}
++.ld-hero .row {
++  margin-top:26px;
++}
++.ld-hero .btn {
++  border-color:rgba(255,255,255,.3);
++}
++.ld-hero .btn:hover {
++  border-color:#fff;
++}
++.ld-hero .btn.pri {
++  background:#F1EDE4;
++  border-color:#F1EDE4;
++  color:#0B1210;
++}
++.ld-pts {
++  list-style:none;
++  padding:0;
++  display:flex;
++  flex-wrap:wrap;
++  gap:8px;
++  margin:22px 0 4px;
++}
++.ld-pts li {
++  font-size:.82rem;
++  font-weight:600;
++  padding:6px 14px;
++  border:1px solid rgba(255,255,255,.18);
++  border-radius:99px;
++  color:#DCE3DF;
++}
++.ld-pts li:before {
++  content:"✓ ";
++  color:#7FD1B9;
++}
++.page h2[id] {
++  scroll-margin-top:84px;
++}
++.ld-who {
++  margin:28px 0 8px;
++}
++.ld-who h3 {
++  font-size:1.05rem;
++  margin-bottom:12px;
++}
++.ld-fallback {
++  margin:20px 0 14px;
++  font-size:.92rem;
++}
++.ld-frame {
++  max-width:760px;
++  border:1px solid var(--color-border);
++  border-radius:var(--r);
++  background:var(--color-surface);
++  overflow:hidden;
++}
++.ld-frame iframe {
++  display:block;
++  width:100%;
++  height:var(--ld-h,1583px);
++  border:0;
++}
++.ld-consent {
++  font-size:.85rem;
++  margin-top:14px;
++  max-width:68ch;
++}
++.ld-talk {
++  display:flex;
++  flex-wrap:wrap;
++  align-items:center;
++  justify-content:space-between;
++  gap:20px;
++  margin-top:72px;
++  padding:clamp(22px,4vw,36px);
++  border-radius:var(--r);
++  background:var(--dark);
++  color:#fff;
++}
++.ld-talk h2 {
++  margin:0!important;
++}
++.ld-talk p {
++  color:#B7C0BB;
++  max-width:58ch;
++  margin-top:6px;
++}
++.ld-talk .ld-num a {
++  color:#fff;
++  font-weight:600;
++}
++.ld-talk .btn.pri {
++  background:#F1EDE4;
++  border-color:#F1EDE4;
++  color:#0B1210;
++}
++@media(max-width:700px){
++  .ld-frame iframe {
++    height:var(--ld-h-m,2000px);
++  }
++}
+-- 
+2.43.0
+
+
+From cc5277d4dd6e7fcc4f5fe39d7ef4d945fa75cae2 Mon Sep 17 00:00:00 2001
+From: Cognava <dev@samuhia.co.ke>
+Date: Mon, 2 Nov 2026 19:30:30 +0000
+Subject: [PATCH 2/2] Publish real Privacy Policy and Terms of Use
+
+- Company-level policies for samuhia.co.ke adapted from the Plot Yangu and MyChama policies
+- Content in src/content/legal.json, rendered by src/pages/legal.js (TOC, summary, tables)
+- Link to each product's own privacy policy and terms
+- Remove draft/noindex so both pages are indexed and in the sitemap
+- Lead form consent line links to the enquiry-forms section
+---
+ README.md              |   2 +-
+ scripts/lib/css.js     |   2 +-
+ src/content/legal.json | 601 +++++++++++++++++++++++++++++++++++++++++
+ src/content/pages.json |  14 +-
+ src/lib/data.js        |   1 +
+ src/lib/inline.js      |  17 ++
+ src/pages/index.js     |   3 +-
+ src/pages/leads.js     |   2 +-
+ src/pages/legal.js     |  51 ++++
+ src/pages/misc.js      |  15 -
+ src/styles/legal.css   | 105 +++++++
+ 11 files changed, 786 insertions(+), 27 deletions(-)
+ create mode 100644 src/content/legal.json
+ create mode 100644 src/lib/inline.js
+ create mode 100644 src/pages/legal.js
+ create mode 100644 src/styles/legal.css
+
+diff --git a/README.md b/README.md
+index 7a6facb..9c1c8e3 100644
+--- a/README.md
++++ b/README.md
+@@ -74,7 +74,7 @@ samuhia-website/
+ - [ ] `site.json` → `bot` holds the WhatsApp bot number; every wa.me link on the site is generated from it
+ - [ ] Add `social` links, `verification.google`
+ - [ ] Add founder photo and links in `founder.json`
+-- [ ] Write real Privacy / Terms text, then remove `"draft": true` in `pages.json`
++- [x] Privacy / Terms text lives in `src/content/legal.json` (version, dates and company details at the top). Have a Kenyan lawyer review it, then bump `version` and dates when it changes
+ - [ ] Populate Resources, then remove its `"draft": true`
+ - [ ] Confirm prices in each product file are current
+ - [ ] `npm run check` shows no errors
+diff --git a/scripts/lib/css.js b/scripts/lib/css.js
+index cedc8f8..cab060c 100644
+--- a/scripts/lib/css.js
++++ b/scripts/lib/css.js
+@@ -2,7 +2,7 @@ import fs from 'node:fs';
+ import path from 'node:path';
+ 
+ // Order matters: tokens → base → layout → components → pages → utilities (responsive/a11y last).
+-export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'leads.css', 'utilities.css'];
++export const CSS_FILES = ['tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'careers.css', 'leads.css', 'legal.css', 'utilities.css'];
+ 
+ /** Conservative CSS minifier (comments + whitespace). Safe for this stylesheet. */
+ export const minify = (css) =>
+diff --git a/src/content/legal.json b/src/content/legal.json
+new file mode 100644
+index 0000000..8075ee7
+--- /dev/null
++++ b/src/content/legal.json
+@@ -0,0 +1,601 @@
++{
++  "company": {
++    "legalName": "SAMUHIA BUSINESSES KENYA",
++    "shortName": "Samuhia",
++    "location": "Nakuru, Kenya",
++    "country": "Kenya",
++    "email": "info@samuhia.co.ke",
++    "whatsapp": "+254 791 286 165",
++    "whatsappHref": "https://wa.me/254791286165",
++    "site": "https://samuhia.co.ke",
++    "odpcUrl": "https://www.odpc.go.ke",
++    "odpcRegistrationNumber": "",
++    "replyDays": 30,
++    "liabilityFloorKes": "5,000",
++    "effective": "2 November 2026",
++    "updated": "2 November 2026",
++    "version": "1.0"
++  },
++  "privacy": {
++    "title": "Privacy Policy",
++    "intro": "This policy explains what personal data {{legalName}} collects through the {{site}} website, our enquiry and contact forms and our WhatsApp and phone lines, why, who handles it, how long we keep it and what rights you have under Kenya's Data Protection Act, 2019. Each SAMUHIA product (such as Plot Yangu and MyChama) has its own privacy policy for the data it handles; links are [below](#products).",
++    "summaryTitle": "The short version",
++    "summary": [
++      "**We never sell your data and we never share it for advertising or marketing.**",
++      "**This website sets no cookies and has no analytics or advertising trackers.** It loads one font service from Google, which receives your IP address (see [providers](#providers)).",
++      "**If you fill in an enquiry or contact form, we use what you send to reply and to follow up about the SAMUHIA product you asked about.**",
++      "**A few providers carry data for us**: Google (website hosting and Google Forms), Meta (WhatsApp) and email providers. They are listed [below](#providers).",
++      "**You have rights** to see, correct, delete and move your data, and to complain to the Data Protection Commissioner. Write to **{{email}}**."
++    ],
++    "sections": [
++      {
++        "id": "who-we-are",
++        "title": "Who we are and our role",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "This website is run by **{{legalName}}**, registered in {{country}} and operating from {{location}} (\"**{{shortName}}**\", \"**we**\", \"**us**\"). We handle personal data in line with the **Data Protection Act, 2019** and its regulations."
++          },
++          {
++            "type": "table",
++            "head": [
++              "Data",
++              "Our role"
++            ],
++            "rows": [
++              [
++                "Details you send us through this website, our forms, email, phone or WhatsApp, and technical data from visiting the website",
++                "**Data controller**: we decide why and how it is used"
++              ],
++              [
++                "Records that customers enter into a SAMUHIA product (for example a landlord's tenant list in Plot Yangu, or a chama's member list in MyChama)",
++                "Handled under that product's own privacy policy and terms (see [our products](#products))"
++              ]
++            ]
++          },
++          {
++            "type": "p",
++            "text": "The [Terms of Use](/terms/) apply alongside this policy."
++          }
++        ]
++      },
++      {
++        "id": "what-we-collect",
++        "title": "What we collect",
++        "blocks": [
++          {
++            "type": "table",
++            "head": [
++              "Where",
++              "What we hold"
++            ],
++            "rows": [
++              [
++                "**Enquiry and registration forms** (for example the Plot Yangu registration and enquiry form)",
++                "The details you type into the form, such as your email address, company name, phone number, area of operation, preferred contact method (phone call, email or WhatsApp) and your answers about your properties and needs. The forms are hosted by Google Forms."
++              ],
++              [
++                "**Contact form**",
++                "Your name, email address, the product you picked and your message. The form opens your email app with this text ready to send; nothing is sent until you send the email."
++              ],
++              [
++                "**Email, phone and WhatsApp**",
++                "Your name, phone number or email address, and what you write to us. If you message the SAMUHIA WhatsApp bot, its own handling of data is covered by the policy of the product it serves (see [our products](#products))."
++              ],
++              [
++                "**Website visits**",
++                "Technical data created when a page loads, such as your IP address, browser and device type, the page requested and the time. Our hosting provider (Google Firebase Hosting) keeps these in server logs for security and to run the site."
++              ],
++              [
++                "**Google Fonts**",
++                "When a page loads, your browser fetches a font from Google, so Google receives your IP address and browser details."
++              ]
++            ]
++          },
++          {
++            "type": "p",
++            "text": "**What we do not collect through this website:** no account or password, no payment or card details, no precise location, and no special categories of data (such as health, religion or biometrics). Please do not put them into a form or message."
++          },
++          {
++            "type": "p",
++            "text": "When you click a share button (WhatsApp, LinkedIn, X, Facebook or email), you leave our website and that service's own privacy policy applies."
++          }
++        ]
++      },
++      {
++        "id": "sources",
++        "title": "Where the data comes from",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "**From you**, when you fill in a form, write to us or call.",
++              "**From your device and our hosting provider**, as technical data when you visit."
++            ]
++          }
++        ]
++      },
++      {
++        "id": "uses",
++        "title": "How we use data, and why we are allowed to",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "We use data **only** for the purposes below. The Data Protection Act requires a lawful basis for each:"
++          },
++          {
++            "type": "table",
++            "head": [
++              "What we do",
++              "Lawful basis"
++            ],
++            "rows": [
++              [
++                "Reply to your enquiry; contact you about the product you asked about, using the contact method you chose",
++                "Your consent when you submit a form; steps you ask us to take before a contract"
++              ],
++              [
++                "Set you up with a SAMUHIA product, and answer support questions",
++                "Contract; legitimate interest"
++              ],
++              [
++                "Keep the website secure, prevent misuse and fix faults",
++                "Legitimate interest in security and running the site"
++              ],
++              [
++                "Comply with law, court orders and regulator requests",
++                "Legal obligation"
++              ]
++            ]
++          },
++          {
++            "type": "p",
++            "text": "We do **not** use your data for advertising, to build marketing profiles, or to make automated decisions about you."
++          }
++        ]
++      },
++      {
++        "id": "no-sale",
++        "title": "We never sell or share your data",
++        "blocks": [
++          {
++            "type": "note",
++            "tone": "good",
++            "title": "Our promise",
++            "text": "We do **not sell, rent or trade** personal data. We do **not share** it with advertisers, data brokers or marketing companies for their own purposes. This website contains no advertising or third-party analytics trackers."
++          },
++          {
++            "type": "p",
++            "text": "A small number of providers handle data for us so the website and forms can work. They act on our instructions and only receive what their part of the job needs. We also disclose data where the law requires it, for example to a court or a regulator acting under a valid legal order. If {{shortName}} is ever sold or merged, personal data would go to the new owner only under this same policy, and we would tell you first."
++          }
++        ]
++      },
++      {
++        "id": "providers",
++        "title": "The providers that carry data for us",
++        "blocks": [
++          {
++            "type": "table",
++            "head": [
++              "Provider",
++              "What it does for us",
++              "What it receives"
++            ],
++            "rows": [
++              [
++                "**Google** (Firebase Hosting, Google Forms, Google Fonts)",
++                "Serves this website, hosts our enquiry forms and stores the answers sent to them, and serves the site font",
++                "Technical data of visits; everything you type into a Google Form; your IP address for fonts"
++              ],
++              [
++                "**Meta** (WhatsApp)",
++                "Carries WhatsApp messages when you chat with us or the SAMUHIA WhatsApp bot",
++                "Your phone number and messages, under Meta's terms"
++              ],
++              [
++                "**Email and telephone providers**",
++                "Carry the email, calls and SMS you exchange with us",
++                "Whatever is needed to deliver the message"
++              ]
++            ]
++          },
++          {
++            "type": "p",
++            "text": "These providers have their own privacy policies for data they handle as independent services. We do not add other providers without updating this policy."
++          }
++        ]
++      },
++      {
++        "id": "products",
++        "title": "Our products and their privacy policies",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "Data that people enter into a SAMUHIA product is covered by that product's own privacy policy, which also says whether we act as controller or processor for it:"
++          },
++          {
++            "type": "ul",
++            "items": [
++              "**Plot Yangu** (property management): [plot.samuhia.co.ke/privacy](https://plot.samuhia.co.ke/privacy)",
++              "**MyChama** (chama management): [chama.samuhia.co.ke/privacy](https://chama.samuhia.co.ke/privacy)",
++              "**MyRegister, Samuhia Desk and Samuhia Payments**: see the privacy policy shown in each app, or ask us at {{email}}."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "If this policy and a product's policy differ for data handled inside that product, the product's policy applies to that data."
++          }
++        ]
++      },
++      {
++        "id": "enquiries",
++        "title": "Enquiry and registration forms",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "When you submit a form such as the Plot Yangu registration and enquiry form, the answers are stored by Google Forms and read by our team. We use them to contact you about the product, by the method you chose. Submitting a form does not create a contract and does not sign you up for any paid plan. To have your enquiry deleted, or to stop us contacting you, write to {{email}}."
++          },
++          {
++            "type": "note",
++            "tone": "info",
++            "title": "Please enter only what the form asks for",
++            "text": "Do not enter passwords, National ID numbers, card numbers or M-Pesa PINs in any enquiry form or message to us. We will never ask for them there."
++          }
++        ]
++      },
++      {
++        "id": "transfers",
++        "title": "Sending data outside Kenya",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "Google and Meta run services in several countries, so data you send through this website, a Google Form or WhatsApp can be stored and processed outside Kenya. Where personal data leaves Kenya, we rely on providers that apply strong security and contractual protections, and we send only what the service needs, as the Data Protection Act, 2019 requires. You can ask us for more detail at {{email}}."
++          }
++        ]
++      },
++      {
++        "id": "retention",
++        "title": "How long we keep data",
++        "blocks": [
++          {
++            "type": "table",
++            "head": [
++              "Data",
++              "How long"
++            ],
++            "rows": [
++              [
++                "Enquiry and registration form answers",
++                "For as long as needed to handle your enquiry and the customer relationship that follows. If you do not become a customer, you can ask us to delete them at any time"
++              ],
++              [
++                "Contact form emails, WhatsApp and phone messages",
++                "For as long as needed to deal with your request and any follow-up"
++              ],
++              [
++                "Payment and subscription records created if you become a customer",
++                "As set out in the product's policy (for Plot Yangu and MyChama, 7 years for tax and accounting)"
++              ],
++              [
++                "Website server logs",
++                "For a limited period set by our hosting provider and our security needs"
++              ]
++            ]
++          },
++          {
++            "type": "p",
++            "text": "If the law or a court requires us to keep something longer, we will. When data is no longer needed, we delete or anonymise it."
++          }
++        ]
++      },
++      {
++        "id": "security",
++        "title": "How we protect data",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "The website is served over encrypted connections (HTTPS) and our providers encrypt stored data.",
++              "It runs no third-party scripts and uses strict browser security rules (a content security policy) so only our own code and the Google Form you chose to open can run on a page.",
++              "Access to form answers and messages is limited to authorised SAMUHIA staff."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "No system is perfectly secure. If a breach puts your personal data at risk, we will tell the Data Protection Commissioner and the people affected within the times the law requires, and say what happened and what to do."
++          }
++        ]
++      },
++      {
++        "id": "rights",
++        "title": "Your rights",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "Under the Data Protection Act, 2019 you have the right to:"
++          },
++          {
++            "type": "ul",
++            "items": [
++              "be **informed** how your data is used (this policy);",
++              "**access** the personal data we hold about you;",
++              "**correct** data that is wrong or misleading;",
++              "**delete** data that is false or misleading, or that we no longer need;",
++              "**object** to, or ask us to **restrict**, certain uses;",
++              "**receive** your data in a common format and move it (data portability); and",
++              "**withdraw consent** where we rely on it, without affecting earlier use."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "**How to use them.** Email {{email}} from the address you used with us. We may need to confirm who you are. We aim to answer within **{{replyDays}} days**. Some data we must keep by law, and we will explain if so."
++          },
++          {
++            "type": "p",
++            "text": "**Complaints.** If you are not happy, please tell us first. You can also complain to the **Office of the Data Protection Commissioner** at [{{odpcUrl}}]({{odpcUrl}})."
++          }
++        ]
++      },
++      {
++        "id": "cookies",
++        "title": "Cookies and similar technology",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "This website does **not** use cookies, advertising or analytics trackers, and does not store anything in your browser's local storage. If we add any in future, we will update this policy first and ask for your consent where the law requires it. The Google Form on an enquiry page is run by Google and may use its own cookies inside the form; see [Google's privacy policy](https://policies.google.com/privacy)."
++          }
++        ]
++      },
++      {
++        "id": "children",
++        "title": "Children",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "This website and our products are for adults of 18 and over and businesses. We do not knowingly collect data from children. If you think a child has sent us their details, write to {{email}} and we will remove them."
++          }
++        ]
++      },
++      {
++        "id": "changes",
++        "title": "Changes to this policy",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "We may update this policy as the website, our products or the law change. The version and dates at the top show when it last changed. For a material change we will say so on this page and, where we hold your contact details, tell you before it takes effect."
++          }
++        ]
++      },
++      {
++        "id": "contact",
++        "title": "Contact us",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "**Company:** {{legalName}}, {{location}}.",
++              "**Privacy requests and questions:** [{{email}}](mailto:{{email}})",
++              "**WhatsApp:** [{{whatsapp}}]({{whatsappHref}})",
++              "**Regulator:** Office of the Data Protection Commissioner, [{{odpcUrl}}]({{odpcUrl}})"
++            ]
++          }
++        ]
++      }
++    ]
++  },
++  "terms": {
++    "title": "Terms of Use",
++    "intro": "These terms cover your use of the {{site}} website and its enquiry and contact forms. SAMUHIA's products (such as Plot Yangu and MyChama) are governed by their own terms, linked [below](#products). By using this website you agree to these terms.",
++    "summaryTitle": "The short version",
++    "summary": [
++      "**This website is information.** It describes SAMUHIA and its products. It is not tax, legal or financial advice.",
++      "**Using a product means accepting that product's terms**, not just these ones.",
++      "**Prices, features and example figures can change.** Confirm current prices in each app before you subscribe. Earning estimates and dashboard mock-ups are illustrations, not promises.",
++      "**Filling in an enquiry form does not create a contract** and does not sign you up for anything.",
++      "**Kenyan law applies.** Write to **{{email}}** first if something goes wrong."
++    ],
++    "sections": [
++      {
++        "id": "who-we-are",
++        "title": "Who we are",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "This website is owned and operated by **{{legalName}}**, a business registered in {{country}} and operating from {{location}} (\"**{{shortName}}**\", \"**we**\", \"**us**\"). We build digital products for property management, schools, chamas, agent desks and payments. We are a software provider; we do not give legal, tax or financial advice."
++          }
++        ]
++      },
++      {
++        "id": "using-the-site",
++        "title": "Using this website",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "You may use this website for lawful, personal or business purposes. You must not:"
++          },
++          {
++            "type": "ul",
++            "items": [
++              "break the law, or help anyone else do so, through the website;",
++              "send spam, scam, misleading or abusive messages through our forms, email, phone or WhatsApp;",
++              "impersonate another person or business, or enter someone else's details without a lawful reason;",
++              "scrape, copy at scale, attack, overload or try to break into the website or the providers it depends on, or upload malware; or",
++              "use our forms to apply for a role or service that they are not meant for (for example, the Plot Yangu enquiry form is for people who want to manage properties, not for agent applications)."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "We may block access or refuse a request if the website is being misused."
++          }
++        ]
++      },
++      {
++        "id": "information",
++        "title": "Accuracy of information and example figures",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "We work to keep the website accurate, but we do not promise it is complete, current or error-free. In particular:"
++          },
++          {
++            "type": "ul",
++            "items": [
++              "**Prices and plans** are in Kenya shillings and can change. Confirm current prices in each app before you subscribe.",
++              "**Earning estimates and scenarios** for Samuhia Desk agents are illustrations based on stated assumptions. They are not a guarantee, offer of employment or promise of income.",
++              "**Dashboard mock-ups and numbers** shown on the website are illustrative and are not real customer data.",
++              "**Feature availability** may differ by plan, product or rollout stage; items marked \"Rolling out\" may not be active for every account on day one."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "Where the website and a product's own app or terms differ, the app and the product's terms are right."
++          }
++        ]
++      },
++      {
++        "id": "products",
++        "title": "Our products and their terms",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "Using a SAMUHIA product creates a separate agreement under that product's terms:"
++          },
++          {
++            "type": "ul",
++            "items": [
++              "**Plot Yangu**: [plot.samuhia.co.ke/terms](https://plot.samuhia.co.ke/terms)",
++              "**MyChama**: [chama.samuhia.co.ke/terms](https://chama.samuhia.co.ke/terms)",
++              "**MyRegister, Samuhia Desk and Samuhia Payments**: see the terms shown in each app, or ask us at {{email}}."
++            ]
++          },
++          {
++            "type": "p",
++            "text": "For anything you do inside a product, that product's terms apply. These Terms of Use govern only the website."
++          }
++        ]
++      },
++      {
++        "id": "enquiries",
++        "title": "Enquiry, registration and contact forms",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "Please give accurate details. We use them as described in our [Privacy Policy](/privacy/#enquiries).",
++              "Submitting a form is a request for us to contact you. It does **not** create a contract, does not sign you up for a paid plan, and does not oblige either of us to go further.",
++              "We may decline an enquiry, or not reply, if it is outside what we offer, incomplete, abusive or looks fraudulent.",
++              "We will never ask for your password, M-Pesa PIN or card number through a form, email or WhatsApp. Do not send them."
++            ]
++          }
++        ]
++      },
++      {
++        "id": "links",
++        "title": "Third-party links and services",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "This website links to and embeds services we do not control, including Google Forms, WhatsApp, and social sharing sites. We are not responsible for their content or practices, and their own terms and privacy policies apply when you use them."
++          }
++        ]
++      },
++      {
++        "id": "ip",
++        "title": "Our intellectual property",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "The website, its text, design, logos, software and the names SAMUHIA, Plot Yangu, MyRegister, MyChama, Samuhia Desk and Samuhia Payments belong to {{legalName}} or its licensors. You may view the website and share links to it. You may not copy or reuse our content, logos or brand to suggest a connection with us without our written permission. If you send us feedback or ideas, we may use them without owing you anything."
++          }
++        ]
++      },
++      {
++        "id": "availability",
++        "title": "Availability",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "We work to keep the website available but do **not** promise it will be uninterrupted or error-free. We may change or remove pages at any time. The website depends on outside systems we do not control, such as hosting, networks and Google services. Events beyond our reasonable control excuse delay or failure to the extent they cause it."
++          }
++        ]
++      },
++      {
++        "id": "liability",
++        "title": "What we are not responsible for",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "The website is provided \"as is\" and \"as available\". To the fullest extent the law allows, we are **not liable** for loss arising from your use of, or reliance on, the website or a form; for outside services; for messages not delivered or not answered; or for indirect or consequential loss. Our total liability to you for all claims arising from the website in any 12-month period is limited to **KES {{liabilityFloorKes}}**."
++          },
++          {
++            "type": "note",
++            "tone": "info",
++            "title": "What these limits do not do",
++            "text": "Nothing in these terms limits or excludes liability for fraud, for death or personal injury caused by negligence, or for anything else that cannot lawfully be limited, and nothing takes away rights you have under the Consumer Protection Act, 2012 or the Data Protection Act, 2019 that cannot be waived. Liability for the products is set by each product's own terms."
++          }
++        ]
++      },
++      {
++        "id": "privacy",
++        "title": "Privacy",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "How we collect, use and protect personal data is explained in our [Privacy Policy](/privacy/), which forms part of these terms. In short: we use your data only to run the website and respond to you, we do not sell it, and we do not share it with advertisers or data brokers."
++          }
++        ]
++      },
++      {
++        "id": "changes",
++        "title": "Changes to these terms",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "We may update these terms, for example when the website, our products or the law change. We will post the new version here with a new date and version number. Using the website after a change takes effect means you accept it. For a material change that affects people who have enquired about our products, we will give notice before it takes effect where we hold their contact details."
++          }
++        ]
++      },
++      {
++        "id": "law",
++        "title": "Governing law and disagreements",
++        "blocks": [
++          {
++            "type": "p",
++            "text": "These terms are governed by the laws of {{country}}. If you have a complaint or dispute, first write to {{email}} so we can try to settle it in good faith; we aim to reply within 14 days. If we cannot settle it within 30 days, either of us may refer it to mediation in Nakuru and, failing that, to the courts of {{country}}, which have jurisdiction (the court at Nakuru being the first choice of venue where the law allows a choice). Complaints about how we handle personal data may also be made to the **Office of the Data Protection Commissioner** ([{{odpcUrl}}]({{odpcUrl}})). Nothing here stops either of us from asking a court for urgent relief."
++          }
++        ]
++      },
++      {
++        "id": "general",
++        "title": "General terms",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "**Entire agreement.** These terms and the [Privacy Policy](/privacy/) are the whole agreement between you and {{legalName}} about the website.",
++              "**Notices.** We may notify you on the website, by email, by SMS or by WhatsApp using details you gave us. You can notify us at {{email}}.",
++              "**If part is invalid.** If a court finds part of these terms unenforceable, the rest stays in force.",
++              "**No waiver.** If we do not enforce a right immediately, we have not given it up.",
++              "**Language.** These terms are written in English. Where we give a translation, the English text prevails."
++            ]
++          }
++        ]
++      },
++      {
++        "id": "contact",
++        "title": "Contact us",
++        "blocks": [
++          {
++            "type": "ul",
++            "items": [
++              "**Company:** {{legalName}}, {{location}}.",
++              "**Email:** [{{email}}](mailto:{{email}})",
++              "**WhatsApp:** [{{whatsapp}}]({{whatsappHref}})",
++              "**Website:** [{{site}}]({{site}}/)"
++            ]
++          }
++        ]
++      }
++    ]
++  }
++}
+diff --git a/src/content/pages.json b/src/content/pages.json
+index 0a5afc0..89fe4cf 100644
+--- a/src/content/pages.json
++++ b/src/content/pages.json
+@@ -56,17 +56,15 @@
+   },
+   "privacy": {
+     "seoTitle": "Privacy Policy",
+-    "description": "SAMUHIA privacy policy.",
++    "description": "How SAMUHIA collects, uses and protects personal data on its website and forms, how long we keep it, and your rights under Kenya's Data Protection Act, 2019.",
+     "title": "Privacy Policy",
+-    "lead": "Final legal text will be inserted before launch.",
+-    "draft": true
++    "lead": ""
+   },
+   "terms": {
+-    "seoTitle": "Terms of Service",
+-    "description": "SAMUHIA terms of service.",
+-    "title": "Terms of Service",
+-    "lead": "Final legal text will be inserted before launch.",
+-    "draft": true
++    "seoTitle": "Terms of Use",
++    "description": "The terms for using the SAMUHIA website and enquiry forms, plus where to find the separate terms for Plot Yangu, MyChama and our other products.",
++    "title": "Terms of Use",
++    "lead": ""
+   },
+   "notFound": {
+     "seoTitle": "Page not found",
+diff --git a/src/lib/data.js b/src/lib/data.js
+index dfb4af8..be40470 100644
+--- a/src/lib/data.js
++++ b/src/lib/data.js
+@@ -18,6 +18,7 @@ export const security = readJson(CONTENT, 'security.json');
+ export const pages = readJson(CONTENT, 'pages.json');
+ export const careers = readJson(CONTENT, 'careers.json');
+ export const leads = readJson(CONTENT, 'plot-yangu-leads.json');
++export const legal = readJson(CONTENT, 'legal.json');
+ export const solutions = readJson(CONTENT, 'solutions.json');
+ export const features = readJson(CONTENT, 'features.json').sort((a, b) => a.order - b.order);
+ export const featureBySlug = (slug) => {
+diff --git a/src/lib/inline.js b/src/lib/inline.js
+new file mode 100644
+index 0000000..e55e63e
+--- /dev/null
++++ b/src/lib/inline.js
+@@ -0,0 +1,17 @@
++import { esc } from './html.js';
++
++/**
++ * Tiny inline markup for legal text: **bold** and [label](href). Everything is escaped first;
++ * hrefs are limited to https:, mailto:, tel:, site-relative paths and #anchors.
++ */
++const SAFE_HREF = /^(https:\/\/|mailto:|tel:|\/|#)/;
++
++export const inline = (text = '') =>
++  esc(text)
++    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, label, href) => {
++      const raw = href.replace(/&amp;/g, '&');
++      if (!SAFE_HREF.test(raw)) return label;
++      const ext = /^https:/.test(raw) ? ' rel="noopener"' : '';
++      return `<a href="${href}"${ext}>${label}</a>`;
++    })
++    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+diff --git a/src/pages/index.js b/src/pages/index.js
+index 88a1f14..28112af 100644
+--- a/src/pages/index.js
++++ b/src/pages/index.js
+@@ -9,7 +9,8 @@ import { aboutPage, founderPage, securityPage } from './company.js';
+ import { allCareerPages } from './careers.js';
+ import { leadPage } from './leads.js';
+ import { pricingPage } from './pricing.js';
+-import { resourcesPage, supportPage, contactPage, privacyPage, termsPage, notFoundPage } from './misc.js';
++import { resourcesPage, supportPage, contactPage, notFoundPage } from './misc.js';
++import { privacyPage, termsPage } from './legal.js';
+ 
+ export const allPages = () => {
+   const pages = [
+diff --git a/src/pages/leads.js b/src/pages/leads.js
+index d66bf8a..e37de89 100644
+--- a/src/pages/leads.js
++++ b/src/pages/leads.js
+@@ -38,7 +38,7 @@ export const leadPage = () => {
+     <div class="ld-frame" style="--ld-h:${Number(leads.formHeight)}px;--ld-h-m:${Number(leads.formHeightMobile)}px">
+       <iframe src="${esc(formEmbedSrc())}" title="${esc(leads.iframeTitle)}" width="640" height="${Number(leads.formHeight)}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"><a href="${esc(leads.formUrl)}" target="_blank" rel="noopener">${esc(leads.fallbackLabel)}</a></iframe>
+     </div>
+-    <p class="muted ld-consent">${esc(leads.consent)} <a href="/privacy/">${esc(leads.privacyLabel)}</a>.</p>
++    <p class="muted ld-consent">${esc(leads.consent)} <a href="/privacy/#enquiries">${esc(leads.privacyLabel)}</a>.</p>
+   </section>
+ 
+   <section aria-labelledby="talk">
+diff --git a/src/pages/legal.js b/src/pages/legal.js
+new file mode 100644
+index 0000000..87058bb
+--- /dev/null
++++ b/src/pages/legal.js
+@@ -0,0 +1,51 @@
++import { esc, each } from '../lib/html.js';
++import { site, pages, legal } from '../lib/data.js';
++import { inline } from '../lib/inline.js';
++import * as ld from '../seo/jsonld.js';
++
++// Content lives in src/content/legal.json. {{tokens}} are filled from legal.company.
++const fill = (s) =>
++  String(s).replace(/\{\{(\w+)\}\}/g, (_, k) => {
++    if (!(k in legal.company)) throw new Error(`legal.json: unknown token {{${k}}}`);
++    return legal.company[k];
++  });
++const t = (s) => inline(fill(s));
++
++const block = (b, label) => {
++  switch (b.type) {
++    case 'p': return `<p>${t(b.text)}</p>`;
++    case 'ul': return `<ul>${each(b.items, (i) => `<li>${t(i)}</li>`)}</ul>`;
++    case 'ol': return `<ol>${each(b.items, (i) => `<li>${t(i)}</li>`)}</ol>`;
++    case 'note': return `<div class="lg-note lg-${esc(b.tone || 'info')}">${b.title ? `<strong>${esc(fill(b.title))}</strong>` : ''}<p>${t(b.text)}</p></div>`;
++    case 'table':
++      return `<div class="lg-tw" role="region" aria-label="${esc(label)}" tabindex="0"><table><thead><tr>${each(b.head, (h) => `<th scope="col">${esc(h)}</th>`)}</tr></thead><tbody>${each(b.rows, (r) => `<tr>${each(r, (c) => `<td>${t(c)}</td>`)}</tr>`)}</tbody></table></div>`;
++    default: throw new Error(`legal.json: unknown block type ${b.type}`);
++  }
++};
++
++const legalPage = (key, other) => {
++  const c = pages[key];
++  const doc = legal[key];
++  const co = legal.company;
++  const path = `/${key}/`;
++  const title = `${c.seoTitle} | ${site.name}`;
++  const body = `<div class="page wrap"><article class="lg">
++  <header><p class="eyebrow">Legal</p><h1>${esc(c.title)}</h1><p class="lead">${t(doc.intro)}</p>
++  <p class="muted lg-meta">Version ${esc(co.version)} · Effective ${esc(co.effective)} · Last updated ${esc(co.updated)}</p></header>
++  <aside class="lg-short" aria-labelledby="short"><h2 id="short">${esc(doc.summaryTitle)}</h2><ul>${each(doc.summary, (i) => `<li>${t(i)}</li>`)}</ul></aside>
++  <nav class="lg-toc" aria-label="Contents"><p class="ftitle">Contents</p><ol>${each(doc.sections, (s) => `<li><a href="#${esc(s.id)}">${esc(s.title)}</a></li>`)}</ol></nav>
++  ${each(doc.sections, (s, i) => `<section aria-labelledby="${esc(s.id)}"><h2 id="${esc(s.id)}">${i + 1}. ${esc(s.title)}</h2>${each(s.blocks, (b) => block(b, s.title))}</section>`)}
++  <p class="lg-other"><a href="${esc(other.href)}">${esc(other.label)} →</a></p>
++</article></div>`;
++  return {
++    path,
++    title,
++    description: c.description,
++    crumbs: [{ label: c.title }],
++    jsonld: [ld.webPage({ path, title, description: c.description })],
++    body,
++  };
++};
++
++export const privacyPage = () => legalPage('privacy', { href: '/terms/', label: 'Read the Terms of Use' });
++export const termsPage = () => legalPage('terms', { href: '/privacy/', label: 'Read the Privacy Policy' });
+diff --git a/src/pages/misc.js b/src/pages/misc.js
+index 858ece1..5b08982 100644
+--- a/src/pages/misc.js
++++ b/src/pages/misc.js
+@@ -60,21 +60,6 @@ export const contactPage = () => {
+   };
+ };
+ 
+-const legal = (key) => {
+-  const c = pages[key];
+-  return {
+-    path: `/${key}/`,
+-    title: `${c.seoTitle} | ${site.name}`,
+-    description: c.description,
+-    noindex: !!c.draft, // remove "draft" in content/pages.json once real legal text is in place
+-    crumbs: [{ label: c.title }],
+-    jsonld: [ld.webPage({ path: `/${key}/`, title: c.seoTitle, description: c.description })],
+-    body: `<div class="page wrap"><h1>${esc(c.title)}</h1><p class="lead">${esc(c.lead)}</p></div>`,
+-  };
+-};
+-export const privacyPage = () => legal('privacy');
+-export const termsPage = () => legal('terms');
+-
+ export const notFoundPage = () => {
+   const c = pages.notFound;
+   return {
+diff --git a/src/styles/legal.css b/src/styles/legal.css
+new file mode 100644
+index 0000000..a83f647
+--- /dev/null
++++ b/src/styles/legal.css
+@@ -0,0 +1,105 @@
++/* Privacy Policy and Terms of Use: summary box, contents list, readable tables. */
++/* ===== LEGAL ===== */
++.lg {
++  max-width:860px;
++}
++.lg header .lead {
++  max-width:68ch;
++}
++.lg-meta {
++  margin-top:14px;
++  font-size:.88rem;
++}
++.lg-short {
++  margin-top:32px;
++  padding:clamp(18px,3vw,28px);
++  border:1px solid var(--color-border);
++  border-left:4px solid var(--color-primary);
++  border-radius:var(--r);
++  background:var(--color-surface);
++}
++.lg-short h2 {
++  margin:0 0 12px!important;
++  font-size:1.25rem!important;
++}
++.lg-short ul {
++  padding-left:1.1em;
++  display:grid;
++  gap:8px;
++}
++.lg-toc {
++  margin-top:28px;
++}
++.lg-toc ol {
++  columns:2 260px;
++  gap:28px;
++  padding-left:1.4em;
++  font-size:.95rem;
++}
++.lg-toc li {
++  margin:4px 0;
++}
++.lg section h2 {
++  margin:48px 0 14px;
++  font-size:clamp(1.3rem,2.4vw,1.7rem);
++}
++.lg section p,
++.lg section ul,
++.lg section ol {
++  max-width:72ch;
++  margin-top:12px;
++}
++.lg section ul,
++.lg section ol {
++  padding-left:1.3em;
++}
++.lg section li {
++  margin:6px 0;
++}
++.lg-tw {
++  margin-top:16px;
++  overflow-x:auto;
++  border:1px solid var(--color-border);
++  border-radius:var(--r);
++}
++.lg-tw table {
++  width:100%;
++  min-width:560px;
++  border-collapse:collapse;
++  font-size:.92rem;
++}
++.lg-tw th,
++.lg-tw td {
++  text-align:left;
++  vertical-align:top;
++  padding:12px 14px;
++  border-bottom:1px solid var(--color-border);
++}
++.lg-tw th {
++  background:var(--color-surface);
++  font-weight:700;
++}
++.lg-tw tr:last-child td {
++  border-bottom:0;
++}
++.lg-note {
++  margin-top:16px;
++  padding:16px 18px;
++  border-radius:var(--r);
++  border:1px solid var(--color-border);
++  background:var(--color-surface);
++  max-width:72ch;
++}
++.lg-note.lg-good {
++  border-left:4px solid var(--color-success);
++}
++.lg-note.lg-info {
++  border-left:4px solid var(--color-secondary);
++}
++.lg-note p {
++  margin-top:6px!important;
++}
++.lg-other {
++  margin-top:56px;
++  font-weight:600;
++}
+-- 
+2.43.0
+
