@@ -68,13 +68,13 @@ export const faqList = (items) => each(items, (q) => `<details><summary>${f(q.q)
 export const jumpNav = (items) => `<div class="cr-jump" role="navigation" aria-label="On this page">${each(items, ([id, label]) => `<a href="#${esc(id)}">${esc(label)}</a>`)}</div>`;
 
 /** Plain-anchor share links (work with JS off) + progressive copy/share buttons. */
-export const shareBar = ({ path, title }) => {
+export const shareBar = ({ path, title, label = 'Share this path', text: shareText } = {}) => {
   const url = abs(path);
-  const text = `${title} — ${site.name}`;
+  const text = shareText || `${title} — ${site.name}`;
   const u = encodeURIComponent(url);
   const t = encodeURIComponent(text);
   const ext = 'target="_blank" rel="noopener noreferrer"';
-  return `<aside class="cr-share" aria-label="Share this page"><div><strong>Share this path</strong><code>${esc(url.replace(/^https?:\/\//, ''))}</code></div><div class="cr-sl">
+  return `<aside class="cr-share" aria-label="Share this page"><div><strong>${esc(label)}</strong><code>${esc(url.replace(/^https?:\/\//, ''))}</code></div><div class="cr-sl">
 <a href="https://wa.me/?text=${t}%20${u}" ${ext}>WhatsApp</a>
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=${u}" ${ext}>LinkedIn</a>
 <a href="https://twitter.com/intent/tweet?text=${t}&amp;url=${u}" ${ext}>X</a>

@@ -41,6 +41,16 @@ samuhia-website/
 └─ public/                  Build output (this is what Firebase serves; regenerated on every build)
 ```
 
+## Plot Yangu lead form
+
+`/products/plot-yangu/get-started/` embeds a Google Form for prospective Plot Yangu customers (landlords, agencies, developers, cooperatives, caretakers). It is not linked from Samuhia Desk or careers pages.
+
+- Copy, form URL and iframe heights: `src/content/plot-yangu-leads.json` (`formUrl`, `formHeight`, `formHeightMobile`).
+- Page builder: `src/pages/leads.js`. Styles: `src/styles/leads.css`.
+- `firebase.json` CSP allows framing only `https://docs.google.com` (`frame-src`). If you move the form to another host, change it there.
+- Short link: `/get-plot-yangu` redirects to the page.
+- Google does not index the content of an iframe, so all rankable copy is real HTML on the page; the form is just the conversion widget.
+
 ## What is built for SEO
 
 - One page per product, feature, solution and company topic at clean URLs (`/products/plot-yangu/`), all in static HTML: fully crawlable with JavaScript off.

@@ -1,0 +1,57 @@
+{
+  "product": "plot-yangu",
+  "path": "/products/plot-yangu/get-started/",
+  "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6dEv5ocJ3tnFn0gwFEUuWgV3W2wbhz2zlMvW7G11bf9CXDw/viewform",
+  "formHeight": 1583,
+  "formHeightMobile": 2000,
+  "seoTitle": "Get Plot Yangu: Rental Property Software in Kenya | SAMUHIA",
+  "description": "Register your interest in Plot Yangu, property management software for landlords, agencies and caretakers in Kenya. Free plan, M-Pesa rent.",
+  "eyebrow": "Plot Yangu",
+  "title": "Manage every property, unit and rent payment in one place.",
+  "lead": "Tell us about your properties and we will help you get started with Plot Yangu, the property management app for landlords, agencies and caretakers in Kenya.",
+  "points": [
+    "Free plan, no time limit",
+    "3 months of Business free, no card needed",
+    "M-Pesa rent collection",
+    "Works offline"
+  ],
+  "primaryCta": "Fill in the form",
+  "secondaryCta": "View pricing",
+  "formTitle": "Customer registration and enquiry",
+  "formLead": "This short form helps us understand your needs. You choose how we reach you: phone call, email or WhatsApp.",
+  "audienceTitle": "Who this form is for",
+  "audience": [
+    "Individual landlords and property owners",
+    "Property management agencies and real estate agents",
+    "Property developers",
+    "Members of housing cooperatives",
+    "Property managers and caretakers"
+  ],
+  "iframeTitle": "Plot Yangu customer registration and enquiry form",
+  "fallbackIntro": "Easier on a small screen, or the form not loading?",
+  "fallbackLabel": "Open the form on its own page",
+  "consent": "We use the details you submit to contact you about Plot Yangu.",
+  "privacyLabel": "Privacy policy",
+  "talkTitle": "Prefer to talk first?",
+  "talkText": "Call or message us and we will point you to the right Plot Yangu plan.",
+  "whatsappText": "Hi, I would like to know more about Plot Yangu.",
+  "benefitsTitle": "What Plot Yangu does for you",
+  "benefits": [
+    { "title": "Properties, units and tenants", "text": "Keep every property, unit and tenant record together, with phone numbers for invoices and messages." },
+    { "title": "Invoices and M-Pesa rent", "text": "Create PDF invoices in a few taps. M-Pesa payments are matched to the right invoice automatically." },
+    { "title": "Arrears and tenant messages", "text": "See who owes what. Invoice, payment and overdue messages go out by SMS, with WhatsApp as backup." },
+    { "title": "Vacant units, listed", "text": "Mark a unit vacant and, for cloud-synced properties, it is listed on House to Rent for people searching on WhatsApp." },
+    { "title": "Works offline", "text": "Your data is stored on your device first, so you can keep working with no signal. Cloud sync starts at the Solo plan." },
+    { "title": "Landlord Watch", "text": "If an agency manages your property, you can follow rent collected and pending on WhatsApp or the web, read-only." }
+  ],
+  "stepsTitle": "How Plot Yangu works",
+  "faqTitle": "Questions before you register",
+  "faq": [
+    { "q": "Who should complete this form?", "a": "Individual landlords and property owners, property management agencies and real estate agents, property developers, members of housing cooperatives, and property managers and caretakers." },
+    { "q": "What happens after I submit?", "a": "The SAMUHIA team uses the contact details you give, and the contact method you choose (phone call, email or WhatsApp), to follow up with you about Plot Yangu." },
+    { "q": "How much does Plot Yangu cost?", "a": "{{pricing}}" },
+    { "q": "Can I use Plot Yangu without internet?", "a": "Yes. Properties, tenants and invoices are stored on your device first. On Solo and above, data also syncs across your devices when you are online." },
+    { "q": "Is this form for tenants, or for agents who want to earn with Samuhia Desk?", "a": "No. This form is for people who want to manage properties with Plot Yangu. Tenants can pay rent and get rent invoices on the SAMUHIA WhatsApp bot, {{bot}}. To work as an agent, see the Samuhia Desk careers pages at samuhia.co.ke/careers/." },
+    { "q": "Can I speak to someone before I fill in the form?", "a": "Yes. Call {{phone}} or message us on WhatsApp, or email {{email}}." }
+  ]
+}

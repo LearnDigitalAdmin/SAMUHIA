@@ -40,7 +40,7 @@ export const solutionPage = (s) => {
   ${p.whatsappBot ? botCallout({ id: 'whatsapp-bot', title: 'Also on WhatsApp', text: p.whatsappBot }) : ''}
   <section aria-labelledby="price"><h2 id="price">Pricing</h2><p>${esc(p.priceSummary)}</p></section>
   <section aria-labelledby="qa"><h2 id="qa">Common questions</h2>${faq(p.faq.slice(0, 3))}</section>
-  <div class="row"><a class="btn pri" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>
+  <div class="row">${p.leadCta ? `<a class="btn pri" href="${esc(p.leadCta.href)}">${esc(p.leadCta.label)} with ${esc(p.name)}</a>` : ''}<a class="btn${p.leadCta ? '' : ' pri'}" href="/products/${esc(p.slug)}/">Explore ${esc(p.name)}</a><a class="btn" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel.startsWith('Learn') ? 'Visit platform' : p.ctaLabel)}</a></div>
 </article></div>`,
   };
 };

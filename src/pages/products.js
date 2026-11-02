@@ -32,7 +32,9 @@ export const productPage = (p) => {
   const withAudience = `${p.description} Built for ${p.audience.charAt(0).toLowerCase()}${p.audience.slice(1)}.`;
   const description = withAudience.length <= 160 ? withAudience : p.description;
   const crumbs = [{ label: 'Products', href: '/products/' }, { label: p.name }];
-  const cta = `<a class="btn pri" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel)}</a>`;
+  const appBtn = (cls) => `<a class="${cls}" href="${esc(p.appUrl)}" rel="noopener">${esc(p.ctaLabel)}</a>`;
+  // Products with a lead-capture page lead with it; the app link becomes the secondary action.
+  const cta = p.leadCta ? `<a class="btn pri" href="${esc(p.leadCta.href)}">${esc(p.leadCta.label)}</a>${appBtn('btn')}` : appBtn('btn pri');
   const body = `<div class="page wrap"><article>
   <div class="grid g2" style="align-items:center;gap:48px">
     <div>

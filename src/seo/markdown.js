@@ -1,6 +1,7 @@
 // Markdown "twins" of key pages, served at <page>/index.md and concatenated into llms-full.txt.
 // Written for LLM ingestion: dense, factual, no navigation chrome.
-import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers } from '../lib/data.js';
+import { site, bot, home, about, founder, pages, products, solutions, features, productBySlug, abs, careers, leads } from '../lib/data.js';
+import { leadFaq, leadProduct, leadWhatsappUrl } from '../lib/leads.js';
 import { fill, kes, planEarnings, scenario, serviceNet, manualEntryPrice } from '../lib/earnings.js';
 
 const list = (items) => items.map((x) => `- ${x}`).join('\n');
@@ -32,6 +33,7 @@ export const productMarkdown = (p) =>
     `## At a glance\n${list(p.facts.map((f) => `**${f.label}:** ${f.value}`))}`,
     `## Pricing\n${plansMarkdown(p)}${p.priceNote ? `\n\n${p.priceNote}` : ''}`,
     p.whatsappBot ? `## On WhatsApp\n${p.whatsappBot} Chat: ${bot.url}` : '',
+    p.leadCta ? `## Get started\n${p.leadCta.text} ${abs(p.leadCta.href)}` : '',
     p.careersCta ? `## Careers\n${p.careersCta.text} ${abs(p.careersCta.href)}` : '',
     `## Part of the SAMUHIA ecosystem\n${p.connects}`,
     `## Frequently asked questions\n${p.faq.map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
@@ -159,3 +161,24 @@ export const featureMarkdown = (f) => {
 
 export const featuresIndexMarkdown = () =>
   nl(`# ${pages.features.title}`, `> ${pages.features.description}`, features.map((f) => `## ${f.name}\n${f.cardDescription}\n\n- Part of: ${productBySlug(f.product).name}\n- Page: ${abs(`/features/${f.slug}/`)}`).join('\n\n'));
+
+export const leadMarkdown = () => {
+  const p = leadProduct();
+  return nl(
+    `# ${leads.title}`,
+    `> ${leads.description}`,
+    leads.lead,
+    list([
+      `**Product:** [${p.name}](${abs(`/products/${p.slug}/`)}) — ${p.category}`,
+      `**Registration and enquiry form:** ${abs(leads.path)}`,
+      `**Form (opens on its own page):** ${leads.formUrl}`,
+      `**Phone:** ${site.phone}`,
+      `**Email:** ${site.email}`,
+      `**WhatsApp:** ${leadWhatsappUrl()}`,
+    ]),
+    `## Who this form is for\n${list(leads.audience)}`,
+    `## ${leads.benefitsTitle}\n${list(leads.benefits.map((b) => `**${b.title}:** ${b.text}`))}`,
+    `## ${leads.stepsTitle}\n${p.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}`,
+    `## ${leads.faqTitle}\n${leadFaq().map((f) => `### ${f.q}\n${f.a}`).join('\n\n')}`,
+  );
+};

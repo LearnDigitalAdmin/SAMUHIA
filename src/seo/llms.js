@@ -1,6 +1,6 @@
 // /llms.txt (llmstxt.org format) and /llms-full.txt
-import { site, bot, products, solutions, features, abs, productBySlug, careers } from '../lib/data.js';
-import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown } from './markdown.js';
+import { site, bot, products, solutions, features, abs, productBySlug, careers, leads } from '../lib/data.js';
+import { homeMarkdown, aboutMarkdown, founderMarkdown, pricingMarkdown, careersMarkdown, careerPathMarkdown, productsIndexMarkdown, productMarkdown, solutionsIndexMarkdown, solutionMarkdown, featuresIndexMarkdown, featureMarkdown, leadMarkdown } from './markdown.js';
 
 const md = (p) => abs(p + 'index.md');
 
@@ -13,6 +13,10 @@ ${site.legalName} is based in ${site.countryName} and was founded in ${site.foun
 ## Products
 
 ${products.map((p) => `- [${p.name}](${md(`/products/${p.slug}/`)}): ${p.description}`).join('\n')}
+
+## Get started
+
+- [Get Plot Yangu](${md(leads.path)}): Registration and enquiry form for landlords, property agencies, developers, housing cooperatives, managers and caretakers who want to manage rental properties with Plot Yangu.
 
 ## Solutions
 
@@ -44,6 +48,7 @@ export const llmsFullTxt = () =>
     homeMarkdown(),
     productsIndexMarkdown(),
     ...products.map(productMarkdown),
+    leadMarkdown(),
     solutionsIndexMarkdown(),
     ...solutions.map(solutionMarkdown),
     featuresIndexMarkdown(),

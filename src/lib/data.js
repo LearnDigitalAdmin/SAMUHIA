@@ -17,6 +17,7 @@ export const founder = readJson(CONTENT, 'founder.json');
 export const security = readJson(CONTENT, 'security.json');
 export const pages = readJson(CONTENT, 'pages.json');
 export const careers = readJson(CONTENT, 'careers.json');
+export const leads = readJson(CONTENT, 'plot-yangu-leads.json');
 export const solutions = readJson(CONTENT, 'solutions.json');
 export const features = readJson(CONTENT, 'features.json').sort((a, b) => a.order - b.order);
 export const featureBySlug = (slug) => {

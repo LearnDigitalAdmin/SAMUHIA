@@ -261,5 +261,10 @@
     "house-to-rent",
     "lipa-mos-mos"
   ],
-  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili."
+  "whatsappBot": "Landlords and tenants can use the SAMUHIA WhatsApp bot on +254 101 716 473 to follow rent with Landlord Watch, search vacant units with House to Rent, pay rent, get rent invoices and open links to manage their plot, in English or Kiswahili.",
+  "leadCta": {
+    "label": "Get started",
+    "href": "/products/plot-yangu/get-started/",
+    "text": "Landlords, agencies, developers, cooperatives and caretakers can register their interest here:"
+  }
 }

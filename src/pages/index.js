@@ -7,6 +7,7 @@ import { allSolutionPages } from './solutions.js';
 import { allFeaturePages } from './features.js';
 import { aboutPage, founderPage, securityPage } from './company.js';
 import { allCareerPages } from './careers.js';
+import { leadPage } from './leads.js';
 import { pricingPage } from './pricing.js';
 import { resourcesPage, supportPage, contactPage, privacyPage, termsPage, notFoundPage } from './misc.js';
 
@@ -14,6 +15,7 @@ export const allPages = () => {
   const pages = [
     homePage(),
     ...allProductPages(),
+    leadPage(),
     ...allSolutionPages(),
     ...allFeaturePages(),
     pricingPage(),

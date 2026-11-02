@@ -4,6 +4,9 @@
     "cleanUrls": true,
     "trailingSlash": true,
     "ignore": ["firebase.json", "**/node_modules/**", "**/.DS_Store"],
+    "redirects": [
+      { "source": "/get-plot-yangu{,/}", "destination": "/products/plot-yangu/get-started/", "type": 302 }
+    ],
     "headers": [
       {
         "source": "**",
@@ -14,7 +17,7 @@
           { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
           { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
           { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
-          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests" },
+          { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:; frame-src https://docs.google.com; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests" },
           { "key": "Cache-Control", "value": "public, max-age=300, s-maxage=3600" }
         ]
       },
